@@ -1,0 +1,12 @@
+// Placez vos paramètres dans ce fichier pour remplacer les paramètres par défaut et les paramètres utilisateur.
+{
+    "prettier.bracketSpacing": false,
+    "prettier.semi": false,
+    "prettier.jsxBracketSameLine": true,
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "es5",
+    "prettier.tabWidth": 2,
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "eslint.enable": false
+}

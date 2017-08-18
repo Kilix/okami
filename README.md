@@ -33,13 +33,13 @@ const data = [
 // transform to
 
 const data = {
-  2017: {
-    02: {
-      22: {
-        11: {
-          all: [ { title: 'formation JS' } ]
-          00: [ { title: 'CM JS', duration: '02:00:00' } ],
-          30: [ { title: 'Gouter', duration: '00:30:00' } ]
+  '2017': {
+    '02': {
+      '22': {
+        '11': {
+          'all': [ { title: 'formation JS' } ],
+          '00': [ { title: 'CM JS', duration: '02:00:00' } ],
+          '30': [ { title: 'Gouter', duration: '00:30:00' } ]
         }
       }
     }

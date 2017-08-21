@@ -21,7 +21,7 @@
 
 Example data:
 
-```javascript
+```jsx
 
 // Example of use i'd like to have :
 
@@ -43,17 +43,17 @@ const Monthly = () =>
 () => (
   <Calendar
     data={sourceData}
-    format='24'
-    workHours={['06:00', '22:00']}
-    startingDay='monday'
+    format="24"
+    workHours={["06:00", "22:00"]}
+    startingDay="monday"
   >
     <MonthlyCalendar
-      startingDay='monday'
+      startingDay="monday"
       showWeekend={true}
       showEvent={false}
     />
     <MultiView
-      options={['week', 'month', 'day', 'planning']}
+      options={["week", "month", "day", "planning"]}
       week={Weekly}
       month={Monthly}
       day={Daily}

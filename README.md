@@ -25,35 +25,23 @@ Example data:
 
 // Example of use i'd like to have :
 
-const Planning = () => <Planning showRefused={false} />
-const Daily = () => <DailyCalendar showEvent={true} showRefused={false} />
-const Weekly = () =>
-  <WeeklyCalendar
-    showEvent={true}
-    showWeekend={false}
-    showRefused={false}
-  />
-const Monthly = () =>
-  <MonthlyCalendar
-    showEvent={true}
-    showWeekend={true}
-    showRefused={false}
-  />
+const Planning = () => <Planning />
+const Daily = () => <DailyCalendar />
+const Weekly = () => <WeeklyCalendar showWeekend={false} />
+const Monthly = () => <MonthlyCalendar />
 
 () => (
   <Calendar
     data={sourceData}
-    format="24"
     workHours={["06:00", "22:00"]}
     startingDay="monday"
+    format="24"
   >
-    <MonthlyCalendar
-      startingDay="monday"
-      showWeekend={true}
-      showEvent={false}
-    />
+    <MonthlyCalendar showWeekend={true} showEvent={false} showRefused={false} />
     <MultiView
       options={["week", "month", "day", "planning"]}
+      defaultView="week"
+      defaultProps={{ showEvent: true, showWeekend: true, showRefused: false }}
       week={Weekly}
       month={Monthly}
       day={Daily}

@@ -97,7 +97,14 @@ const Monthly = () =>
     startingDay="monday"
     format="24"
   >
-    <MonthlyCalendar showWeekend={true} showEvent={false} showRefused={false}>
+    <MonthlyCalendar
+      showWeekend={true}
+      showEvent={false}
+      showRefused={false}
+      dateFormat="DD"
+      cell={(date) => (<span>{date}</span>)}
+      headerColumn={(date) => <span>{date}</span>}
+    >
       <Navigation />
       <InfoDisplayer />
     </MonthlyCalendar>

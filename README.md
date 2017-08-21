@@ -25,10 +25,70 @@ Example data:
 
 // Example of use i'd like to have :
 
-const Planning = () => <Planning />
-const Daily = () => <DailyCalendar />
-const Weekly = () => <WeeklyCalendar showWeekend={false} />
-const Monthly = () => <MonthlyCalendar />
+
+const Header = () => (
+  <div>
+    <Today />
+    <Navigation />
+    <Infos />
+    <SwitchView />
+  </div>
+)
+const Planning = () => (
+  <Planning
+    cell={(date, events) => (
+      <div>
+        <span>{date}</span>
+        <ul>
+          {events.map(e => <li>{e.title}</li>)}
+        </ul>
+      </div>
+    )}
+  />
+)
+const Daily = () => (
+  <DailyCalendar
+    cell={(date, events) => (
+      <div>
+        <span>{date}</span>
+        <ul>
+          {events.map(e => <li>{e.title}</li>)}
+        </ul>
+      </div>
+    )}
+    headerColumn={(date) => <span>{date}</span>}
+    headerRow={(hour) => <span>{hour}</span>}
+  />
+)
+
+const Weekly = () => (
+  <WeeklyCalendar
+    showWeekend={false}
+    cell={(date, events) => (
+      <div>
+        <span>{date}</span>
+        <ul>
+          {events.map(e => <li>{e.title}</li>)}
+        </ul>
+      </div>
+    )}
+    headerColumn={(date) => <span>{date}</span>}
+    headerRow={(hour) => <span>{hour}</span>}
+  />
+)
+
+const Monthly = () =>
+  <MonthlyCalendar
+    cell={(date, events) => (
+      <div>
+        <span>{date}</span>
+        <ul>
+          {events.map(e => <li>{e.title}</li>)}
+        </ul>
+      </div>
+    )}
+    headerColumn={(date) => <span>{date}</span>}
+  />
 
 () => (
   <Calendar
@@ -37,11 +97,15 @@ const Monthly = () => <MonthlyCalendar />
     startingDay="monday"
     format="24"
   >
-    <MonthlyCalendar showWeekend={true} showEvent={false} showRefused={false} />
+    <MonthlyCalendar showWeekend={true} showEvent={false} showRefused={false}>
+      <Navigation />
+      <InfoDisplayer />
+    </MonthlyCalendar>
     <MultiView
       options={["week", "month", "day", "planning"]}
       defaultView="week"
       defaultProps={{ showEvent: true, showWeekend: true, showRefused: false }}
+      header={Header}
       week={Weekly}
       month={Monthly}
       day={Daily}

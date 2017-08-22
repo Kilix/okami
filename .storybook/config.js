@@ -1,0 +1,19 @@
+import {configure} from '@storybook/react'
+import {setOptions} from '@storybook/addon-options'
+
+setOptions({
+  name: 'React Calendar',
+  url: 'https://github.com',
+  goFullScreen: false,
+  showLeftPanel: true,
+  showDownPanel: false,
+  showSearchBox: false,
+  downPanelInRight: false,
+  sortStoriesByKind: false,
+})
+
+function loadStories() {
+  require('../stories/sync.js')
+}
+
+configure(loadStories, module)

@@ -1,0 +1,110 @@
+{
+  "name": "react-calendar",
+  "version": "0.1.2",
+  "main": "dist/react-calendar.cjs.js",
+  "module": "dist/react-calendar.esm.js",
+  "browser": "dist/react-calendar.umd.js",
+  "author": "wcastand <wcastand@gmail.com> (https://github.com/wcastand)",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wcastand/react-calendar.git"
+  },
+  "scripts": {
+    "start": "nps",
+    "dev": "nps build.watch",
+    "test": "nps test",
+    "test:watch": "nps 'test.watch'",
+    "prepare": "nps build"
+  },
+  "peerDependencies": {
+    "react": ">=0.14",
+    "react-dom": "15.6.1"
+  },
+  "devDependencies": {
+    "@storybook/addon-options": "3.2.4",
+    "@storybook/addon-storyshots": "3.2.5",
+    "@storybook/react": "3.2.5",
+    "@storybook/storybook-deployer": "2.0.0",
+    "babel-cli": "6.26.0",
+    "babel-eslint": "7.2.3",
+    "babel-jest": "20.0.3",
+    "babel-plugin-external-helpers": "6.22.0",
+    "babel-plugin-transform-export-extensions": "6.22.0",
+    "babel-preset-env": "1.6.0",
+    "babel-preset-react": "6.24.1",
+    "babel-preset-stage-2": "6.24.1",
+    "babel-register": "6.26.0",
+    "enzyme": "2.9.1",
+    "enzyme-to-json": "1.5.1",
+    "eslint": "4.4.1",
+    "eslint-config-react-app": "2.0.0",
+    "eslint-plugin-flowtype": "2.35.0",
+    "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-jsx-a11y": "6.0.2",
+    "eslint-plugin-react": "7.2.1",
+    "fela": "5.1.0",
+    "fela-dom": "5.0.6",
+    "fela-preset-web": "5.0.6",
+    "glamor": "2.20.40",
+    "glamorous": "4.2.0",
+    "html-tag-names": "1.1.2",
+    "husky": "0.14.3",
+    "jest-cli": "20.0.4",
+    "lint-staged": "4.0.3",
+    "nps": "5.7.0",
+    "nps-utils": "1.3.0",
+    "opt-cli": "1.5.1",
+    "prettier": "1.5.3",
+    "prop-types": "15.5.10",
+    "react": "15.6.1",
+    "react-addons-test-utils": "15.6.0",
+    "react-dom": "15.6.1",
+    "react-fela": "5.2.0",
+    "react-test-renderer": "15.6.1",
+    "rimraf": "2.6.1",
+    "rollup": "0.47.6",
+    "rollup-plugin-babel": "3.0.2",
+    "rollup-plugin-bundle-size": "1.0.1",
+    "rollup-plugin-commonjs": "8.1.0",
+    "rollup-plugin-json": "2.3.0",
+    "rollup-plugin-node-resolve": "3.0.0",
+    "rollup-plugin-replace": "1.1.1",
+    "rollup-plugin-sizes": "0.4.0",
+    "rollup-plugin-uglify": "2.0.1",
+    "styled-components": "2.1.2",
+    "svg-tag-names": "1.1.1",
+    "whatwg-fetch": "2.0.3"
+  },
+  "dependencies": {
+    "date-fns": "2.0.0-alpha.1",
+    "debounce": "1.0.2",
+    "recompose": "0.25.0"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --trailing-comma es5 --single-quote --write",
+      "git add"
+    ],
+    "yarn.lock": [
+      "git rm --cached"
+    ]
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "coverageDirectory": "./coverage/",
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ],
+    "collectCoverage": true,
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "roots": [
+      "src"
+    ]
+  }
+}

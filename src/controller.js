@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { compose, getContext } from 'recompose'
+import {compose, getContext} from 'recompose'
 
 const defaultContext = [
   'workHours',
@@ -7,8 +7,9 @@ const defaultContext = [
   'startingDay',
   'data',
   'dateFormat',
+  'hourFormat',
 ]
 export default (p = defaultContext) => {
-  const pp = p.reduce((acc, val) => ({ ...acc, [val]: PropTypes.any }), {})
+  const pp = p.reduce((acc, val) => ({...acc, [val]: PropTypes.any}), {})
   return compose(getContext(pp))
 }

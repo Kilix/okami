@@ -1,129 +1,181 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {compose} from 'recompose'
-import controller from '../controller'
+
+import {asHours} from 'pomeranian-durations'
+
 import startOfWeek from 'date-fns/fp/startOfWeekWithOptions'
+import startOfDay from 'date-fns/fp/startOfDay'
+import endOfDay from 'date-fns/fp/endOfDay'
+import subWeeks from 'date-fns/fp/subWeeks'
+import addWeeks from 'date-fns/fp/addWeeks'
 import addDays from 'date-fns/fp/addDays'
 import addHours from 'date-fns/fp/addHours'
+import addMinutes from 'date-fns/fp/addMinutes'
 import format from 'date-fns/fp/format'
 import isSameHour from 'date-fns/fp/isSameHour'
+import isSameDay from 'date-fns/fp/isSameDay'
 import differenceInHours from 'date-fns/fp/differenceInHours'
+import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping'
+import isWithinInterval from 'date-fns/isWithinInterval'
+import max from 'date-fns/max'
+import min from 'date-fns/min'
 
-const weeks = [0, 1, 2, 3, 4, 5, 6]
-const hours = [
-  0,
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-  13,
-  14,
-  15,
-  16,
-  17,
-  18,
-  19,
-  20,
-  21,
-  22,
-  23,
-]
+import controller from '../controller'
+
+const range = function(start, stop, step) {
+  if (stop == null) {
+    stop = start || 0
+    start = 0
+  }
+  step = step || 1
+
+  var length = Math.max(Math.ceil((stop - start) / step), 0)
+  var range = Array(length)
+
+  for (var idx = 0; idx < length; idx++, start += step) {
+    range[idx] = start
+  }
+  return range
+}
 
 class WeeklyCalendar extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      startWeek: startOfWeek({weekStartsOn: props.startingDay}, new Date()),
-    }
+  componentWillMount() {
+    const {start, startingDay} = this.props
+
+    const startWeek = startOfWeek({weekStartsOn: startingDay}, start)
+    this.setState(() => ({startWeek}))
   }
+  _nextWeek = () =>
+    this.setState(old => ({startWeek: addWeeks(1, old.startWeek)}))
+  _prevWeek = () =>
+    this.setState(old => ({startWeek: subWeeks(1, old.startWeek)}))
+  _gotoToday = () =>
+    this.setState(() => ({
+      startWeek: startOfWeek(
+        {weekStartsOn: this.props.startingDay},
+        new Date()
+      ),
+    }))
   render() {
-    const {data, dateFormat, startingDay, Cell, ...props} = this.props
-    return (
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'stretch',
-          justifyContent: 'center',
-        }}>
-        <div style={{paddingTop: 40}}>
-          {hours.map((h, idx) =>
-            <div
-              key={idx}
-              style={{
-                flex: 1,
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: 70,
-                height: 20,
-                padding: 5,
-                backgroundColor: idx % 2 ? '#FFF' : '#EAEAEA',
-              }}>
-              {compose(format('HH:mm'), addHours(h))(this.state.startWeek)}
-            </div>
-          )}
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'stretch',
-            justifyContent: 'flex-start',
-            width: '100%',
-          }}>
-          {weeks.map((n, widx) =>
-            <div key={widx} style={{width: `${100 / weeks.length}%`}}>
-              <div
-                style={{
-                  flex: 1,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: 30,
-                  padding: 5,
-                }}>
-                {compose(format(dateFormat), addDays(n))(this.state.startWeek)}
-              </div>
-              {hours.map((h, idx) =>
-                <div
-                  key={idx}
-                  style={{
-                    flex: 1,
-                    position: 'relative',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'flex-start',
-                    height: 30,
-                    padding: '0 5px',
-                    backgroundColor: idx % 2 ? '#FFF' : '#EAEAEA',
-                  }}>
-                  {data.map(
-                    (d, didx) =>
-                      isSameHour(
-                        compose(addDays(n), addHours(h))(this.state.startWeek),
-                        d.startDate
+    const {
+      data,
+      numberOfDays,
+      startHour,
+      endHour,
+      dateFormat,
+      hourFormat,
+      HourLabel,
+      DayLabel,
+      Cell,
+      Event,
+      NoEvent,
+      children,
+    } = this.props
+    const {startWeek} = this.state
+
+    const weeks = range(numberOfDays)
+    const hours = range(asHours(startHour), asHours(endHour))
+    const props = {
+      nextWeek: this._nextWeek,
+      prevWeek: this._prevWeek,
+      gotoToday: this._gotoToday,
+      days:
+        DayLabel &&
+        weeks.map((d, idx) =>
+          <DayLabel
+            key={`day_label_${idx}`}
+            idx={idx}
+            label={compose(format(dateFormat), addDays(d))(startWeek)}
+          />
+        ),
+      hours:
+        HourLabel &&
+        hours.map((h, idx) =>
+          <HourLabel
+            key={`hour_label_${idx}`}
+            idx={idx}
+            label={compose(format(hourFormat), addHours(h))(startWeek)}
+          />
+        ),
+      calendar: weeks.reduce((c, w) => {
+        const day = addDays(w, startWeek)
+        return [
+          ...c,
+          {
+            day,
+            label: format(dateFormat, day),
+            hours: hours.map((h, hidx) => {
+              const hour = addHours(h, day)
+              const label = format(hourFormat, hour)
+              const todayEvents = data
+                .filter(e => isSameDay(day, e.start))
+                .map(e => {
+                  if (e.end !== '*') return e
+                  return {
+                    ...e,
+                    start: addHours(asHours(startHour), startOfDay(e.start)),
+                    end: addHours(asHours(endHour), startOfDay(e.start)),
+                  }
+                })
+              const events = todayEvents
+                .filter(e => {
+                  const dd = todayEvents.reduce(
+                    (res, ee) => res && areIntervalsOverlapping(e, ee),
+                    true
+                  )
+                  return dd
+                })
+                .reduce((acc, e, idx, arr) => {
+                  const m = max(arr.map(ev => ev.end))
+                  const mm = min(arr.map(ev => ev.start))
+                  if (
+                    isWithinInterval(addMinutes(1, hour), {start: mm, end: m})
+                  ) {
+                    if (isSameHour(hour, e.start))
+                      return [...acc, {...e, render: true}]
+                    return [...acc, {...e, render: false}]
+                  }
+                  return acc
+                }, [])
+
+              return (
+                <Cell key={`hour_${hidx}`} idx={hidx}>
+                  {events.length > 0
+                    ? events.map(
+                        (event, idx) =>
+                          event.render && event.end !== '*'
+                            ? <Event key={event.title} data={event}>
+                                {event.title}
+                              </Event>
+                            : <div
+                                key={`event_${idx}`}
+                                style={{
+                                  flex: 1,
+                                  padding: 5,
+                                  margin: '0 2px',
+                                }}
+                              />
                       )
-                        ? <Cell key={didx} data={d}>
-                            {d.title}
-                          </Cell>
-                        : null
-                  )}
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-      </div>
-    )
+                    : NoEvent ? <NoEvent /> : null}
+                </Cell>
+              )
+            }),
+          },
+        ]
+      }, []),
+    }
+
+    return children(props)
   }
 }
-const enhance = controller(['data', 'startingDay', 'dateFormat'])
+
+WeeklyCalendar.defaultProps = {
+  startHour: 'PT0H',
+  endHour: 'PT24H',
+  numberOfDays: 7,
+  start: new Date(),
+}
+
+const enhance = controller(['data', 'startingDay', 'dateFormat', 'hourFormat'])
 export default enhance(WeeklyCalendar)

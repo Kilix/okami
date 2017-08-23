@@ -82,6 +82,7 @@
   "dependencies": {
     "date-fns": "2.0.0-alpha.1",
     "debounce": "1.0.2",
+    "pomeranian-durations": "0.2.0",
     "recompose": "0.25.0"
   },
   "lint-staged": {

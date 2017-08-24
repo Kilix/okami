@@ -12,27 +12,14 @@ const days = {
 }
 class CalendarSync extends Component {
   constructor(props) {
-    const {workHours, AMPM, dateFormat, hourFormat, startingDay, data} = props
+    const {startingDay} = props
     super(props)
-    this.state = {
-      workHours,
-      AMPM,
-      dateFormat,
-      hourFormat,
-      startingDay: days[startingDay],
-      data,
-    }
+    this.state = {startingDay: days[startingDay]}
   }
 
   getChildContext() {
-    const {
-      workHours,
-      AMPM,
-      dateFormat,
-      hourFormat,
-      startingDay,
-      data,
-    } = this.state
+    const {startingDay} = this.state
+    const {workHours, AMPM, dateFormat, hourFormat, data} = this.props
     return {
       workHours,
       AMPM,
@@ -44,7 +31,7 @@ class CalendarSync extends Component {
   }
 
   render() {
-    const {className, style, children} = this.props
+    const {children} = this.props
     return children
   }
 }
@@ -56,11 +43,6 @@ CalendarSync.defaultProps = {
   hourFormat: 'HH:mm',
   startingDay: 'sunday',
   data: [],
-}
-
-CalendarSync.propTypes = {
-  className: PropTypes.string,
-  style: PropTypes.object,
 }
 
 CalendarSync.childContextTypes = {

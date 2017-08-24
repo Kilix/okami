@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {storiesOf} from '@storybook/react'
 import glamorous, {Div} from 'glamorous'
+import format from 'date-fns/format'
 
 import Calendar, {WeeklyCalendar} from '../src/'
 
@@ -14,33 +15,52 @@ import {
   DayLabel,
   Event,
   NoEvent,
+  DateDisplayer,
 } from './dummy'
 
-storiesOf('Sync', module).add('Basic', () =>
+// debug
+// const css = document.createElement('style')
+// css.innerHTML = `
+//   *{border: 1px solid  red;}
+// `
+// document.body.appendChild(css)
+
+storiesOf('Sync', module).add('Weekly', () =>
   <Calendar data={data} startingDay="monday" dateFormat="ddd DD/MM">
     <WeeklyCalendar
       startHour="PT6H"
       endHour="PT22H"
-      HourLabel={HourLabel}
-      Cell={Cell}
+      Column={Div}
       Event={Event}
       NoEvent={NoEvent}>
-      {({calendar, hours, nextWeek, prevWeek, gotoToday}) =>
+      {({
+        calendar,
+        rowHeight,
+        nextWeek,
+        prevWeek,
+        gotoToday,
+        getDateLabel,
+        getHourLabels,
+      }) =>
         <Div display="flex" flexDirection="column">
-          <div>
+          <Div display="flex">
             <button onClick={gotoToday}>Today</button>
             <button onClick={prevWeek}>Prev week</button>
             <button onClick={nextWeek}>Next week</button>
-          </div>
+            {getDateLabel(DateDisplayer)}
+          </Div>
           <Container>
             <Div paddingTop={40}>
-              {hours}
+              {getHourLabels(HourLabel)}
             </Div>
             <CalendarContainer>
               {calendar.map((day, idx) =>
-                <Div key={`day_${idx}`} width={`${100 / calendar.length}%`}>
-                  <DayLabel label={day.label} />
-                  {day.hours}
+                <Div
+                  key={`day_${idx}`}
+                  width={`${100 / calendar.length}%`}
+                  position="relative">
+                  <DayLabel style={{height: rowHeight}} label={day.label} />
+                  {day.getColumn()}
                 </Div>
               )}
             </CalendarContainer>

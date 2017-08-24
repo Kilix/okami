@@ -5,21 +5,38 @@ import {compose} from 'recompose'
 import {asHours} from 'pomeranian-durations'
 
 import startOfWeek from 'date-fns/fp/startOfWeekWithOptions'
+import getHours from 'date-fns/fp/getHours'
+import getMonth from 'date-fns/fp/getMonth'
 import startOfDay from 'date-fns/fp/startOfDay'
 import subWeeks from 'date-fns/fp/subWeeks'
 import addWeeks from 'date-fns/fp/addWeeks'
 import addDays from 'date-fns/fp/addDays'
 import addHours from 'date-fns/fp/addHours'
-import addMinutes from 'date-fns/fp/addMinutes'
 import format from 'date-fns/fp/format'
 import isSameHour from 'date-fns/fp/isSameHour'
 import isSameDay from 'date-fns/fp/isSameDay'
 import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping'
-import isWithinInterval from 'date-fns/isWithinInterval'
-import max from 'date-fns/max'
-import min from 'date-fns/min'
+
+import differenceInHours from 'date-fns/fp/differenceInHours'
+import isAfter from 'date-fns/fp/isAfter'
 
 import controller from '../controller'
+
+function debounce(func, wait, immediate) {
+  var timeout
+  return function() {
+    var context = this,
+      args = arguments
+    var later = function() {
+      timeout = null
+      if (!immediate) func.apply(context, args)
+    }
+    var callNow = immediate && !timeout
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+    if (callNow) func.apply(context, args)
+  }
+}
 
 const range = function(start, stop, step) {
   if (stop == null) {
@@ -44,6 +61,13 @@ class WeeklyCalendar extends React.Component {
       startWeek: startOfWeek({weekStartsOn: startingDay}, start),
     }))
   }
+  resize = debounce(() => this.forceUpdate(), 300, true)
+  componentDidMount() {
+    window.addEventListener('resize', this.resize)
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.resize)
+  }
   _nextWeek = () =>
     this.setState(old => ({
       startWeek: addWeeks(1, old.startWeek),
@@ -59,49 +83,77 @@ class WeeklyCalendar extends React.Component {
         new Date()
       ),
     }))
-  _getTodaysEvent = day =>
-    this.props.data.filter(e => isSameDay(day, e.start)).map(e => {
-      if (e.end !== '*') return e
-      return {
-        ...e,
-        start: addHours(asHours(this.props.startHour), startOfDay(e.start)),
-        end: addHours(asHours(this.props.endHour), startOfDay(e.start)),
-      }
-    })
-  _computeHours = (hours, day) => {
-    return hours.map((h, hidx) => {
-      const {Cell, Event, NoEvent} = this.props
-      const hour = addHours(h, day)
-      const todayEvents = this._getTodaysEvent(day)
-      const events = todayEvents
-        .filter(e =>
-          todayEvents.reduce(
-            (res, ee) => res && areIntervalsOverlapping(e, ee),
-            true
-          )
-        )
-        .reduce((acc, e, idx, arr) => {
-          const start = min(arr.map(ev => ev.start))
-          const end = max(arr.map(ev => ev.end))
-          if (isWithinInterval(addMinutes(1, hour), {start, end})) {
-            if (isSameHour(hour, e.start)) {
-              return [...acc, {...e, render: true}]
-            }
-            return [...acc, {...e, render: false}]
-          }
-          return acc
-        }, [])
+  _getTodaysEvent = day => {
+    const base = this.props.data.filter(e => isSameDay(day, e.start))
+    const fullDay = base.filter(e => e.end === '*').map(e => ({
+      ...e,
+      start: addHours(asHours(this.props.startHour), startOfDay(e.start)),
+      end: addHours(asHours(this.props.endHour), startOfDay(e.start)),
+    }))
+    const events = base.filter(e => e.end !== '*')
+    return {
+      fullDay,
+      events,
+    }
+  }
+  _computeEvents = (hours, day) => {
+    if (!this.column) return null
+    const {Event, rowHeight, startHour} = this.props
+    const wrapper = this.column.getBoundingClientRect()
+    const {fullDay, events: todayEvents} = this._getTodaysEvent(day)
 
-      return (
-        <Cell key={`hour_${hidx}`} idx={hidx}>
-          {events.length > 0
-            ? events.map((event, idx) =>
-                <Event key={event.title} event={event} render={event.render} />
-              )
-            : NoEvent ? <NoEvent /> : null}
-        </Cell>
-      )
-    })
+    const fullDayEvents = () =>
+      fullDay.map((e, idx) => {
+        const ratio = 100 / fullDay.length
+        return (
+          <Event
+            key={e.title}
+            event={e}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: `${idx * ratio}%`,
+              width: `${ratio}%`,
+              height: `${rowHeight * differenceInHours(e.start, e.end)}px`,
+            }}
+          />
+        )
+      })
+    let events = todayEvents
+    events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
+    events = events.reduce((acc, e, idx, arr) => {
+      const overlap =
+        acc.filter(
+          x =>
+            (isSameHour(x.start, e.start) || isSameHour(x.end, e.end)) &&
+            areIntervalsOverlapping(x, e)
+        ).length + 1
+      const ratio = wrapper.width / overlap
+      const el = {
+        ...e,
+        style: {
+          position: 'absolute',
+          top: `${rowHeight * (getHours(e.start) - asHours(startHour))}px`,
+          left: `${(overlap - 1) * ratio}px`,
+          width: `${ratio}px`,
+          height: `${rowHeight * differenceInHours(e.start, e.end)}px`,
+        },
+      }
+      return [...acc, el]
+    }, [])
+
+    return [
+      fullDayEvents(),
+      events.map(e => <Event key={e.title} event={e} style={e.style} />),
+    ]
+  }
+  _dateLabel = (start, end) => {
+    const s =
+      getMonth(start) === getMonth(end)
+        ? format('DD', start)
+        : format('DD MMM', start)
+    const e = format('DD MMM YYYY', end)
+    return `${s} - ${e}`
   }
   render() {
     const {
@@ -110,8 +162,8 @@ class WeeklyCalendar extends React.Component {
       dateFormat,
       hourFormat,
       showWeekends,
-      HourLabel,
-      DayLabel,
+      rowHeight,
+      Column,
       children,
     } = this.props
     const {startWeek} = this.state
@@ -120,27 +172,29 @@ class WeeklyCalendar extends React.Component {
     const hours = range(asHours(startHour), asHours(endHour))
     const endWeek = compose(addWeeks(1), startOfDay)(startWeek)
     const props = {
+      rowHeight,
+      end: endWeek,
+      start: startWeek,
       nextWeek: this._nextWeek,
       prevWeek: this._prevWeek,
       gotoToday: this._gotoToday,
-      start: startWeek,
-      end: endWeek,
-      days:
-        DayLabel &&
+      getDateLabel: El => <El label={this._dateLabel(startWeek, endWeek)} />,
+      getDayLabels: El =>
         weeks.map((d, idx) =>
-          <DayLabel
-            key={`day_label_${idx}`}
-            idx={idx}
+          <El
+            style={{height: rowHeight}}
+            key={`label_day_${idx}`}
             label={compose(format(dateFormat), addDays(d))(startWeek)}
+            idx={idx}
           />
         ),
-      hours:
-        HourLabel &&
+      getHourLabels: El =>
         hours.map((h, idx) =>
-          <HourLabel
-            key={`hour_label_${idx}`}
-            idx={idx}
+          <El
+            style={{height: rowHeight}}
+            key={`label_hour_${idx}`}
             label={compose(format(hourFormat), addHours(h))(startWeek)}
+            idx={idx}
           />
         ),
       calendar: weeks.reduce((c, w) => {
@@ -150,7 +204,12 @@ class WeeklyCalendar extends React.Component {
           {
             day,
             label: format(dateFormat, day),
-            hours: this._computeHours(hours, day),
+            getColumn: () =>
+              <Column
+                style={{position: 'relative', height: rowHeight * hours.length}}
+                innerRef={r => (this.column = r)}>
+                {this._computeEvents(hours, day)}
+              </Column>,
           },
         ]
       }, []),
@@ -163,6 +222,7 @@ class WeeklyCalendar extends React.Component {
 WeeklyCalendar.defaultProps = {
   startHour: 'PT0H',
   endHour: 'PT24H',
+  rowHeight: 30,
   showWeekends: true,
   start: new Date(),
 }
@@ -171,11 +231,10 @@ WeeklyCalendar.PropTypes = {
   startHour: PropTypes.string,
   endHour: PropTypes.string,
   showWeekends: PropTypes.bool,
+  rowHeight: PropTypes.number,
   start: PropTypes.instanceOf(Date),
   data: PropTypes.object.isRequired,
-  HourLabel: PropTypes.node,
-  DayLabel: PropTypes.node,
-  Cell: PropTypes.node,
+  Column: PropTypes.node,
   Event: PropTypes.node,
   NoEvent: PropTypes.node,
 }

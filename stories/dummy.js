@@ -1,5 +1,5 @@
 import React from 'react'
-import glamorous from 'glamorous'
+import glamorous, {Div} from 'glamorous'
 
 export const Container = glamorous.div({
   display: 'flex',
@@ -31,7 +31,7 @@ export const Cell = glamorous.div(
 )
 
 export const DayLabel = ({label, ...props}) =>
-  <glamorous.Div
+  <Div
     flex={1}
     display="flex"
     flexDirection="column"
@@ -40,10 +40,10 @@ export const DayLabel = ({label, ...props}) =>
     height={30}
     padding={5}>
     {label}
-  </glamorous.Div>
+  </Div>
 
 export const HourLabel = ({label, ...props}) =>
-  <glamorous.Div
+  <Div
     flex={1}
     display="flex"
     justifyContent="center"
@@ -53,4 +53,4 @@ export const HourLabel = ({label, ...props}) =>
     padding={5}
     backgroundColor={props.idx % 2 ? '#FFF' : '#EAEAEA'}>
     {label}
-  </glamorous.Div>
+  </Div>

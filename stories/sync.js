@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {storiesOf} from '@storybook/react'
-import glamorous from 'glamorous'
+import glamorous, {Div} from 'glamorous'
 
 import addDays from 'date-fns/fp/addDays'
 import addHours from 'date-fns/fp/addHours'
@@ -57,13 +57,14 @@ const data = [
   },
 ]
 
-const Event = glamorous.div(
+const EventDiv = glamorous.div(
   {
     flex: 1,
+    zIndex: 99,
     display: 'flex',
     justifyContent: 'flex-start',
-    alignItems: 'center',
-    zIndex: 99,
+    alignItems: 'flex-start',
+    fontSize: 14,
     padding: 5,
     margin: '0 2px',
     color: '#FFF',
@@ -73,22 +74,25 @@ const Event = glamorous.div(
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
   },
-  ({data}) => {
-    const delta = differenceInHours(data.start, data.end)
+  ({event}) => {
+    const delta = differenceInHours(event.start, event.end)
     return {
+      visibility: event.title ? 'visible' : 'hidden',
       height: delta > 1 ? 30 * delta - 10 : 20,
     }
   }
 )
+const Event = ({event}) =>
+  event.render && event.end !== '*'
+    ? <EventDiv event={event} title={event.title}>
+        {event.title}
+      </EventDiv>
+    : <EventDiv event={{}} />
 
 const NoEvent = props =>
-  <glamorous.Div
-    flex={1}
-    alignSelf="stretch"
-    textAlign="center"
-    lineHeight="30px">
+  <Div flex={1} alignSelf="stretch" textAlign="center" lineHeight="30px">
     -
-  </glamorous.Div>
+  </Div>
 
 storiesOf('Sync', module).add('Basic', () =>
   <Calendar data={data} startingDay="monday" dateFormat="ddd DD">
@@ -100,30 +104,28 @@ storiesOf('Sync', module).add('Basic', () =>
       Event={Event}
       NoEvent={NoEvent}>
       {({calendar, hours, nextWeek, prevWeek, gotoToday}) =>
-        <glamorous.Div display="flex" flexDirection="column">
-          <glamorous.Div>
+        <Div display="flex" flexDirection="column">
+          <div>
             <button onClick={gotoToday}>Return to today</button>
             <button onClick={prevWeek}>Prev week</button>
             <button onClick={nextWeek}>Next week</button>
-          </glamorous.Div>
+          </div>
           <Container>
-            <glamorous.Div paddingTop={40}>
+            <Div paddingTop={40}>
               {hours}
-            </glamorous.Div>
+            </Div>
             <CalendarContainer>
               {calendar.map((day, idx) => {
                 return (
-                  <glamorous.Div
-                    key={`day_${idx}`}
-                    width={`${100 / calendar.length}%`}>
+                  <Div key={`day_${idx}`} width={`${100 / calendar.length}%`}>
                     <DayLabel label={day.label} />
                     {day.hours}
-                  </glamorous.Div>
+                  </Div>
                 )
               })}
             </CalendarContainer>
           </Container>
-        </glamorous.Div>}
+        </Div>}
     </WeeklyCalendar>
   </Calendar>
 )

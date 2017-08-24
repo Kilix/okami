@@ -142,20 +142,8 @@ class WeeklyCalendar extends React.Component {
               return (
                 <Cell key={`hour_${hidx}`} idx={hidx}>
                   {events.length > 0
-                    ? events.map(
-                        (event, idx) =>
-                          event.render && event.end !== '*'
-                            ? <Event key={event.title} data={event}>
-                                {event.title}
-                              </Event>
-                            : <div
-                                key={`event_${idx}`}
-                                style={{
-                                  flex: 1,
-                                  padding: 5,
-                                  margin: '0 2px',
-                                }}
-                              />
+                    ? events.map((event, idx) =>
+                        <Event key={event.title} event={event} />
                       )
                     : NoEvent ? <NoEvent /> : null}
                 </Cell>

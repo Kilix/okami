@@ -24,7 +24,7 @@ export const Cell = glamorous.div(
     justifyContent: 'center',
     alignItems: 'flex-start',
     height: 30,
-    padding: '0 5px',
+    padding: '0 2px',
   },
   props => ({
     backgroundColor: props.idx % 2 ? '#FFF' : '#EAEAEA',
@@ -65,28 +65,26 @@ const EventDiv = glamorous.div(
     alignItems: 'flex-start',
     fontSize: 14,
     padding: 5,
-    margin: '0 2px',
     color: '#FFF',
     overflow: 'hidden',
-    boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
-    backgroundColor: '#F23543',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
+    cursor: 'pointer',
+    border: '1px solid #FFF',
   },
-  ({event}) => {
+  ({event, render}) => {
     const delta = differenceInHours(event.start, event.end)
     return {
-      visibility: event.title ? 'visible' : 'hidden',
+      visibility: render ? 'visible' : 'hidden',
+      backgroundColor: event.color ? event.color : '#232323',
       height: delta > 1 ? 30 * delta - 10 : 20,
     }
   }
 )
-export const Event = ({event}) =>
-  event.render && event.end !== '*'
-    ? <EventDiv event={event} title={event.title}>
-        {event.title}
-      </EventDiv>
-    : <EventDiv event={{}} />
+export const Event = ({event, render}) =>
+  <EventDiv event={event} title={event.title} render={render}>
+    {event.title}
+  </EventDiv>
 
 export const NoEvent = props =>
   <Div flex={1} alignSelf="stretch" textAlign="center" lineHeight="30px">

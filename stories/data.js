@@ -9,6 +9,7 @@ export default [
     title: 'CM JS',
     email: 'email@gmail.com',
     accepted: true,
+    color: '#AFED23',
   },
   {
     start: startOfHour(addDays(1, new Date())),

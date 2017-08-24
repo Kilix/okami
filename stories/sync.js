@@ -28,7 +28,7 @@ storiesOf('Sync', module).add('Basic', () =>
       {({calendar, hours, nextWeek, prevWeek, gotoToday}) =>
         <Div display="flex" flexDirection="column">
           <div>
-            <button onClick={gotoToday}>Return to today</button>
+            <button onClick={gotoToday}>Today</button>
             <button onClick={prevWeek}>Prev week</button>
             <button onClick={nextWeek}>Next week</button>
           </div>

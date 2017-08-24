@@ -7,8 +7,7 @@ import {asHours} from 'pomeranian-durations'
 import startOfWeek from 'date-fns/fp/startOfWeekWithOptions'
 import startOfDay from 'date-fns/fp/startOfDay'
 import endOfDay from 'date-fns/fp/endOfDay'
-import subWeeks from 'date-fns/fp/subWeeks'
-import addWeeks from 'date-fns/fp/addWeeks'
+import subDays from 'date-fns/fp/subDays'
 import addDays from 'date-fns/fp/addDays'
 import addHours from 'date-fns/fp/addHours'
 import addMinutes from 'date-fns/fp/addMinutes'
@@ -41,15 +40,22 @@ const range = function(start, stop, step) {
 
 class WeeklyCalendar extends React.Component {
   componentWillMount() {
-    const {start, startingDay} = this.props
+    const {start, startingDay, numberOfDays} = this.props
 
-    const startWeek = startOfWeek({weekStartsOn: startingDay}, start)
+    const startWeek =
+      numberOfDays === 7
+        ? startOfWeek({weekStartsOn: startingDay}, start)
+        : startOfDay(start)
     this.setState(() => ({startWeek}))
   }
   _nextWeek = () =>
-    this.setState(old => ({startWeek: addWeeks(1, old.startWeek)}))
+    this.setState(old => ({
+      startWeek: addDays(this.props.numberOfDays, old.startWeek),
+    }))
   _prevWeek = () =>
-    this.setState(old => ({startWeek: subWeeks(1, old.startWeek)}))
+    this.setState(old => ({
+      startWeek: subDays(this.props.numberOfDays, old.startWeek),
+    }))
   _gotoToday = () =>
     this.setState(() => ({
       startWeek: startOfWeek(

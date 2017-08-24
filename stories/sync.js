@@ -95,7 +95,7 @@ const NoEvent = props =>
   </Div>
 
 storiesOf('Sync', module).add('Basic', () =>
-  <Calendar data={data} startingDay="monday" dateFormat="ddd DD">
+  <Calendar data={data} startingDay="monday" dateFormat="ddd DD/MM">
     <WeeklyCalendar
       startHour="PT6H"
       endHour="PT22H"
@@ -115,14 +115,12 @@ storiesOf('Sync', module).add('Basic', () =>
               {hours}
             </Div>
             <CalendarContainer>
-              {calendar.map((day, idx) => {
-                return (
-                  <Div key={`day_${idx}`} width={`${100 / calendar.length}%`}>
-                    <DayLabel label={day.label} />
-                    {day.hours}
-                  </Div>
-                )
-              })}
+              {calendar.map((day, idx) =>
+                <Div key={`day_${idx}`} width={`${100 / calendar.length}%`}>
+                  <DayLabel label={day.label} />
+                  {day.hours}
+                </Div>
+              )}
             </CalendarContainer>
           </Container>
         </Div>}

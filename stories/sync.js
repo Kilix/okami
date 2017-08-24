@@ -18,19 +18,13 @@ import {
   DateDisplayer,
 } from './dummy'
 
-// debug
-// const css = document.createElement('style')
-// css.innerHTML = `
-//   *{border: 1px solid  red;}
-// `
-// document.body.appendChild(css)
-
 storiesOf('Sync', module).add('Weekly', () =>
   <Calendar data={data} startingDay="monday" dateFormat="ddd DD/MM">
     <WeeklyCalendar
       startHour="PT6H"
       endHour="PT22H"
       Column={Div}
+      Cell={Cell}
       Event={Event}
       NoEvent={NoEvent}>
       {({
@@ -50,7 +44,7 @@ storiesOf('Sync', module).add('Weekly', () =>
             {getDateLabel(DateDisplayer)}
           </Div>
           <Container>
-            <Div paddingTop={40}>
+            <Div paddingTop={rowHeight}>
               {getHourLabels(HourLabel)}
             </Div>
             <CalendarContainer>

@@ -164,10 +164,10 @@ class WeeklyCalendar extends React.Component {
       showWeekends,
       rowHeight,
       Column,
+      Cell,
       children,
     } = this.props
     const {startWeek} = this.state
-
     const weeks = showWeekends ? range(7) : range(5)
     const hours = range(asHours(startHour), asHours(endHour))
     const endWeek = compose(addWeeks(1), startOfDay)(startWeek)
@@ -208,6 +208,9 @@ class WeeklyCalendar extends React.Component {
               <Column
                 style={{position: 'relative', height: rowHeight * hours.length}}
                 innerRef={r => (this.column = r)}>
+                {hours.map((h, idx) =>
+                  <Cell idx={idx} style={{height: rowHeight}} />
+                )}
                 {this._computeEvents(hours, day)}
               </Column>,
           },
@@ -235,6 +238,7 @@ WeeklyCalendar.PropTypes = {
   start: PropTypes.instanceOf(Date),
   data: PropTypes.object.isRequired,
   Column: PropTypes.node,
+  Cell: PropTypes.node,
   Event: PropTypes.node,
   NoEvent: PropTypes.node,
 }

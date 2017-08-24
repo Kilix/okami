@@ -26,7 +26,7 @@ export const Cell = glamorous.div(
     height: 30,
   },
   props => ({
-    backgroundColor: props.idx % 2 ? '#FFF' : '#EAEAEA',
+    backgroundColor: props.idx % 2 ? '#EAEAEA' : '#FFF',
   })
 )
 
@@ -48,7 +48,7 @@ export const HourLabel = ({label, style, className, ...props}) =>
     justifyContent="center"
     alignItems="center"
     width={70}
-    backgroundColor={props.idx % 2 ? '#FFF' : '#EAEAEA'}
+    backgroundColor={props.idx % 2 ? '#EAEAEA' : '#FFF'}
     {...{style, className}}>
     {label}
   </Div>

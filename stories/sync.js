@@ -2,60 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {storiesOf} from '@storybook/react'
 import glamorous, {Div} from 'glamorous'
-
-import addDays from 'date-fns/fp/addDays'
-import addHours from 'date-fns/fp/addHours'
 import differenceInHours from 'date-fns/fp/differenceInHours'
-import startOfHour from 'date-fns/startOfHour'
 
 import Calendar, {WeeklyCalendar} from '../src/'
 
 import {Container, HourLabel, CalendarContainer, Cell, DayLabel} from './dummy'
-
-const data = [
-  {
-    start: startOfHour(addDays(1, new Date())),
-    end: startOfHour(addHours(2, addDays(1, new Date()))),
-    title: 'CM JS',
-    email: 'email@gmail.com',
-    accepted: true,
-  },
-  {
-    start: startOfHour(addDays(1, new Date())),
-    end: startOfHour(addHours(2, addDays(1, new Date()))),
-    title: 'CM Feel Good',
-    email: 'email@gmail.com',
-    accepted: true,
-  },
-  {
-    start: startOfHour(addHours(1, addDays(1, new Date()))),
-    end: startOfHour(addHours(2, addDays(1, new Date()))),
-    title: 'CM Java',
-    email: 'email@gmail.com',
-    accepted: true,
-  },
-  {
-    start: startOfHour(addHours(1, addDays(1, new Date()))),
-    end: '*',
-    title: 'Bid',
-    email: 'email@gmail.com',
-    accepted: true,
-  },
-  {
-    start: startOfHour(addDays(10, new Date())),
-    end: startOfHour(addHours(1, addDays(10, new Date()))),
-    title: 'Gouter',
-    email: 'email@gmail.com',
-    accepted: false,
-  },
-  {
-    start: startOfHour(addHours(2, new Date())),
-    end: '*',
-    title: 'formation JS',
-    email: 'email@gmail.com',
-    accepted: null,
-  },
-]
+import data from './data'
 
 const EventDiv = glamorous.div(
   {

@@ -4,12 +4,9 @@ import {compose} from 'recompose'
 
 import {asHours} from 'pomeranian-durations'
 
-import startOfWeek from 'date-fns/fp/startOfWeekWithOptions'
-import getHours from 'date-fns/fp/getHours'
-import getMonth from 'date-fns/fp/getMonth'
 import startOfDay from 'date-fns/fp/startOfDay'
-import subWeeks from 'date-fns/fp/subWeeks'
-import addWeeks from 'date-fns/fp/addWeeks'
+import getHours from 'date-fns/fp/getHours'
+import subDays from 'date-fns/fp/subDays'
 import addDays from 'date-fns/fp/addDays'
 import addHours from 'date-fns/fp/addHours'
 import format from 'date-fns/fp/format'
@@ -23,12 +20,10 @@ import isAfter from 'date-fns/fp/isAfter'
 import controller from '../controller'
 import {debounce, range} from '../utils'
 
-class WeeklyCalendar extends React.Component {
+class DailyCalendar extends React.Component {
   componentWillMount() {
-    const {start, startingDay} = this.props
-    this.setState(() => ({
-      startWeek: startOfWeek({weekStartsOn: startingDay}, start),
-    }))
+    const {start} = this.props
+    this.setState(() => ({currentDay: startOfDay(start)}))
   }
   resize = debounce(() => this.forceUpdate(), 300, true)
   componentDidMount() {
@@ -37,21 +32,12 @@ class WeeklyCalendar extends React.Component {
   componentWillUnmount() {
     window.removeEventListener('resize', this.resize)
   }
-  _nextWeek = () =>
-    this.setState(old => ({
-      startWeek: addWeeks(1, old.startWeek),
-    }))
-  _prevWeek = () =>
-    this.setState(old => ({
-      startWeek: subWeeks(1, old.startWeek),
-    }))
-  _gotoToday = () =>
-    this.setState(() => ({
-      startWeek: startOfWeek(
-        {weekStartsOn: this.props.startingDay},
-        new Date()
-      ),
-    }))
+  _nextDay = () =>
+    this.setState(old => ({currentDay: addDays(1, old.currentDay)}))
+  _prevDay = () =>
+    this.setState(old => ({currentDay: subDays(1, old.currentDay)}))
+  _gotoToday = () => this.setState(() => ({currentDay: startOfDay(new Date())}))
+
   _getTodaysEvent = day => {
     const base = this.props.data.filter(e => isSameDay(day, e.start))
     const fullDay = base.filter(e => e.end === '*').map(e => ({
@@ -116,104 +102,82 @@ class WeeklyCalendar extends React.Component {
       events.map(e => <Event key={e.title} event={e} style={e.style} />),
     ]
   }
-  _dateLabel = (start, end) => {
-    const s =
-      getMonth(start) === getMonth(end)
-        ? format('DD', start)
-        : format('DD MMM', start)
-    const e = format('DD MMM YYYY', end)
-    return `${s} - ${e}`
-  }
+  _dateLabel = start => format('DD MMM YYYY', start)
   render() {
     const {
       startHour,
       endHour,
       dateFormat,
       hourFormat,
-      showWeekend,
       rowHeight,
       Column,
       Cell,
       children,
     } = this.props
-    const {startWeek} = this.state
-    const weeks = showWeekend ? range(7) : range(5)
+    const {currentDay} = this.state
     const hours = range(asHours(startHour), asHours(endHour))
-    const endWeek = compose(addWeeks(1), startOfDay)(startWeek)
     const props = {
       rowHeight,
-      end: endWeek,
-      start: startWeek,
-      nextWeek: this._nextWeek,
-      prevWeek: this._prevWeek,
+      start: currentDay,
+      nextDay: this._nextDay,
+      prevDay: this._prevDay,
       gotoToday: this._gotoToday,
-      getDateLabel: El => <El label={this._dateLabel(startWeek, endWeek)} />,
+      getDateLabel: El => <El label={this._dateLabel(currentDay)} />,
       getDayLabels: El =>
-        weeks.map((d, idx) =>
-          <El
-            style={{height: rowHeight}}
-            key={`label_day_${idx}`}
-            label={compose(format(dateFormat), addDays(d))(startWeek)}
-            idx={idx}
-          />
-        ),
+        <El
+          style={{height: rowHeight}}
+          label={format(dateFormat, currentDay)}
+        />,
       getHourLabels: El =>
         hours.map((h, idx) =>
           <El
             style={{height: rowHeight}}
             key={`label_hour_${idx}`}
-            label={compose(format(hourFormat), addHours(h))(startWeek)}
+            label={compose(format(hourFormat), addHours(h))(currentDay)}
             idx={idx}
           />
         ),
-      calendar: weeks.reduce((c, w) => {
-        const day = addDays(w, startWeek)
-        return [
-          ...c,
-          {
-            day,
-            label: format(dateFormat, day),
-            getColumn: () =>
-              <Column
-                style={{position: 'relative', height: rowHeight * hours.length}}
-                innerRef={r => (this.column = r)}>
-                {hours.map((h, idx) =>
-                  <Cell
-                    key={`$cell_${idx}`}
-                    idx={idx}
-                    style={{height: rowHeight}}
-                  />
-                )}
-                {this._computeEvents(hours, day)}
-              </Column>,
-          },
-        ]
-      }, []),
+      calendar: {
+        day: currentDay,
+        label: format(dateFormat, currentDay),
+        getColumn: () =>
+          <Column
+            style={{position: 'relative', height: rowHeight * hours.length}}
+            innerRef={r => (this.column = r)}>
+            {hours.map((h, idx) =>
+              <Cell
+                key={`$cell_${idx}`}
+                idx={idx}
+                style={{height: rowHeight}}
+              />
+            )}
+            {this._computeEvents(hours, currentDay)}
+          </Column>,
+      },
     }
 
     return children(props)
   }
 }
 
-WeeklyCalendar.defaultProps = {
+DailyCalendar.defaultProps = {
   startHour: 'PT0H',
   endHour: 'PT24H',
   rowHeight: 30,
-  showWeekend: true,
   start: new Date(),
 }
 
-WeeklyCalendar.PropTypes = {
+DailyCalendar.PropTypes = {
   startHour: PropTypes.string,
   endHour: PropTypes.string,
-  showWeekend: PropTypes.bool,
   rowHeight: PropTypes.number,
   start: PropTypes.instanceOf(Date),
   data: PropTypes.object.isRequired,
   Column: PropTypes.node,
   Cell: PropTypes.node,
   Event: PropTypes.node,
+  NoEvent: PropTypes.node,
 }
 
-const enhance = controller(['data', 'startingDay', 'dateFormat', 'hourFormat'])
-export default enhance(WeeklyCalendar)
+const enhance = controller(['data', 'dateFormat', 'hourFormat'])
+export default enhance(DailyCalendar)

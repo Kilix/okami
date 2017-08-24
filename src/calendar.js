@@ -1,15 +1,8 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
-const days = {
-  sunday: 0,
-  monday: 1,
-  tuesday: 2,
-  wednesday: 3,
-  thursday: 4,
-  friday: 5,
-  saturday: 6,
-}
+import {days} from './utils'
+
 class CalendarSync extends Component {
   constructor(props) {
     const {startingDay} = props
@@ -37,7 +30,7 @@ class CalendarSync extends Component {
 }
 
 CalendarSync.defaultProps = {
-  workHours: {start: '06:00', end: '22:00'},
+  workHours: {start: 'PT6H', end: 'PT22H'},
   AMPM: false,
   dateFormat: 'DD/MM/YYYY',
   hourFormat: 'HH:mm',

@@ -61,7 +61,7 @@ storiesOf('Sync', module)
               <DateDisplayer label={dateLabel} />
             </Div>
             <Container>
-              <Div paddingTop={rowHeight}>
+              <Div paddingTop={rowHeight * 2}>
                 {hourLabels.map(({rowHeight, idx, label}) =>
                   <HourLabel
                     key={`hour_label_${idx}`}
@@ -81,6 +81,14 @@ storiesOf('Sync', module)
                       style={{height: rowHeight}}
                       children={day.label}
                     />
+                    <Div style={{position: 'relative', height: rowHeight}}>
+                      {day.events.fullDay.map(({style, ...props}) =>
+                        <Event
+                          {...props}
+                          style={{...style, height: rowHeight}}
+                        />
+                      )}
+                    </Div>
                     <Div {...columnProps}>
                       {hours.map((h, idx) =>
                         <Cell
@@ -90,7 +98,7 @@ storiesOf('Sync', module)
                           children="-"
                         />
                       )}
-                      {day.events.map(props => <Event {...props} />)}
+                      {day.events.events.map(props => <Event {...props} />)}
                     </Div>
                   </Div>
                 )}

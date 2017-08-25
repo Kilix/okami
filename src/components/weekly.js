@@ -19,6 +19,7 @@ import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping'
 
 import differenceInHours from 'date-fns/fp/differenceInHours'
 import isAfter from 'date-fns/fp/isAfter'
+import isBefore from 'date-fns/fp/isBefore'
 
 import controller from '../controller'
 import {debounce, range} from '../utils'
@@ -66,7 +67,7 @@ class WeeklyCalendar extends React.Component {
     }
   }
   _computeEvents = (hours, day) => {
-    if (!this.column) return []
+    if (!this.column) return {events: [], fullDay: []}
     const {rowHeight, startHour} = this.props
     const wrapper = this.column.getBoundingClientRect()
     const {fullDay, events: todayEvents} = this._getTodaysEvent(day)
@@ -85,31 +86,43 @@ class WeeklyCalendar extends React.Component {
         },
       }
     })
-    let events = todayEvents
-    events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
-    events = events.reduce((acc, e, idx, arr) => {
+    const computings = (acc, e, idx, arr) => {
+      console.log('compute')
       const overlap =
         acc.filter(
           x =>
-            (isSameHour(x.start, e.start) || isSameHour(x.end, e.end)) &&
-            areIntervalsOverlapping(x, e)
+            (isSameHour(x.event.start, e.start) ||
+              isSameHour(x.event.end, e.end)) &&
+            areIntervalsOverlapping(x.event, e)
         ).length + 1
       const ratio = wrapper.width / overlap
+      const newAcc = acc.map(x => ({
+        ...x,
+        style: {
+          ...x.style,
+          width: x.style.width - wrapper.width / 10,
+        },
+      }))
+      const style = {
+        position: 'absolute',
+        top: rowHeight * (getHours(e.start) - asHours(startHour)),
+        left: (overlap - 1) * ratio,
+        width: ratio,
+        height: rowHeight * differenceInHours(e.start, e.end),
+      }
       const el = {
         key: e.title,
         event: e,
-        style: {
-          position: 'absolute',
-          top: `${rowHeight * (getHours(e.start) - asHours(startHour))}px`,
-          left: `${(overlap - 1) * ratio}px`,
-          width: `${ratio}px`,
-          height: `${rowHeight * differenceInHours(e.start, e.end)}px`,
-        },
+        style,
       }
-      return [...acc, el]
-    }, [])
+      return [...newAcc, el]
+    }
 
-    return [...fullDayEvents, ...events]
+    let events = todayEvents
+    events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
+    events = events.reduce(computings, [])
+
+    return {fullDay: fullDayEvents, events}
   }
   _dateLabel = (start, end) => {
     const s =

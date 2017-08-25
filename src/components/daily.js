@@ -77,8 +77,9 @@ class DailyCalendar extends React.Component {
       const overlap =
         acc.filter(
           x =>
-            (isSameHour(x.start, e.start) || isSameHour(x.end, e.end)) &&
-            areIntervalsOverlapping(x, e)
+            (isSameHour(x.event.start, e.start) ||
+              isSameHour(x.event.end, e.end)) &&
+            areIntervalsOverlapping(x.event, e)
         ).length + 1
       const ratio = wrapper.width / overlap
       const el = {

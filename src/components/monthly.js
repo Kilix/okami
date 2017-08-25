@@ -13,12 +13,13 @@ import subMonths from 'date-fns/fp/subMonths'
 import addMonths from 'date-fns/fp/addMonths'
 import addDays from 'date-fns/fp/addDays'
 import addHours from 'date-fns/fp/addHours'
-import format from 'date-fns/fp/format'
+import format from 'date-fns/fp/formatWithOptions'
 import isSameDay from 'date-fns/fp/isSameDay'
 import isAfter from 'date-fns/fp/isAfter'
+import getDay from 'date-fns/getDay'
 
 import controller from '../controller'
-import {debounce, range, days} from '../utils'
+import {debounce, range, shiftLeft} from '../utils'
 
 class MonthlyCalendar extends React.Component {
   componentWillMount() {
@@ -70,7 +71,8 @@ class MonthlyCalendar extends React.Component {
 
     return events.map(e => <Event key={e.title} event={e} style={e.style} />)
   }
-  _dateLabel = startMonth => format('MMMM', startMonth)
+  _dateLabel = startMonth =>
+    format({locale: this.props.locale}, 'MMMM', startMonth)
   render() {
     const {dateFormat, rowHeight, startingDay, children} = this.props
     const {startMonth} = this.state
@@ -85,32 +87,40 @@ class MonthlyCalendar extends React.Component {
       rowHeight,
       end: endMonth,
       start: startMonth,
+      weeks,
       nextMonth: this._nextMonth,
       prevMonth: this._prevMonth,
       gotoToday: this._gotoToday,
-      getDateLabel: El => <El label={this._dateLabel(startMonth)} />,
-      getDayLabels: El =>
-        weeks.map((d, idx) =>
-          <El
-            style={{height: rowHeight}}
-            key={`label_day_${idx}`}
-            label={compose(
-              format('dddd'),
-              addDays(d),
-              startOfWeek({weekStartsOn: startingDay})
-            )(new Date())}
-            idx={idx}
-          />
-        ),
-      calendar: month.reduce((c, d) => {
-        const day = addDays(d, startMonth)
+      dateLabel: this._dateLabel(startMonth),
+      dayLabels: weeks.map((d, idx) => ({
+        key: `label_day_${idx}`,
+        label: compose(
+          format({locale: this.props.locale}, 'dddd'),
+          addDays(d),
+          startOfWeek({weekStartsOn: startingDay})
+        )(new Date()),
+        idx,
+        rowHeight,
+      })),
+      columnProps: {
+        innerRef: r => {
+          if (typeof this.column === 'undefined') {
+            this.column = r
+            this.forceUpdate()
+          }
+        },
+      },
+      calendar: shiftLeft(startingDay, weeks).reduce((days, w) => {
         return [
-          ...c,
-          {
-            date: day,
-            label: format(dateFormat, day),
-            getEvents: () => this._computeEvents(day),
-          },
+          ...days,
+          month.filter(m => getDay(addDays(m, startMonth)) === w).map(m => {
+            const day = addDays(m, startMonth)
+            return {
+              date: day,
+              label: format({locale: this.props.locale}, dateFormat, day),
+              events: this._computeEvents(day),
+            }
+          }),
         ]
       }, []),
     }
@@ -128,8 +138,15 @@ MonthlyCalendar.PropTypes = {
   rowHeight: PropTypes.number,
   start: PropTypes.instanceOf(Date),
   data: PropTypes.object.isRequired,
+  locale: PropTypes.object,
   Event: PropTypes.node,
 }
 
-const enhance = controller(['data', 'startingDay', 'dateFormat', 'hourFormat'])
+const enhance = controller([
+  'data',
+  'locale',
+  'startingDay',
+  'dateFormat',
+  'hourFormat',
+])
 export default enhance(MonthlyCalendar)

@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {storiesOf} from '@storybook/react'
 import glamorous, {Div} from 'glamorous'
-import format from 'date-fns/format'
 import isBefore from 'date-fns/fp/isBefore'
+import frLocale from 'date-fns/locale/fr'
 
 import Calendar, {WeeklyCalendar, DailyCalendar, MonthlyCalendar} from '../src/'
 
@@ -20,13 +20,11 @@ import {
 } from './dummy'
 
 const MonthCell = glamorous.div({
-  flex: '1 1 14%',
   backgroundColor: '#FAFAFA',
-  minHeight: 150,
-  maxWidth: '14%',
   padding: 8,
   boxSizing: 'border-box',
   border: '1px solid #FFF',
+  height: 150,
 })
 const MonthEvent = ({event}) =>
   <Div color={event.color ? event.color : '#232323'}>
@@ -39,32 +37,37 @@ storiesOf('Sync', module)
       data={data}
       startingDay="monday"
       dateFormat="ddd DD/MM"
-      hourFormat="ha">
-      <WeeklyCalendar
-        startHour="PT6H"
-        endHour="PT22H"
-        Column={Div}
-        Cell={Cell}
-        Event={Event}>
+      hourFormat="ha"
+      locale={frLocale}>
+      <WeeklyCalendar startHour="PT6H" endHour="PT22H" Event={Event}>
         {({
           calendar,
+          hours,
           rowHeight,
           nextWeek,
           prevWeek,
           gotoToday,
-          getDateLabel,
-          getHourLabels,
+          dateLabel,
+          hourLabels,
+          columnProps,
         }) =>
           <Div display="flex" flexDirection="column">
             <Div display="flex">
               <button onClick={gotoToday}>Today</button>
               <button onClick={prevWeek}>Prev week</button>
               <button onClick={nextWeek}>Next week</button>
-              {getDateLabel(DateDisplayer)}
+              <DateDisplayer label={dateLabel} />
             </Div>
             <Container>
               <Div paddingTop={rowHeight}>
-                {getHourLabels(HourLabel)}
+                {hourLabels.map(({rowHeight, idx, label}) =>
+                  <HourLabel
+                    key={`hour_label_${idx}`}
+                    idx={idx}
+                    children={label}
+                    style={{height: rowHeight}}
+                  />
+                )}
               </Div>
               <CalendarContainer>
                 {calendar.map((day, idx) =>
@@ -72,8 +75,21 @@ storiesOf('Sync', module)
                     key={`day_${idx}`}
                     width={`${100 / calendar.length}%`}
                     position="relative">
-                    <DayLabel style={{height: rowHeight}} label={day.label} />
-                    {day.getColumn()}
+                    <DayLabel
+                      style={{height: rowHeight}}
+                      children={day.label}
+                    />
+                    <Div {...columnProps}>
+                      {hours.map((h, idx) =>
+                        <Cell
+                          key={idx}
+                          idx={idx}
+                          style={{height: rowHeight}}
+                          children="-"
+                        />
+                      )}
+                      {day.events}
+                    </Div>
                   </Div>
                 )}
               </CalendarContainer>
@@ -87,40 +103,55 @@ storiesOf('Sync', module)
       data={data}
       startingDay="monday"
       dateFormat="ddd DD/MM"
-      hourFormat="ha">
-      <DailyCalendar
-        startHour="PT6H"
-        endHour="PT22H"
-        Column={Div}
-        Cell={Cell}
-        Event={Event}>
+      hourFormat="ha"
+      locale={frLocale}>
+      <DailyCalendar startHour="PT6H" endHour="PT22H" Event={Event}>
         {({
           calendar,
+          hours,
           rowHeight,
           nextDay,
           prevDay,
           gotoToday,
-          getDateLabel,
-          getHourLabels,
+          dateLabel,
+          hourLabels,
+          columnProps,
         }) =>
           <Div display="flex" flexDirection="column">
             <Div display="flex">
               <button onClick={gotoToday}>Today</button>
               <button onClick={prevDay}>Prev day</button>
               <button onClick={nextDay}>Next day</button>
-              {getDateLabel(DateDisplayer)}
+              <DateDisplayer label={dateLabel} />
             </Div>
             <Container>
               <Div paddingTop={rowHeight}>
-                {getHourLabels(HourLabel)}
+                {hourLabels.map(({label, rowHeight, idx}) =>
+                  <HourLabel
+                    key={`hour_label_${idx}`}
+                    idx={idx}
+                    children={label}
+                    style={{height: rowHeight}}
+                  />
+                )}
               </Div>
               <CalendarContainer>
                 <Div width="100%" position="relative">
                   <DayLabel
+                    children={calendar.label}
                     style={{height: rowHeight}}
-                    label={calendar.label}
                   />
-                  {calendar.getColumn()}
+                  <Div {...columnProps}>
+                    {hours.map((h, idx) =>
+                      <Cell
+                        key={idx}
+                        idx={idx}
+                        style={{height: rowHeight}}
+                        children="-"
+                      />
+                    )}
+                    {calendar.events}
+                  </Div>
                 </Div>
               </CalendarContainer>
             </Container>
@@ -129,7 +160,12 @@ storiesOf('Sync', module)
     </Calendar>
   )
   .add('Monthly', () =>
-    <Calendar data={data} startingDay="monday" dateFormat="DD" hourFormat="ha">
+    <Calendar
+      data={data}
+      startingDay="monday"
+      dateFormat="DD"
+      hourFormat="ha"
+      locale={frLocale}>
       <MonthlyCalendar Event={MonthEvent}>
         {({
           calendar,
@@ -138,15 +174,16 @@ storiesOf('Sync', module)
           nextMonth,
           prevMonth,
           gotoToday,
-          getDayLabels,
-          getDateLabel,
+          dayLabels,
+          dateLabel,
+          columnProps,
         }) =>
           <Div display="flex" flexDirection="column">
             <Div display="flex">
               <button onClick={gotoToday}>Today</button>
               <button onClick={prevMonth}>Prev month</button>
               <button onClick={nextMonth}>Next month</button>
-              {getDateLabel(DateDisplayer)}
+              <DateDisplayer children={dateLabel} />
             </Div>
             <Div
               justifyContent="flex-start"
@@ -154,19 +191,44 @@ storiesOf('Sync', module)
               flexDirection="column"
               alignItems="flex-start">
               <Div display="flex" width="100%">
-                {getDayLabels(DayLabel)}
+                {dayLabels.map(({label, rowHeight, idx, key}) =>
+                  <DayLabel
+                    key={key}
+                    idx={idx}
+                    children={label}
+                    style={{height: rowHeight}}
+                  />
+                )}
               </Div>
-              <Div display="flex" flexWrap="wrap">
-                {calendar.map((day, idx) =>
-                  <MonthCell>
-                    <Div
-                      fontSize={13}
-                      color={isBefore(start, day.date) ? '#A7A7A7' : '#232323'}
-                      padding={2}>
-                      {day.label}
+              <Div display="flex">
+                {calendar.map((column, idx) =>
+                  <Div
+                    key={`column_${idx}`}
+                    {...columnProps}
+                    style={{
+                      width: `${100 / 7}%`,
+                      position: 'relative',
+                    }}>
+                    <Div>
+                      {column.map((day, idx) =>
+                        <MonthCell
+                          key={`cell_${idx}`}
+                          style={{
+                            opacity: isBefore(start, day.date) ? 0.5 : 1,
+                          }}>
+                          <Div
+                            fontSize={13}
+                            color={
+                              isBefore(start, day.date) ? '#A7A7A7' : '#232323'
+                            }
+                            padding={2}>
+                            {day.label}
+                          </Div>
+                          {day.events}
+                        </MonthCell>
+                      )}
                     </Div>
-                    {day.getEvents()}
-                  </MonthCell>
+                  </Div>
                 )}
               </Div>
             </Div>

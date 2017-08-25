@@ -21,38 +21,34 @@ export const Cell = glamorous.div(
     position: 'relative',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   props => ({
     backgroundColor: props.idx % 2 ? '#EAEAEA' : '#FFF',
   })
 )
 
-export const DayLabel = ({label, style, className, ...props}) =>
-  <Div
-    flex={1}
-    display="flex"
-    flexDirection="column"
-    justifyContent="center"
-    alignItems="center"
-    {...{style, className}}>
-    {label}
-  </Div>
+export const DayLabel = glamorous.div({
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+})
 
-export const HourLabel = ({label, style, className, ...props}) =>
-  <Div
-    flex={1}
-    display="flex"
-    justifyContent="center"
-    alignItems="center"
-    width={70}
-    backgroundColor={props.idx % 2 ? '#EAEAEA' : '#FFF'}
-    {...{style, className}}>
-    {label}
-  </Div>
-
+export const HourLabel = glamorous.div(
+  {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 70,
+  },
+  props => ({
+    backgroundColor: props.idx % 2 ? '#EAEAEA' : '#FFF',
+  })
+)
 const EventDiv = glamorous.div(
   {
     zIndex: 9,
@@ -85,7 +81,7 @@ export const NoEvent = props =>
     -
   </Div>
 
-export const DateDisplayer = ({label, ...props}) =>
-  <Div fontSize={14} paddingLeft={15} {...props}>
-    {label}
-  </Div>
+export const DateDisplayer = glamorous.div({
+  fontSize: 14,
+  paddingLeft: 15,
+})

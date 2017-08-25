@@ -12,7 +12,7 @@ import subWeeks from 'date-fns/fp/subWeeks'
 import addWeeks from 'date-fns/fp/addWeeks'
 import addDays from 'date-fns/fp/addDays'
 import addHours from 'date-fns/fp/addHours'
-import format from 'date-fns/fp/format'
+import format from 'date-fns/fp/formatWithOptions'
 import isSameHour from 'date-fns/fp/isSameHour'
 import isSameDay from 'date-fns/fp/isSameDay'
 import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping'
@@ -119,9 +119,9 @@ class WeeklyCalendar extends React.Component {
   _dateLabel = (start, end) => {
     const s =
       getMonth(start) === getMonth(end)
-        ? format('DD', start)
-        : format('DD MMM', start)
-    const e = format('DD MMM YYYY', end)
+        ? format({locale: this.props.locale}, 'DD', start)
+        : format({locale: this.props.locale}, 'DD MMM', start)
+    const e = format({locale: this.props.locale}, 'DD MMM YYYY', end)
     return `${s} - ${e}`
   }
   render() {
@@ -132,8 +132,6 @@ class WeeklyCalendar extends React.Component {
       hourFormat,
       showWeekend,
       rowHeight,
-      Column,
-      Cell,
       children,
     } = this.props
     const {startWeek} = this.state
@@ -144,48 +142,44 @@ class WeeklyCalendar extends React.Component {
       rowHeight,
       end: endWeek,
       start: startWeek,
+      hours,
       nextWeek: this._nextWeek,
       prevWeek: this._prevWeek,
       gotoToday: this._gotoToday,
-      getDateLabel: El => <El label={this._dateLabel(startWeek, endWeek)} />,
-      getDayLabels: El =>
-        weeks.map((d, idx) =>
-          <El
-            style={{height: rowHeight}}
-            key={`label_day_${idx}`}
-            label={compose(format(dateFormat), addDays(d))(startWeek)}
-            idx={idx}
-          />
-        ),
-      getHourLabels: El =>
-        hours.map((h, idx) =>
-          <El
-            style={{height: rowHeight}}
-            key={`label_hour_${idx}`}
-            label={compose(format(hourFormat), addHours(h))(startWeek)}
-            idx={idx}
-          />
-        ),
-      calendar: weeks.reduce((c, w) => {
+      dateLabel: this._dateLabel(startWeek, endWeek),
+      dayLabels: weeks.map((d, idx) => ({
+        label: compose(
+          format({locale: this.props.locale}, dateFormat),
+          addDays(d)
+        )(startWeek),
+        idx,
+        rowHeight,
+      })),
+      hourLabels: hours.map((h, idx) => ({
+        label: compose(
+          format({locale: this.props.locale}, hourFormat),
+          addHours(h)
+        )(startWeek),
+        idx,
+        rowHeight,
+      })),
+      columnProps: {
+        style: {position: 'relative', height: rowHeight * hours.length},
+        innerRef: r => {
+          if (typeof this.column === 'undefined') {
+            this.column = r
+            this.forceUpdate()
+          }
+        },
+      },
+      calendar: weeks.reduce((days, w) => {
         const day = addDays(w, startWeek)
         return [
-          ...c,
+          ...days,
           {
             date: day,
-            label: format(dateFormat, day),
-            getColumn: () =>
-              <Column
-                style={{position: 'relative', height: rowHeight * hours.length}}
-                innerRef={r => (this.column = r)}>
-                {hours.map((h, idx) =>
-                  <Cell
-                    key={`$cell_${idx}`}
-                    idx={idx}
-                    style={{height: rowHeight}}
-                  />
-                )}
-                {this._computeEvents(hours, day)}
-              </Column>,
+            label: format({locale: this.props.locale}, dateFormat, day),
+            events: this._computeEvents(hours, day),
           },
         ]
       }, []),
@@ -209,11 +203,16 @@ WeeklyCalendar.PropTypes = {
   showWeekend: PropTypes.bool,
   rowHeight: PropTypes.number,
   start: PropTypes.instanceOf(Date),
+  locale: PropTypes.object,
   data: PropTypes.object.isRequired,
-  Column: PropTypes.node,
-  Cell: PropTypes.node,
-  Event: PropTypes.node,
+  Event: PropTypes.node.isRequired,
 }
 
-const enhance = controller(['data', 'startingDay', 'dateFormat', 'hourFormat'])
+const enhance = controller([
+  'data',
+  'locale',
+  'startingDay',
+  'dateFormat',
+  'hourFormat',
+])
 export default enhance(WeeklyCalendar)

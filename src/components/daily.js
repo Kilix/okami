@@ -9,7 +9,7 @@ import getHours from 'date-fns/fp/getHours'
 import subDays from 'date-fns/fp/subDays'
 import addDays from 'date-fns/fp/addDays'
 import addHours from 'date-fns/fp/addHours'
-import format from 'date-fns/fp/format'
+import format from 'date-fns/fp/formatWithOptions'
 import isSameHour from 'date-fns/fp/isSameHour'
 import isSameDay from 'date-fns/fp/isSameDay'
 import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping'
@@ -102,7 +102,8 @@ class DailyCalendar extends React.Component {
       events.map(e => <Event key={e.title} event={e} style={e.style} />),
     ]
   }
-  _dateLabel = start => format('DD MMM YYYY', start)
+  _dateLabel = start =>
+    format({locale: this.props.locale}, 'DD MMM YYYY', start)
   render() {
     const {
       startHour,
@@ -110,8 +111,6 @@ class DailyCalendar extends React.Component {
       dateFormat,
       hourFormat,
       rowHeight,
-      Column,
-      Cell,
       children,
     } = this.props
     const {currentDay} = this.state
@@ -119,40 +118,36 @@ class DailyCalendar extends React.Component {
     const props = {
       rowHeight,
       start: currentDay,
+      hours,
       nextDay: this._nextDay,
       prevDay: this._prevDay,
       gotoToday: this._gotoToday,
-      getDateLabel: El => <El label={this._dateLabel(currentDay)} />,
-      getDayLabels: El =>
-        <El
-          style={{height: rowHeight}}
-          label={format(dateFormat, currentDay)}
-        />,
-      getHourLabels: El =>
-        hours.map((h, idx) =>
-          <El
-            style={{height: rowHeight}}
-            key={`label_hour_${idx}`}
-            label={compose(format(hourFormat), addHours(h))(currentDay)}
-            idx={idx}
-          />
-        ),
+      dateLabel: this._dateLabel(currentDay),
+      dayLabels: {
+        label: format({locale: this.props.locale}, dateFormat, currentDay),
+        rowHeight,
+      },
+      hourLabels: hours.map((h, idx) => ({
+        label: compose(
+          format({locale: this.props.locale}, hourFormat),
+          addHours(h)
+        )(currentDay),
+        rowHeight,
+        idx,
+      })),
+      columnProps: {
+        style: {position: 'relative', height: rowHeight * hours.length},
+        innerRef: r => {
+          if (typeof this.column === 'undefined') {
+            this.column = r
+            this.forceUpdate()
+          }
+        },
+      },
       calendar: {
         date: currentDay,
-        label: format(dateFormat, currentDay),
-        getColumn: () =>
-          <Column
-            style={{position: 'relative', height: rowHeight * hours.length}}
-            innerRef={r => (this.column = r)}>
-            {hours.map((h, idx) =>
-              <Cell
-                key={`$cell_${idx}`}
-                idx={idx}
-                style={{height: rowHeight}}
-              />
-            )}
-            {this._computeEvents(hours, currentDay)}
-          </Column>,
+        label: format({locale: this.props.locale}, dateFormat, currentDay),
+        events: this._computeEvents(hours, currentDay),
       },
     }
 
@@ -173,10 +168,9 @@ DailyCalendar.PropTypes = {
   rowHeight: PropTypes.number,
   start: PropTypes.instanceOf(Date),
   data: PropTypes.object.isRequired,
-  Column: PropTypes.node,
-  Cell: PropTypes.node,
+  locale: PropTypes.object,
   Event: PropTypes.node,
 }
 
-const enhance = controller(['data', 'dateFormat', 'hourFormat'])
+const enhance = controller(['data', 'locale', 'dateFormat', 'hourFormat'])
 export default enhance(DailyCalendar)

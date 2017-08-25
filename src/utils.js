@@ -7,6 +7,9 @@ export const days = {
   friday: 5,
   saturday: 6,
 }
+export function shiftLeft(n, arr) {
+  return arr.slice(n, arr.length).concat(arr.slice(0, n))
+}
 
 export function debounce(func, wait, immediate) {
   var timeout

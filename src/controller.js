@@ -3,7 +3,7 @@ import {compose, getContext} from 'recompose'
 
 const defaultContext = [
   'workHours',
-  'AMPM',
+  'locale',
   'startingDay',
   'data',
   'dateFormat',

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {storiesOf} from '@storybook/react'
 import glamorous, {Div} from 'glamorous'
 import format from 'date-fns/format'
+import isBefore from 'date-fns/fp/isBefore'
 
 import Calendar, {WeeklyCalendar, DailyCalendar, MonthlyCalendar} from '../src/'
 
@@ -20,14 +21,16 @@ import {
 
 const MonthCell = glamorous.div({
   flex: '1 1 14%',
-  backgroundColor: 'red',
+  backgroundColor: '#FAFAFA',
   minHeight: 150,
   maxWidth: '14%',
+  padding: 8,
+  boxSizing: 'border-box',
   border: '1px solid #FFF',
 })
-const MonthEvent = props =>
-  <Div>
-    {props.event.title}
+const MonthEvent = ({event}) =>
+  <Div color={event.color ? event.color : '#232323'}>
+    {event.title}
   </Div>
 
 storiesOf('Sync', module)
@@ -90,8 +93,7 @@ storiesOf('Sync', module)
         endHour="PT22H"
         Column={Div}
         Cell={Cell}
-        Event={Event}
-        NoEvent={NoEvent}>
+        Event={Event}>
         {({
           calendar,
           rowHeight,
@@ -127,14 +129,11 @@ storiesOf('Sync', module)
     </Calendar>
   )
   .add('Monthly', () =>
-    <Calendar
-      data={data}
-      startingDay="monday"
-      dateFormat="dddd"
-      hourFormat="ha">
-      <MonthlyCalendar Cell={MonthCell} Event={MonthEvent}>
+    <Calendar data={data} startingDay="monday" dateFormat="DD" hourFormat="ha">
+      <MonthlyCalendar Event={MonthEvent}>
         {({
           calendar,
+          start,
           rowHeight,
           nextMonth,
           prevMonth,
@@ -158,7 +157,17 @@ storiesOf('Sync', module)
                 {getDayLabels(DayLabel)}
               </Div>
               <Div display="flex" flexWrap="wrap">
-                {calendar.map((day, idx) => day.getEvents())}
+                {calendar.map((day, idx) =>
+                  <MonthCell>
+                    <Div
+                      fontSize={13}
+                      color={isBefore(start, day.date) ? '#A7A7A7' : '#232323'}
+                      padding={2}>
+                      {day.label}
+                    </Div>
+                    {day.getEvents()}
+                  </MonthCell>
+                )}
               </Div>
             </Div>
           </Div>}

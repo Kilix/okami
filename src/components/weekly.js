@@ -171,7 +171,7 @@ class WeeklyCalendar extends React.Component {
         return [
           ...c,
           {
-            day,
+            date: day,
             label: format(dateFormat, day),
             getColumn: () =>
               <Column

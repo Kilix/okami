@@ -12,10 +12,9 @@ class CalendarSync extends Component {
 
   getChildContext() {
     const {startingDay} = this.state
-    const {workHours, AMPM, dateFormat, hourFormat, data} = this.props
+    const {workHours, dateFormat, hourFormat, data} = this.props
     return {
       workHours,
-      AMPM,
       startingDay,
       dateFormat,
       hourFormat,
@@ -31,7 +30,6 @@ class CalendarSync extends Component {
 
 CalendarSync.defaultProps = {
   workHours: {start: 'PT6H', end: 'PT22H'},
-  AMPM: false,
   dateFormat: 'DD/MM/YYYY',
   hourFormat: 'HH:mm',
   startingDay: 'sunday',
@@ -40,7 +38,6 @@ CalendarSync.defaultProps = {
 
 CalendarSync.childContextTypes = {
   workHours: PropTypes.object,
-  AMPM: PropTypes.bool,
   startingDay: PropTypes.number,
   dateFormat: PropTypes.string,
   hourFormat: PropTypes.string,

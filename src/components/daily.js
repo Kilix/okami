@@ -138,7 +138,7 @@ class DailyCalendar extends React.Component {
           />
         ),
       calendar: {
-        day: currentDay,
+        date: currentDay,
         label: format(dateFormat, currentDay),
         getColumn: () =>
           <Column
@@ -176,7 +176,6 @@ DailyCalendar.PropTypes = {
   Column: PropTypes.node,
   Cell: PropTypes.node,
   Event: PropTypes.node,
-  NoEvent: PropTypes.node,
 }
 
 const enhance = controller(['data', 'dateFormat', 'hourFormat'])

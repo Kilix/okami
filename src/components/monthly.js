@@ -6,6 +6,7 @@ import {asHours} from 'pomeranian-durations'
 
 import startOfMonth from 'date-fns/fp/startOfMonthWithOptions'
 import startOfWeek from 'date-fns/fp/startOfWeekWithOptions'
+import differenceInCalendarDays from 'date-fns/fp/differenceInCalendarDays'
 import getDaysInMonth from 'date-fns/getDaysInMonth'
 import startOfDay from 'date-fns/fp/startOfDay'
 import subMonths from 'date-fns/fp/subMonths'
@@ -14,7 +15,6 @@ import addDays from 'date-fns/fp/addDays'
 import addHours from 'date-fns/fp/addHours'
 import format from 'date-fns/fp/format'
 import isSameDay from 'date-fns/fp/isSameDay'
-
 import isAfter from 'date-fns/fp/isAfter'
 
 import controller from '../controller'
@@ -72,11 +72,15 @@ class MonthlyCalendar extends React.Component {
   }
   _dateLabel = startMonth => format('MMMM', startMonth)
   render() {
-    const {dateFormat, rowHeight, Cell, startingDay, children} = this.props
+    const {dateFormat, rowHeight, startingDay, children} = this.props
     const {startMonth} = this.state
     const weeks = range(7)
     const endMonth = compose(addMonths(1), startOfDay)(startMonth)
-    const month = range(getDaysInMonth(startMonth))
+    const numberOfDaysBeforeMonth = differenceInCalendarDays(
+      startOfWeek({weekStartsOn: startingDay}, startMonth),
+      startMonth
+    )
+    const month = range(-numberOfDaysBeforeMonth, getDaysInMonth(startMonth))
     const props = {
       rowHeight,
       end: endMonth,
@@ -91,7 +95,7 @@ class MonthlyCalendar extends React.Component {
             style={{height: rowHeight}}
             key={`label_day_${idx}`}
             label={compose(
-              format(dateFormat),
+              format('dddd'),
               addDays(d),
               startOfWeek({weekStartsOn: startingDay})
             )(new Date())}
@@ -103,13 +107,9 @@ class MonthlyCalendar extends React.Component {
         return [
           ...c,
           {
-            day,
+            date: day,
             label: format(dateFormat, day),
-            getEvents: () =>
-              <Cell>
-                {format(dateFormat, day)}
-                {this._computeEvents(day)}
-              </Cell>,
+            getEvents: () => this._computeEvents(day),
           },
         ]
       }, []),
@@ -128,7 +128,6 @@ MonthlyCalendar.PropTypes = {
   rowHeight: PropTypes.number,
   start: PropTypes.instanceOf(Date),
   data: PropTypes.object.isRequired,
-  Cell: PropTypes.node,
   Event: PropTypes.node,
 }
 

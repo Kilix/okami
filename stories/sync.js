@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {storiesOf} from '@storybook/react'
 import glamorous, {Div} from 'glamorous'
+import format from 'date-fns/fp/format'
+import getMinutes from 'date-fns/fp/getMinutes'
 import isBefore from 'date-fns/fp/isBefore'
 import frLocale from 'date-fns/locale/fr'
 
@@ -28,7 +30,7 @@ const MonthCell = glamorous.div({
 })
 const MonthEvent = ({event}) =>
   <Div color={event.color ? event.color : '#232323'}>
-    {event.title}
+    {event.end !== '*' && format('HH[h]', event.start)} {event.title}
   </Div>
 
 storiesOf('Sync', module)
@@ -39,7 +41,7 @@ storiesOf('Sync', module)
       dateFormat="ddd DD/MM"
       hourFormat="ha"
       locale={frLocale}>
-      <WeeklyCalendar startHour="PT6H" endHour="PT22H" Event={Event}>
+      <WeeklyCalendar startHour="PT6H" endHour="PT22H">
         {({
           calendar,
           hours,
@@ -88,7 +90,7 @@ storiesOf('Sync', module)
                           children="-"
                         />
                       )}
-                      {day.events}
+                      {day.events.map(props => <Event {...props} />)}
                     </Div>
                   </Div>
                 )}
@@ -105,7 +107,7 @@ storiesOf('Sync', module)
       dateFormat="ddd DD/MM"
       hourFormat="ha"
       locale={frLocale}>
-      <DailyCalendar startHour="PT6H" endHour="PT22H" Event={Event}>
+      <DailyCalendar startHour="PT6H" endHour="PT22H">
         {({
           calendar,
           hours,
@@ -150,7 +152,7 @@ storiesOf('Sync', module)
                         children="-"
                       />
                     )}
-                    {calendar.events}
+                    {calendar.events.map(props => <Event {...props} />)}
                   </Div>
                 </Div>
               </CalendarContainer>
@@ -166,7 +168,7 @@ storiesOf('Sync', module)
       dateFormat="DD"
       hourFormat="ha"
       locale={frLocale}>
-      <MonthlyCalendar Event={MonthEvent}>
+      <MonthlyCalendar>
         {({
           calendar,
           start,
@@ -224,7 +226,7 @@ storiesOf('Sync', module)
                             padding={2}>
                             {day.label}
                           </Div>
-                          {day.events}
+                          {day.events.map(props => <MonthEvent {...props} />)}
                         </MonthCell>
                       )}
                     </Div>

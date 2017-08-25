@@ -60,16 +60,15 @@ class MonthlyCalendar extends React.Component {
                 asHours(this.props.startHour),
                 startOfDay(e.start)
               ),
-              end: addHours(asHours(this.props.endHour), startOfDay(e.start)),
+              end: '*',
             }
           : e
     )
   _computeEvents = day => {
-    const {Event} = this.props
     const events = this._getTodaysEvent(day)
     events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
 
-    return events.map(e => <Event key={e.title} event={e} style={e.style} />)
+    return events.map(e => ({event: e, key: e.title}))
   }
   _dateLabel = startMonth =>
     format({locale: this.props.locale}, 'MMMM', startMonth)
@@ -139,7 +138,6 @@ MonthlyCalendar.PropTypes = {
   start: PropTypes.instanceOf(Date),
   data: PropTypes.object.isRequired,
   locale: PropTypes.object,
-  Event: PropTypes.node,
 }
 
 const enhance = controller([

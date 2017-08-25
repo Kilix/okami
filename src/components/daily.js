@@ -52,28 +52,25 @@ class DailyCalendar extends React.Component {
     }
   }
   _computeEvents = (hours, day) => {
-    if (!this.column) return null
-    const {Event, rowHeight, startHour} = this.props
+    if (!this.column) return []
+    const {rowHeight, startHour} = this.props
     const wrapper = this.column.getBoundingClientRect()
     const {fullDay, events: todayEvents} = this._getTodaysEvent(day)
 
-    const fullDayEvents = () =>
-      fullDay.map((e, idx) => {
-        const ratio = 100 / fullDay.length
-        return (
-          <Event
-            key={e.title}
-            event={e}
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: `${idx * ratio}%`,
-              width: `${ratio}%`,
-              height: `${rowHeight * differenceInHours(e.start, e.end)}px`,
-            }}
-          />
-        )
-      })
+    const fullDayEvents = fullDay.map((e, idx) => {
+      const ratio = 100 / fullDay.length
+      return {
+        key: e.title,
+        event: e,
+        style: {
+          position: 'absolute',
+          top: 0,
+          left: `${idx * ratio}%`,
+          width: `${ratio}%`,
+          height: `${rowHeight * differenceInHours(e.start, e.end)}px`,
+        },
+      }
+    })
     let events = todayEvents
     events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
     events = events.reduce((acc, e, idx, arr) => {
@@ -85,7 +82,8 @@ class DailyCalendar extends React.Component {
         ).length + 1
       const ratio = wrapper.width / overlap
       const el = {
-        ...e,
+        key: e.title,
+        event: e,
         style: {
           position: 'absolute',
           top: `${rowHeight * (getHours(e.start) - asHours(startHour))}px`,
@@ -97,10 +95,7 @@ class DailyCalendar extends React.Component {
       return [...acc, el]
     }, [])
 
-    return [
-      fullDayEvents(),
-      events.map(e => <Event key={e.title} event={e} style={e.style} />),
-    ]
+    return [...fullDayEvents, ...events]
   }
   _dateLabel = start =>
     format({locale: this.props.locale}, 'DD MMM YYYY', start)
@@ -169,7 +164,6 @@ DailyCalendar.PropTypes = {
   start: PropTypes.instanceOf(Date),
   data: PropTypes.object.isRequired,
   locale: PropTypes.object,
-  Event: PropTypes.node,
 }
 
 const enhance = controller(['data', 'locale', 'dateFormat', 'hourFormat'])

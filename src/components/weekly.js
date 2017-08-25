@@ -66,28 +66,25 @@ class WeeklyCalendar extends React.Component {
     }
   }
   _computeEvents = (hours, day) => {
-    if (!this.column) return null
-    const {Event, rowHeight, startHour} = this.props
+    if (!this.column) return []
+    const {rowHeight, startHour} = this.props
     const wrapper = this.column.getBoundingClientRect()
     const {fullDay, events: todayEvents} = this._getTodaysEvent(day)
 
-    const fullDayEvents = () =>
-      fullDay.map((e, idx) => {
-        const ratio = 100 / fullDay.length
-        return (
-          <Event
-            key={e.title}
-            event={e}
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: `${idx * ratio}%`,
-              width: `${ratio}%`,
-              height: `${rowHeight * differenceInHours(e.start, e.end)}px`,
-            }}
-          />
-        )
-      })
+    const fullDayEvents = fullDay.map((e, idx) => {
+      const ratio = 100 / fullDay.length
+      return {
+        key: e.title,
+        event: e,
+        style: {
+          position: 'absolute',
+          top: 0,
+          left: `${idx * ratio}%`,
+          width: `${ratio}%`,
+          height: `${rowHeight * differenceInHours(e.start, e.end)}px`,
+        },
+      }
+    })
     let events = todayEvents
     events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
     events = events.reduce((acc, e, idx, arr) => {
@@ -99,7 +96,8 @@ class WeeklyCalendar extends React.Component {
         ).length + 1
       const ratio = wrapper.width / overlap
       const el = {
-        ...e,
+        key: e.title,
+        event: e,
         style: {
           position: 'absolute',
           top: `${rowHeight * (getHours(e.start) - asHours(startHour))}px`,
@@ -111,10 +109,7 @@ class WeeklyCalendar extends React.Component {
       return [...acc, el]
     }, [])
 
-    return [
-      fullDayEvents(),
-      events.map(e => <Event key={e.title} event={e} style={e.style} />),
-    ]
+    return [...fullDayEvents, ...events]
   }
   _dateLabel = (start, end) => {
     const s =
@@ -205,7 +200,6 @@ WeeklyCalendar.PropTypes = {
   start: PropTypes.instanceOf(Date),
   locale: PropTypes.object,
   data: PropTypes.object.isRequired,
-  Event: PropTypes.node.isRequired,
 }
 
 const enhance = controller([

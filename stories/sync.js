@@ -27,6 +27,7 @@ const MonthCell = glamorous.div({
   boxSizing: 'border-box',
   border: '1px solid #FFF',
   height: 150,
+  overflow: 'hidden',
 })
 const MonthEvent = ({event}) =>
   <Div color={event.color ? event.color : '#232323'}>
@@ -39,9 +40,9 @@ storiesOf('Sync', module)
       data={data}
       startingDay="monday"
       dateFormat="ddd DD/MM"
-      hourFormat="ha"
+      hourFormat="HH"
       locale={frLocale}>
-      <WeeklyCalendar startHour="PT6H" endHour="PT22H">
+      <WeeklyCalendar startHour="PT3H" endHour="PT22H">
         {({
           calendar,
           hours,
@@ -113,7 +114,7 @@ storiesOf('Sync', module)
       data={data}
       startingDay="monday"
       dateFormat="ddd DD/MM"
-      hourFormat="ha"
+      hourFormat="HH"
       locale={frLocale}>
       <DailyCalendar startHour="PT6H" endHour="PT22H">
         {({
@@ -174,7 +175,7 @@ storiesOf('Sync', module)
       data={data}
       startingDay="monday"
       dateFormat="DD"
-      hourFormat="ha"
+      hourFormat="HH"
       locale={frLocale}>
       <MonthlyCalendar>
         {({

@@ -8,6 +8,7 @@ import startOfWeek from 'date-fns/fp/startOfWeekWithOptions'
 import getHours from 'date-fns/fp/getHours'
 import getMonth from 'date-fns/fp/getMonth'
 import startOfDay from 'date-fns/fp/startOfDay'
+import endOfDay from 'date-fns/fp/endOfDay'
 import subWeeks from 'date-fns/fp/subWeeks'
 import addWeeks from 'date-fns/fp/addWeeks'
 import addDays from 'date-fns/fp/addDays'
@@ -16,6 +17,7 @@ import format from 'date-fns/fp/formatWithOptions'
 import isSameHour from 'date-fns/fp/isSameHour'
 import isSameDay from 'date-fns/fp/isSameDay'
 import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping'
+import isWithinInterval from 'date-fns/fp/isWithinInterval'
 
 import differenceInHours from 'date-fns/fp/differenceInHours'
 import isAfter from 'date-fns/fp/isAfter'
@@ -60,7 +62,62 @@ class WeeklyCalendar extends React.Component {
       start: addHours(asHours(this.props.startHour), startOfDay(e.start)),
       end: addHours(asHours(this.props.endHour), startOfDay(e.start)),
     }))
-    const events = base.filter(e => e.end !== '*')
+    const events = base
+      .filter(
+        e =>
+          e.end !== '*' &&
+          (isWithinInterval(
+            {
+              start: addHours(
+                asHours(this.props.startHour),
+                startOfDay(e.start)
+              ),
+              end: addHours(asHours(this.props.endHour), startOfDay(e.start)),
+            },
+            e.start
+          ) ||
+            isWithinInterval(
+              {
+                start: addHours(
+                  asHours(this.props.startHour),
+                  startOfDay(e.start)
+                ),
+                end: addHours(asHours(this.props.endHour), startOfDay(e.start)),
+              },
+              e.end
+            ))
+      )
+      .map(e => {
+        if (
+          !isWithinInterval(
+            {
+              start: addHours(
+                asHours(this.props.startHour),
+                startOfDay(e.start)
+              ),
+              end: addHours(asHours(this.props.endHour), startOfDay(e.start)),
+            },
+            e.start
+          )
+        ) {
+          return {...e, start: startOfDay(e.start)}
+        }
+        if (
+          !isWithinInterval(
+            {
+              start: addHours(
+                asHours(this.props.startHour),
+                startOfDay(e.start)
+              ),
+              end: addHours(asHours(this.props.endHour), startOfDay(e.start)),
+            },
+            e.end
+          )
+        ) {
+          return {...e, end: endOfDay(e.start)}
+        }
+        return e
+      })
     return {
       fullDay,
       events,
@@ -87,7 +144,6 @@ class WeeklyCalendar extends React.Component {
       }
     })
     const computings = (acc, e, idx, arr) => {
-      console.log('compute')
       const overlap =
         acc.filter(
           x =>

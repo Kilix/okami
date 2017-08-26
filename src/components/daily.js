@@ -13,6 +13,7 @@ import format from 'date-fns/fp/formatWithOptions'
 import isSameHour from 'date-fns/fp/isSameHour'
 import isSameDay from 'date-fns/fp/isSameDay'
 import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping'
+import isWithinInterval from 'date-fns/fp/isWithinInterval'
 
 import differenceInHours from 'date-fns/fp/differenceInHours'
 import isAfter from 'date-fns/fp/isAfter'
@@ -39,7 +40,17 @@ class DailyCalendar extends React.Component {
   _gotoToday = () => this.setState(() => ({currentDay: startOfDay(new Date())}))
 
   _getTodaysEvent = day => {
-    const base = this.props.data.filter(e => isSameDay(day, e.start))
+    const base = this.props.data.filter(
+      e =>
+        isSameDay(day, e.start) &&
+        isWithinInterval(
+          {
+            start: addHours(asHours(this.props.startHour), startOfDay(e.start)),
+            end: addHours(asHours(this.props.endHour), startOfDay(e.start)),
+          },
+          e.start
+        )
+    )
     const fullDay = base.filter(e => e.end === '*').map(e => ({
       ...e,
       start: addHours(asHours(this.props.startHour), startOfDay(e.start)),

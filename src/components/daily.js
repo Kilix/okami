@@ -5,21 +5,16 @@ import {compose} from 'recompose'
 import {asHours} from 'pomeranian-durations'
 
 import startOfDay from 'date-fns/fp/startOfDay'
-import getHours from 'date-fns/fp/getHours'
 import subDays from 'date-fns/fp/subDays'
 import addDays from 'date-fns/fp/addDays'
 import addHours from 'date-fns/fp/addHours'
 import format from 'date-fns/fp/formatWithOptions'
-import isSameHour from 'date-fns/fp/isSameHour'
 import isSameDay from 'date-fns/fp/isSameDay'
-import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping'
 import isWithinInterval from 'date-fns/fp/isWithinInterval'
-
-import differenceInHours from 'date-fns/fp/differenceInHours'
 import isAfter from 'date-fns/fp/isAfter'
 
 import controller from '../controller'
-import {debounce, range, placeEvents} from '../utils'
+import {debounce, range, placeEvents, computeNow} from '../utils'
 
 class DailyCalendar extends React.Component {
   componentWillMount() {
@@ -79,53 +74,12 @@ class DailyCalendar extends React.Component {
 
     return {fullDay: fullDayEvents, events}
   }
-  // _computeEvents = (hours, day) => {
-  //   if (!this.column) return []
-  //   const {rowHeight, startHour} = this.props
-  //   const wrapper = this.column.getBoundingClientRect()
-  //   const {fullDay, events: todayEvents} = this._getTodaysEvent(day)
-
-  //   const fullDayEvents = fullDay.map((e, idx) => {
-  //     const ratio = 100 / fullDay.length
-  //     return {
-  //       key: e.title,
-  //       event: e,
-  //       style: {
-  //         position: 'absolute',
-  //         top: 0,
-  //         left: `${idx * ratio}%`,
-  //         width: `${ratio}%`,
-  //         height: `${rowHeight * differenceInHours(e.start, e.end)}px`,
-  //       },
-  //     }
-  //   })
-  //   let events = todayEvents
-  //   events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
-  //   events = events.reduce((acc, e, idx, arr) => {
-  //     const overlap =
-  //       acc.filter(
-  //         x =>
-  //           (isSameHour(x.event.start, e.start) ||
-  //             isSameHour(x.event.end, e.end)) &&
-  //           areIntervalsOverlapping(x.event, e)
-  //       ).length + 1
-  //     const ratio = wrapper.width / overlap
-  //     const el = {
-  //       key: e.title,
-  //       event: e,
-  //       style: {
-  //         position: 'absolute',
-  //         top: `${rowHeight * (getHours(e.start) - asHours(startHour))}px`,
-  //         left: `${(overlap - 1) * ratio}px`,
-  //         width: `${ratio}px`,
-  //         height: `${rowHeight * differenceInHours(e.start, e.end)}px`,
-  //       },
-  //     }
-  //     return [...acc, el]
-  //   }, [])
-
-  //   return [...fullDayEvents, ...events]
-  // }
+  _computeNow = () => {
+    if (!this.column) return {display: 'none'}
+    const {startHour, endHour} = this.props
+    const wrapper = this.column.getBoundingClientRect()
+    return computeNow(wrapper, startHour, endHour)
+  }
   _dateLabel = start =>
     format({locale: this.props.locale}, 'DD MMM YYYY', start)
   render() {
@@ -136,6 +90,7 @@ class DailyCalendar extends React.Component {
       hourFormat,
       rowHeight,
       children,
+      showNow,
     } = this.props
     const {currentDay} = this.state
     const hours = range(asHours(startHour), asHours(endHour))
@@ -149,14 +104,12 @@ class DailyCalendar extends React.Component {
       dateLabel: this._dateLabel(currentDay),
       dayLabels: {
         label: format({locale: this.props.locale}, dateFormat, currentDay),
-        rowHeight,
       },
       hourLabels: hours.map((h, idx) => ({
         label: compose(
           format({locale: this.props.locale}, hourFormat),
           addHours(h)
         )(currentDay),
-        rowHeight,
         idx,
       })),
       columnProps: {
@@ -168,13 +121,18 @@ class DailyCalendar extends React.Component {
           }
         },
       },
+      ...(showNow && {
+        showNowProps: {
+          style: this._computeNow(),
+          title: format({locale: this.props.locale}, 'hh:mm', new Date()),
+        },
+      }),
       calendar: {
         date: currentDay,
         label: format({locale: this.props.locale}, dateFormat, currentDay),
         events: this._computeEvents(currentDay),
       },
     }
-
     return children(props)
   }
 }
@@ -184,6 +142,7 @@ DailyCalendar.defaultProps = {
   endHour: 'PT24H',
   rowHeight: 30,
   start: new Date(),
+  showNow: false,
 }
 
 DailyCalendar.PropTypes = {
@@ -193,6 +152,7 @@ DailyCalendar.PropTypes = {
   start: PropTypes.instanceOf(Date),
   data: PropTypes.object.isRequired,
   locale: PropTypes.object,
+  showNow: PropTypes.bool,
 }
 
 const enhance = controller(['data', 'locale', 'dateFormat', 'hourFormat'])

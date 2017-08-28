@@ -21,14 +21,19 @@ import {
   DateDisplayer,
 } from './dummy'
 
-const MonthCell = glamorous.div({
-  backgroundColor: '#FAFAFA',
-  padding: 8,
-  boxSizing: 'border-box',
-  border: '1px solid #FFF',
-  height: 150,
-  overflow: 'hidden',
-})
+const MonthCell = glamorous.div(
+  {
+    backgroundColor: '#FAFAFA',
+    padding: 8,
+    boxSizing: 'border-box',
+    border: '1px solid #FFF',
+    height: 150,
+    overflow: 'hidden',
+  },
+  props => ({
+    opacity: isBefore(props.start, props.day.date) ? 0.5 : 1,
+  })
+)
 const MonthEvent = ({event}) =>
   <Div color={event.color ? event.color : '#232323'}>
     {event.end !== '*' && format('HH[h]', event.start)} {event.title}
@@ -42,7 +47,7 @@ storiesOf('Sync', module)
       dateFormat="ddd DD/MM"
       hourFormat="HH"
       locale={frLocale}>
-      <WeeklyCalendar startHour="PT3H" endHour="PT22H">
+      <WeeklyCalendar startHour="PT3H" endHour="PT22H" showNow>
         {({
           calendar,
           hours,
@@ -59,11 +64,11 @@ storiesOf('Sync', module)
               <button onClick={gotoToday}>Today</button>
               <button onClick={prevWeek}>Prev week</button>
               <button onClick={nextWeek}>Next week</button>
-              <DateDisplayer label={dateLabel} />
+              <DateDisplayer children={dateLabel} />
             </Div>
             <Container>
               <Div paddingTop={rowHeight * 2}>
-                {hourLabels.map(({rowHeight, idx, label}) =>
+                {hourLabels.map(({idx, label}) =>
                   <HourLabel
                     key={`hour_label_${idx}`}
                     idx={idx}
@@ -99,6 +104,18 @@ storiesOf('Sync', module)
                           children="-"
                         />
                       )}
+                      {day.showNowProps
+                        ? <Div
+                            title={day.showNowProps.title}
+                            style={{
+                              zIndex: 99,
+                              position: 'absolute',
+                              backgroundColor: '#12FE23',
+                              height: 2,
+                              ...day.showNowProps.style,
+                            }}
+                          />
+                        : null}
                       {day.events.events.map(props => <Event {...props} />)}
                     </Div>
                   </Div>
@@ -116,7 +133,7 @@ storiesOf('Sync', module)
       dateFormat="ddd DD/MM"
       hourFormat="HH"
       locale={frLocale}>
-      <DailyCalendar startHour="PT6H" endHour="PT22H">
+      <DailyCalendar startHour="PT6H" endHour="PT22H" showNow>
         {({
           calendar,
           hours,
@@ -127,17 +144,18 @@ storiesOf('Sync', module)
           dateLabel,
           hourLabels,
           columnProps,
+          showNowProps,
         }) =>
           <Div display="flex" flexDirection="column">
             <Div display="flex">
               <button onClick={gotoToday}>Today</button>
               <button onClick={prevDay}>Prev day</button>
               <button onClick={nextDay}>Next day</button>
-              <DateDisplayer label={dateLabel} />
+              <DateDisplayer children={dateLabel} />
             </Div>
             <Container>
               <Div paddingTop={rowHeight * 2}>
-                {hourLabels.map(({label, rowHeight, idx}) =>
+                {hourLabels.map(({label, idx}) =>
                   <HourLabel
                     key={`hour_label_${idx}`}
                     idx={idx}
@@ -166,6 +184,18 @@ storiesOf('Sync', module)
                         children="-"
                       />
                     )}
+                    {showNowProps
+                      ? <Div
+                          title={showNowProps.title}
+                          style={{
+                            zIndex: 99,
+                            position: 'absolute',
+                            backgroundColor: '#12FE23',
+                            height: 2,
+                            ...showNowProps.style,
+                          }}
+                        />
+                      : null}
                     {calendar.events.events.map(props => <Event {...props} />)}
                   </Div>
                 </Div>
@@ -207,7 +237,7 @@ storiesOf('Sync', module)
               flexDirection="column"
               alignItems="flex-start">
               <Div display="flex" width="100%">
-                {dayLabels.map(({label, rowHeight, idx, key}) =>
+                {dayLabels.map(({label, idx, key}) =>
                   <DayLabel
                     key={key}
                     idx={idx}
@@ -227,11 +257,7 @@ storiesOf('Sync', module)
                     }}>
                     <Div>
                       {column.map((day, idx) =>
-                        <MonthCell
-                          key={`cell_${idx}`}
-                          style={{
-                            opacity: isBefore(start, day.date) ? 0.5 : 1,
-                          }}>
+                        <MonthCell key={`cell_${idx}`} start={start} day={day}>
                           <Div
                             fontSize={13}
                             color={

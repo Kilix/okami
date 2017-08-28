@@ -16,7 +16,7 @@ import isSameDay from 'date-fns/fp/isSameDay'
 import isAfter from 'date-fns/fp/isAfter'
 
 import controller from '../controller'
-import {debounce, range, placeEvents} from '../utils'
+import {debounce, range, placeEvents, computeNow} from '../utils'
 
 class WeeklyCalendar extends React.Component {
   componentWillMount() {
@@ -77,6 +77,12 @@ class WeeklyCalendar extends React.Component {
 
     return {fullDay: fullDayEvents, events}
   }
+  _computeNow = () => {
+    if (!this.column) return {display: 'none'}
+    const {startHour, endHour} = this.props
+    const wrapper = this.column.getBoundingClientRect()
+    return computeNow(wrapper, startHour, endHour)
+  }
   _dateLabel = (start, end) => {
     const s =
       getMonth(start) === getMonth(end)
@@ -93,6 +99,7 @@ class WeeklyCalendar extends React.Component {
       hourFormat,
       showWeekend,
       rowHeight,
+      showNow,
       children,
     } = this.props
     const {startWeek} = this.state
@@ -114,7 +121,6 @@ class WeeklyCalendar extends React.Component {
           addDays(d)
         )(startWeek),
         idx,
-        rowHeight,
       })),
       hourLabels: hours.map((h, idx) => ({
         label: compose(
@@ -122,7 +128,6 @@ class WeeklyCalendar extends React.Component {
           addHours(h)
         )(startWeek),
         idx,
-        rowHeight,
       })),
       columnProps: {
         style: {position: 'relative', height: rowHeight * hours.length},
@@ -140,6 +145,13 @@ class WeeklyCalendar extends React.Component {
           {
             date: day,
             label: format({locale: this.props.locale}, dateFormat, day),
+            ...(showNow &&
+            isSameDay(day, new Date()) && {
+              showNowProps: {
+                style: this._computeNow(),
+                title: format({locale: this.props.locale}, 'hh:mm', new Date()),
+              },
+            }),
             events: this._computeEvents(day),
           },
         ]
@@ -156,6 +168,7 @@ WeeklyCalendar.defaultProps = {
   rowHeight: 30,
   showWeekend: true,
   start: new Date(),
+  showNow: false,
 }
 
 WeeklyCalendar.PropTypes = {
@@ -166,6 +179,7 @@ WeeklyCalendar.PropTypes = {
   start: PropTypes.instanceOf(Date),
   locale: PropTypes.object,
   data: PropTypes.object.isRequired,
+  showNow: PropTypes.bool,
 }
 
 const enhance = controller([

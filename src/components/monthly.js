@@ -99,7 +99,6 @@ class MonthlyCalendar extends React.Component {
           startOfWeek({weekStartsOn: startingDay})
         )(new Date()),
         idx,
-        rowHeight,
       })),
       columnProps: {
         innerRef: r => {

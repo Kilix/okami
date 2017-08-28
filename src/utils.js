@@ -1,22 +1,8 @@
 import {asHours} from 'pomeranian-durations'
-import startOfWeek from 'date-fns/fp/startOfWeekWithOptions'
 import getHours from 'date-fns/fp/getHours'
-import getMonth from 'date-fns/fp/getMonth'
-import startOfDay from 'date-fns/fp/startOfDay'
-import endOfDay from 'date-fns/fp/endOfDay'
-import subWeeks from 'date-fns/fp/subWeeks'
-import addWeeks from 'date-fns/fp/addWeeks'
-import addDays from 'date-fns/fp/addDays'
-import addHours from 'date-fns/fp/addHours'
-import format from 'date-fns/fp/formatWithOptions'
-import isSameHour from 'date-fns/fp/isSameHour'
-import isSameDay from 'date-fns/fp/isSameDay'
+import getMinutes from 'date-fns/fp/getMinutes'
 import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping'
-import isWithinInterval from 'date-fns/fp/isWithinInterval'
-
 import differenceInHours from 'date-fns/fp/differenceInHours'
-import isAfter from 'date-fns/fp/isAfter'
-import isBefore from 'date-fns/fp/isBefore'
 
 export const days = {
   sunday: 0,
@@ -131,4 +117,17 @@ export function placeEvents(events, root, rowHeight, startHour) {
     key: e.title,
     event: e,
   }))
+}
+
+export function computeNow(wrapper, startHour, endHour) {
+  const now = new Date()
+  const diffDayMin = (asHours(endHour) - asHours(startHour)) * 60
+  const diffMin = (getHours(now) - asHours(startHour)) * 60 + getMinutes(now)
+  const top = diffMin * wrapper.height / diffDayMin
+  return {
+    position: 'absolute',
+    top,
+    left: 0,
+    width: wrapper.width,
+  }
 }

@@ -1,4 +1,5 @@
 import addDays from 'date-fns/fp/addDays'
+import subDays from 'date-fns/fp/subDays'
 import addHours from 'date-fns/fp/addHours'
 import subHours from 'date-fns/fp/subHours'
 import startOfHour from 'date-fns/startOfHour'
@@ -32,6 +33,27 @@ export default [
     start: startOfHour(subHours(1, addDays(1, new Date()))),
     end: startOfHour(addHours(4, addDays(1, new Date()))),
     title: 'Test',
+    email: 'email@gmail.com',
+    accepted: true,
+  },
+  {
+    start: startOfHour(subHours(4, addDays(1, new Date()))),
+    end: startOfHour(subHours(2, addDays(1, new Date()))),
+    title: 'Test 2',
+    email: 'email@gmail.com',
+    accepted: true,
+  },
+  {
+    start: startOfHour(addHours(4, addDays(1, new Date()))),
+    end: startOfHour(addHours(7, addDays(1, new Date()))),
+    title: 'Test 3',
+    email: 'email@gmail.com',
+    accepted: true,
+  },
+  {
+    start: startOfHour(addHours(5, addDays(1, new Date()))),
+    end: startOfHour(addHours(8, addDays(1, new Date()))),
+    title: 'Test 4',
     email: 'email@gmail.com',
     accepted: true,
   },

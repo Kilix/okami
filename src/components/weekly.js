@@ -5,26 +5,18 @@ import {compose} from 'recompose'
 import {asHours} from 'pomeranian-durations'
 
 import startOfWeek from 'date-fns/fp/startOfWeekWithOptions'
-import getHours from 'date-fns/fp/getHours'
 import getMonth from 'date-fns/fp/getMonth'
 import startOfDay from 'date-fns/fp/startOfDay'
-import endOfDay from 'date-fns/fp/endOfDay'
 import subWeeks from 'date-fns/fp/subWeeks'
 import addWeeks from 'date-fns/fp/addWeeks'
 import addDays from 'date-fns/fp/addDays'
 import addHours from 'date-fns/fp/addHours'
 import format from 'date-fns/fp/formatWithOptions'
-import isSameHour from 'date-fns/fp/isSameHour'
 import isSameDay from 'date-fns/fp/isSameDay'
-import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping'
-import isWithinInterval from 'date-fns/fp/isWithinInterval'
-
-import differenceInHours from 'date-fns/fp/differenceInHours'
 import isAfter from 'date-fns/fp/isAfter'
-import isBefore from 'date-fns/fp/isBefore'
 
 import controller from '../controller'
-import {debounce, range} from '../utils'
+import {debounce, range, placeEvents} from '../utils'
 
 class WeeklyCalendar extends React.Component {
   componentWillMount() {
@@ -62,121 +54,26 @@ class WeeklyCalendar extends React.Component {
       start: addHours(asHours(this.props.startHour), startOfDay(e.start)),
       end: addHours(asHours(this.props.endHour), startOfDay(e.start)),
     }))
-    const events = base
-      .filter(
-        e =>
-          e.end !== '*' &&
-          (isWithinInterval(
-            {
-              start: addHours(
-                asHours(this.props.startHour),
-                startOfDay(e.start)
-              ),
-              end: addHours(asHours(this.props.endHour), startOfDay(e.start)),
-            },
-            e.start
-          ) ||
-            isWithinInterval(
-              {
-                start: addHours(
-                  asHours(this.props.startHour),
-                  startOfDay(e.start)
-                ),
-                end: addHours(asHours(this.props.endHour), startOfDay(e.start)),
-              },
-              e.end
-            ))
-      )
-      .map(e => {
-        if (
-          !isWithinInterval(
-            {
-              start: addHours(
-                asHours(this.props.startHour),
-                startOfDay(e.start)
-              ),
-              end: addHours(asHours(this.props.endHour), startOfDay(e.start)),
-            },
-            e.start
-          )
-        ) {
-          return {...e, start: startOfDay(e.start)}
-        }
-        if (
-          !isWithinInterval(
-            {
-              start: addHours(
-                asHours(this.props.startHour),
-                startOfDay(e.start)
-              ),
-              end: addHours(asHours(this.props.endHour), startOfDay(e.start)),
-            },
-            e.end
-          )
-        ) {
-          return {...e, end: endOfDay(e.start)}
-        }
-        return e
-      })
+    const events = base.filter(e => e.end !== '*')
     return {
       fullDay,
       events,
     }
   }
-  _computeEvents = (hours, day) => {
+  _computeEvents = day => {
     if (!this.column) return {events: [], fullDay: []}
-    const {rowHeight, startHour} = this.props
+    const {startHour, rowHeight} = this.props
     const wrapper = this.column.getBoundingClientRect()
     const {fullDay, events: todayEvents} = this._getTodaysEvent(day)
 
-    const fullDayEvents = fullDay.map((e, idx) => {
-      const ratio = 100 / fullDay.length
-      return {
-        key: e.title,
-        event: e,
-        style: {
-          position: 'absolute',
-          top: 0,
-          left: `${idx * ratio}%`,
-          width: `${ratio}%`,
-          height: `${rowHeight * differenceInHours(e.start, e.end)}px`,
-        },
-      }
-    })
-    const computings = (acc, e, idx, arr) => {
-      const overlap =
-        acc.filter(
-          x =>
-            (isSameHour(x.event.start, e.start) ||
-              isSameHour(x.event.end, e.end)) &&
-            areIntervalsOverlapping(x.event, e)
-        ).length + 1
-      const ratio = wrapper.width / overlap
-      const newAcc = acc.map(x => ({
-        ...x,
-        style: {
-          ...x.style,
-          width: x.style.width - wrapper.width / 10,
-        },
-      }))
-      const style = {
-        position: 'absolute',
-        top: rowHeight * (getHours(e.start) - asHours(startHour)),
-        left: (overlap - 1) * ratio,
-        width: ratio,
-        height: rowHeight * differenceInHours(e.start, e.end),
-      }
-      const el = {
-        key: e.title,
-        event: e,
-        style,
-      }
-      return [...newAcc, el]
-    }
+    const fullDayEvents = fullDay.map((e, idx) => ({
+      key: e.title,
+      event: e,
+    }))
 
     let events = todayEvents
     events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
-    events = events.reduce(computings, [])
+    events = placeEvents(events, wrapper, rowHeight, startHour)
 
     return {fullDay: fullDayEvents, events}
   }
@@ -243,7 +140,7 @@ class WeeklyCalendar extends React.Component {
           {
             date: day,
             label: format({locale: this.props.locale}, dateFormat, day),
-            events: this._computeEvents(hours, day),
+            events: this._computeEvents(day),
           },
         ]
       }, []),

@@ -19,7 +19,7 @@ import differenceInHours from 'date-fns/fp/differenceInHours'
 import isAfter from 'date-fns/fp/isAfter'
 
 import controller from '../controller'
-import {debounce, range} from '../utils'
+import {debounce, range, placeEvents} from '../utils'
 
 class DailyCalendar extends React.Component {
   componentWillMount() {
@@ -62,53 +62,70 @@ class DailyCalendar extends React.Component {
       events,
     }
   }
-  _computeEvents = (hours, day) => {
-    if (!this.column) return []
-    const {rowHeight, startHour} = this.props
+  _computeEvents = day => {
+    if (!this.column) return {events: [], fullDay: []}
+    const {startHour, rowHeight} = this.props
     const wrapper = this.column.getBoundingClientRect()
     const {fullDay, events: todayEvents} = this._getTodaysEvent(day)
 
-    const fullDayEvents = fullDay.map((e, idx) => {
-      const ratio = 100 / fullDay.length
-      return {
-        key: e.title,
-        event: e,
-        style: {
-          position: 'absolute',
-          top: 0,
-          left: `${idx * ratio}%`,
-          width: `${ratio}%`,
-          height: `${rowHeight * differenceInHours(e.start, e.end)}px`,
-        },
-      }
-    })
+    const fullDayEvents = fullDay.map((e, idx) => ({
+      key: e.title,
+      event: e,
+    }))
+
     let events = todayEvents
     events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
-    events = events.reduce((acc, e, idx, arr) => {
-      const overlap =
-        acc.filter(
-          x =>
-            (isSameHour(x.event.start, e.start) ||
-              isSameHour(x.event.end, e.end)) &&
-            areIntervalsOverlapping(x.event, e)
-        ).length + 1
-      const ratio = wrapper.width / overlap
-      const el = {
-        key: e.title,
-        event: e,
-        style: {
-          position: 'absolute',
-          top: `${rowHeight * (getHours(e.start) - asHours(startHour))}px`,
-          left: `${(overlap - 1) * ratio}px`,
-          width: `${ratio}px`,
-          height: `${rowHeight * differenceInHours(e.start, e.end)}px`,
-        },
-      }
-      return [...acc, el]
-    }, [])
+    events = placeEvents(events, wrapper, rowHeight, startHour)
 
-    return [...fullDayEvents, ...events]
+    return {fullDay: fullDayEvents, events}
   }
+  // _computeEvents = (hours, day) => {
+  //   if (!this.column) return []
+  //   const {rowHeight, startHour} = this.props
+  //   const wrapper = this.column.getBoundingClientRect()
+  //   const {fullDay, events: todayEvents} = this._getTodaysEvent(day)
+
+  //   const fullDayEvents = fullDay.map((e, idx) => {
+  //     const ratio = 100 / fullDay.length
+  //     return {
+  //       key: e.title,
+  //       event: e,
+  //       style: {
+  //         position: 'absolute',
+  //         top: 0,
+  //         left: `${idx * ratio}%`,
+  //         width: `${ratio}%`,
+  //         height: `${rowHeight * differenceInHours(e.start, e.end)}px`,
+  //       },
+  //     }
+  //   })
+  //   let events = todayEvents
+  //   events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
+  //   events = events.reduce((acc, e, idx, arr) => {
+  //     const overlap =
+  //       acc.filter(
+  //         x =>
+  //           (isSameHour(x.event.start, e.start) ||
+  //             isSameHour(x.event.end, e.end)) &&
+  //           areIntervalsOverlapping(x.event, e)
+  //       ).length + 1
+  //     const ratio = wrapper.width / overlap
+  //     const el = {
+  //       key: e.title,
+  //       event: e,
+  //       style: {
+  //         position: 'absolute',
+  //         top: `${rowHeight * (getHours(e.start) - asHours(startHour))}px`,
+  //         left: `${(overlap - 1) * ratio}px`,
+  //         width: `${ratio}px`,
+  //         height: `${rowHeight * differenceInHours(e.start, e.end)}px`,
+  //       },
+  //     }
+  //     return [...acc, el]
+  //   }, [])
+
+  //   return [...fullDayEvents, ...events]
+  // }
   _dateLabel = start =>
     format({locale: this.props.locale}, 'DD MMM YYYY', start)
   render() {
@@ -154,7 +171,7 @@ class DailyCalendar extends React.Component {
       calendar: {
         date: currentDay,
         label: format({locale: this.props.locale}, dateFormat, currentDay),
-        events: this._computeEvents(hours, currentDay),
+        events: this._computeEvents(currentDay),
       },
     }
 

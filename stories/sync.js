@@ -82,11 +82,11 @@ storiesOf('Sync', module)
                       style={{height: rowHeight}}
                       children={day.label}
                     />
-                    <Div style={{position: 'relative', height: rowHeight}}>
-                      {day.events.fullDay.map(({style, ...props}) =>
+                    <Div style={{display: 'flex', height: rowHeight}}>
+                      {day.events.fullDay.map(({style, ...props}, idx) =>
                         <Event
                           {...props}
-                          style={{...style, height: rowHeight}}
+                          style={{flex: 1, height: rowHeight}}
                         />
                       )}
                     </Div>
@@ -136,7 +136,7 @@ storiesOf('Sync', module)
               <DateDisplayer label={dateLabel} />
             </Div>
             <Container>
-              <Div paddingTop={rowHeight}>
+              <Div paddingTop={rowHeight * 2}>
                 {hourLabels.map(({label, rowHeight, idx}) =>
                   <HourLabel
                     key={`hour_label_${idx}`}
@@ -152,6 +152,11 @@ storiesOf('Sync', module)
                     children={calendar.label}
                     style={{height: rowHeight}}
                   />
+                  <Div style={{display: 'flex', height: rowHeight}}>
+                    {calendar.events.fullDay.map(({style, ...props}, idx) =>
+                      <Event {...props} style={{flex: 1, height: rowHeight}} />
+                    )}
+                  </Div>
                   <Div {...columnProps}>
                     {hours.map((h, idx) =>
                       <Cell
@@ -161,7 +166,7 @@ storiesOf('Sync', module)
                         children="-"
                       />
                     )}
-                    {calendar.events.map(props => <Event {...props} />)}
+                    {calendar.events.events.map(props => <Event {...props} />)}
                   </Div>
                 </Div>
               </CalendarContainer>

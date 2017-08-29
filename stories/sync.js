@@ -55,6 +55,7 @@ storiesOf('Sync', module)
           nextWeek,
           prevWeek,
           gotoToday,
+          toggleWeekend,
           dateLabel,
           hourLabels,
           columnProps,
@@ -64,6 +65,7 @@ storiesOf('Sync', module)
               <button onClick={gotoToday}>Today</button>
               <button onClick={prevWeek}>Prev week</button>
               <button onClick={nextWeek}>Next week</button>
+              <button onClick={() => toggleWeekend()}>Toggle weekends</button>
               <DateDisplayer children={dateLabel} />
             </Div>
             <Container>
@@ -88,7 +90,7 @@ storiesOf('Sync', module)
                       children={day.label}
                     />
                     <Div style={{display: 'flex', height: rowHeight}}>
-                      {day.events.fullDay.map(({style, ...props}, idx) =>
+                      {day.fullDay.map(({style, ...props}, idx) =>
                         <Event
                           {...props}
                           style={{flex: 1, height: rowHeight}}
@@ -116,7 +118,7 @@ storiesOf('Sync', module)
                             }}
                           />
                         : null}
-                      {day.events.events.map(props => <Event {...props} />)}
+                      {day.events.map(props => <Event {...props} />)}
                     </Div>
                   </Div>
                 )}
@@ -171,7 +173,7 @@ storiesOf('Sync', module)
                     style={{height: rowHeight}}
                   />
                   <Div style={{display: 'flex', height: rowHeight}}>
-                    {calendar.events.fullDay.map(({style, ...props}, idx) =>
+                    {calendar.fullDay.map(({style, ...props}, idx) =>
                       <Event {...props} style={{flex: 1, height: rowHeight}} />
                     )}
                   </Div>
@@ -196,7 +198,7 @@ storiesOf('Sync', module)
                           }}
                         />
                       : null}
-                    {calendar.events.events.map(props => <Event {...props} />)}
+                    {calendar.events.map(props => <Event {...props} />)}
                   </Div>
                 </Div>
               </CalendarContainer>

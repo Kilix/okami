@@ -121,7 +121,8 @@ class DailyCalendar extends React.Component {
           }
         },
       },
-      ...(showNow && {
+      ...(showNow &&
+      isSameDay(new Date(), currentDay) && {
         showNowProps: {
           style: this._computeNow(),
           title: format({locale: this.props.locale}, 'hh:mm', new Date()),
@@ -130,7 +131,7 @@ class DailyCalendar extends React.Component {
       calendar: {
         date: currentDay,
         label: format({locale: this.props.locale}, dateFormat, currentDay),
-        events: this._computeEvents(currentDay),
+        ...this._computeEvents(currentDay),
       },
     }
     return children(props)

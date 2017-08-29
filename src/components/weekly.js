@@ -23,6 +23,7 @@ class WeeklyCalendar extends React.Component {
     const {start, startingDay} = this.props
     this.setState(() => ({
       startWeek: startOfWeek({weekStartsOn: startingDay}, start),
+      showWeekend: this.props.showWeekend,
     }))
   }
   resize = debounce(() => this.forceUpdate(), 300, true)
@@ -32,6 +33,13 @@ class WeeklyCalendar extends React.Component {
   componentWillUnmount() {
     window.removeEventListener('resize', this.resize)
   }
+  _toggleWeekend = (force = null) =>
+    this.setState(
+      old => ({
+        showWeekend: force === null ? !old.showWeekend : force,
+      }),
+      () => this.forceUpdate()
+    )
   _nextWeek = () =>
     this.setState(old => ({
       startWeek: addWeeks(1, old.startWeek),
@@ -97,12 +105,11 @@ class WeeklyCalendar extends React.Component {
       endHour,
       dateFormat,
       hourFormat,
-      showWeekend,
       rowHeight,
       showNow,
       children,
     } = this.props
-    const {startWeek} = this.state
+    const {startWeek, showWeekend} = this.state
     const weeks = showWeekend ? range(7) : range(5)
     const hours = range(asHours(startHour), asHours(endHour))
     const endWeek = compose(addWeeks(1), startOfDay)(startWeek)
@@ -114,6 +121,7 @@ class WeeklyCalendar extends React.Component {
       nextWeek: this._nextWeek,
       prevWeek: this._prevWeek,
       gotoToday: this._gotoToday,
+      toggleWeekend: this._toggleWeekend,
       dateLabel: this._dateLabel(startWeek, endWeek),
       dayLabels: weeks.map((d, idx) => ({
         label: compose(
@@ -152,7 +160,7 @@ class WeeklyCalendar extends React.Component {
                 title: format({locale: this.props.locale}, 'hh:mm', new Date()),
               },
             }),
-            events: this._computeEvents(day),
+            ...this._computeEvents(day),
           },
         ]
       }, []),

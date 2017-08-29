@@ -1,7 +1,5 @@
 import addDays from 'date-fns/fp/addDays'
 import subDays from 'date-fns/fp/subDays'
-import addHours from 'date-fns/fp/addHours'
-import subHours from 'date-fns/fp/subHours'
 import setHours from 'date-fns/fp/setHours'
 import startOfHour from 'date-fns/startOfHour'
 
@@ -10,6 +8,25 @@ const tomorrow = addDays(1, today)
 
 export default [
   {
+    allDay: false,
+    start: startOfHour(setHours(1, tomorrow)),
+    end: startOfHour(setHours(5, tomorrow)),
+    title: 'Before',
+    email: 'email@gmail.com',
+    accepted: true,
+    color: '#1234AE',
+  },
+  {
+    allDay: false,
+    start: startOfHour(setHours(20, tomorrow)),
+    end: startOfHour(setHours(23, tomorrow)),
+    title: 'After',
+    email: 'email@gmail.com',
+    accepted: true,
+    color: '#1234AE',
+  },
+  {
+    allDay: false,
     start: startOfHour(setHours(10, tomorrow)),
     end: startOfHour(setHours(13, tomorrow)),
     title: 'CM JS',
@@ -18,6 +35,7 @@ export default [
     color: '#AFED23',
   },
   {
+    allDay: false,
     start: startOfHour(setHours(10, today)),
     end: startOfHour(setHours(13, today)),
     title: 'CM Feel Good',
@@ -26,6 +44,7 @@ export default [
     color: '#AFED23',
   },
   {
+    allDay: false,
     start: startOfHour(setHours(9, today)),
     end: startOfHour(setHours(11, today)),
     title: 'CM Java',
@@ -34,6 +53,7 @@ export default [
     color: '#AFED23',
   },
   {
+    allDay: false,
     start: startOfHour(setHours(14, tomorrow)),
     end: startOfHour(setHours(16, tomorrow)),
     title: 'Test',
@@ -41,6 +61,7 @@ export default [
     accepted: true,
   },
   {
+    allDay: false,
     start: startOfHour(setHours(14, tomorrow)),
     end: startOfHour(setHours(15, tomorrow)),
     title: 'Test 2',
@@ -48,6 +69,7 @@ export default [
     accepted: true,
   },
   {
+    allDay: false,
     start: startOfHour(setHours(17, tomorrow)),
     end: startOfHour(setHours(19, tomorrow)),
     title: 'Test 3',
@@ -55,6 +77,7 @@ export default [
     accepted: true,
   },
   {
+    allDay: false,
     start: startOfHour(setHours(13, tomorrow)),
     end: startOfHour(setHours(20, tomorrow)),
     title: 'Test 4',
@@ -62,6 +85,7 @@ export default [
     accepted: true,
   },
   {
+    allDay: false,
     start: startOfHour(setHours(9, tomorrow)),
     end: startOfHour(setHours(11, tomorrow)),
     title: 'Test 5',
@@ -69,13 +93,14 @@ export default [
     accepted: true,
   },
   {
-    start: startOfHour(setHours(10, tomorrow)),
-    end: '*',
+    allDay: true,
+    start: startOfHour(setHours(0, tomorrow)),
     title: 'Bid',
     email: 'email@gmail.com',
     accepted: true,
   },
   {
+    allDay: false,
     start: startOfHour(setHours(14, today)),
     end: startOfHour(setHours(20, today)),
     title: 'Gouter',
@@ -83,16 +108,24 @@ export default [
     accepted: false,
   },
   {
-    start: startOfHour(addHours(2, new Date())),
-    end: '*',
+    allDay: true,
+    start: startOfHour(setHours(0, today)),
     title: 'formation JS',
     email: 'email@gmail.com',
     accepted: null,
   },
   {
-    start: startOfHour(addHours(2, new Date())),
-    end: '*',
+    allDay: true,
+    start: startOfHour(setHours(0, today)),
     title: 'formation Java',
+    email: 'email@gmail.com',
+    accepted: null,
+  },
+  {
+    allDay: false,
+    start: startOfHour(setHours(14, today)),
+    end: startOfHour(setHours(20, addDays(3, today))),
+    title: 'formation Docker',
     email: 'email@gmail.com',
     accepted: null,
   },

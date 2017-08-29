@@ -14,9 +14,17 @@ import addHours from 'date-fns/fp/addHours'
 import format from 'date-fns/fp/formatWithOptions'
 import isSameDay from 'date-fns/fp/isSameDay'
 import isAfter from 'date-fns/fp/isAfter'
+import getDay from 'date-fns/getDay'
 
 import controller from '../controller'
-import {debounce, range, placeEvents, computeNow} from '../utils'
+import {
+  debounce,
+  range,
+  placeEvents,
+  computeNow,
+  getTodayEvents,
+  getWeekEvents,
+} from '../utils'
 
 class WeeklyCalendar extends React.Component {
   componentWillMount() {
@@ -55,35 +63,36 @@ class WeeklyCalendar extends React.Component {
         new Date()
       ),
     }))
-  _getTodaysEvent = day => {
-    const base = this.props.data.filter(e => isSameDay(day, e.start))
-    const fullDay = base.filter(e => e.end === '*').map(e => ({
-      ...e,
-      start: addHours(asHours(this.props.startHour), startOfDay(e.start)),
-      end: addHours(asHours(this.props.endHour), startOfDay(e.start)),
-    }))
-    const events = base.filter(e => e.end !== '*')
-    return {
-      fullDay,
-      events,
-    }
-  }
   _computeEvents = day => {
-    if (!this.column) return {events: [], fullDay: []}
-    const {startHour, rowHeight} = this.props
+    if (!this.column) return []
+    const {startHour, endHour, data, rowHeight} = this.props
     const wrapper = this.column.getBoundingClientRect()
-    const {fullDay, events: todayEvents} = this._getTodaysEvent(day)
+    let events = getTodayEvents(startHour, endHour, day, data)
 
-    const fullDayEvents = fullDay.map((e, idx) => ({
-      key: e.title,
-      event: e,
-    }))
-
-    let events = todayEvents
     events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
-    events = placeEvents(events, wrapper, rowHeight, startHour)
+    events = placeEvents(events, wrapper, rowHeight, startHour, endHour)
 
-    return {fullDay: fullDayEvents, events}
+    return events
+  }
+  _computeWeekEvents = () => {
+    if (!this.weekEventsContainer) return []
+    const wrapper = this.weekEventsContainer.getBoundingClientRect()
+    const {data, rowHeight} = this.props
+    const {startWeek, showWeekend} = this.state
+    return getWeekEvents(startWeek, data).map(e => {
+      const nbDays = getDay(e.end) - getDay(e.start)
+      const diffDay = getDay(e.start) - getDay(startWeek)
+      const w = wrapper.width / (showWeekend ? 7 : 5)
+      return {
+        key: e.title,
+        event: e,
+        style: {
+          left: diffDay * w,
+          width: e.allDay ? w : nbDays * w,
+          height: rowHeight,
+        },
+      }
+    })
   }
   _computeNow = () => {
     if (!this.column) return {display: 'none'}
@@ -91,6 +100,7 @@ class WeeklyCalendar extends React.Component {
     const wrapper = this.column.getBoundingClientRect()
     return computeNow(wrapper, startHour, endHour)
   }
+
   _dateLabel = (start, end) => {
     const s =
       getMonth(start) === getMonth(end)
@@ -113,6 +123,8 @@ class WeeklyCalendar extends React.Component {
     const weeks = showWeekend ? range(7) : range(5)
     const hours = range(asHours(startHour), asHours(endHour))
     const endWeek = compose(addWeeks(1), startOfDay)(startWeek)
+    const weekEvents = this._computeWeekEvents()
+    console.log(weekEvents)
     const props = {
       rowHeight,
       end: endWeek,
@@ -146,6 +158,20 @@ class WeeklyCalendar extends React.Component {
           }
         },
       },
+      getWeekEventsContainerProps: (opt = {}) => ({
+        style: {
+          position: 'relative',
+          height: rowHeight * weekEvents.length,
+          ...opt.style,
+        },
+        innerRef: r => {
+          if (typeof this.weekEventsContainer === 'undefined') {
+            this.weekEventsContainer = r
+            this.forceUpdate()
+          }
+        },
+      }),
+      weekEvents,
       calendar: weeks.reduce((days, w) => {
         const day = addDays(w, startWeek)
         return [
@@ -153,6 +179,8 @@ class WeeklyCalendar extends React.Component {
           {
             date: day,
             label: format({locale: this.props.locale}, dateFormat, day),
+            // fullDay: this._computeFullDayEvents(day),
+            events: this._computeEvents(day),
             ...(showNow &&
             isSameDay(day, new Date()) && {
               showNowProps: {
@@ -160,7 +188,6 @@ class WeeklyCalendar extends React.Component {
                 title: format({locale: this.props.locale}, 'hh:mm', new Date()),
               },
             }),
-            ...this._computeEvents(day),
           },
         ]
       }, []),

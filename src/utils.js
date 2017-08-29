@@ -1,8 +1,13 @@
 import {asHours} from 'pomeranian-durations'
+import setHours from 'date-fns/fp/setHours'
 import getHours from 'date-fns/fp/getHours'
 import getMinutes from 'date-fns/fp/getMinutes'
 import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping'
-import differenceInHours from 'date-fns/fp/differenceInHours'
+import isWithinInterval from 'date-fns/fp/isWithinInterval'
+import isSameDay from 'date-fns/fp/isSameDay'
+import isAfter from 'date-fns/fp/isAfter'
+import isBefore from 'date-fns/fp/isBefore'
+import endOfWeek from 'date-fns/fp/endOfWeek'
 
 export const days = {
   sunday: 0,
@@ -72,7 +77,7 @@ export function range(start, stop, step) {
   return range
 }
 
-export function placeEvents(events, root, rowHeight, startHour) {
+export function placeEvents(events, root, rowHeight, startHour, endHour) {
   if (events.length > 0) {
     var groupEvents = []
     for (let i = 0; i < events.length; i++) {
@@ -94,16 +99,23 @@ export function placeEvents(events, root, rowHeight, startHour) {
     }
     groupEvents = groupEvents.map(collidingGroup => {
       const nbEvents = collidingGroup.length
+      const sh = asHours(startHour)
+      const eh = asHours(endHour)
       return collidingGroup.map((event, idx) => {
+        const {start, end} = event
+        // prettier-ignore
+        const s = isBefore(setHours(sh, start), start) ? 0 : getHours(start) - sh
+        const e = isAfter(setHours(eh, end), end) ? eh - sh : getHours(end) - sh
+
         return {
           event,
           style: {
             position: 'absolute',
-            top: rowHeight * (getHours(event.start) - asHours(startHour)),
+            top: rowHeight * s,
             left:
               root.width / nbEvents * idx - (idx !== 0 ? root.width / 10 : 0),
             width: root.width / nbEvents + (nbEvents > 1 ? root.width / 10 : 0),
-            height: rowHeight * differenceInHours(event.start, event.end),
+            height: rowHeight * (e - s),
           },
         }
       })
@@ -130,4 +142,33 @@ export function computeNow(wrapper, startHour, endHour) {
     left: 0,
     width: wrapper.width,
   }
+}
+
+const checkBound = (day, int) => event =>
+  (isWithinInterval(int, event.start) && isSameDay(event.end, day)) ||
+  (isWithinInterval(int, event.end) && isSameDay(event.start, day))
+const checkInWeek = int => event =>
+  areIntervalsOverlapping(event, int) && !isSameDay(event.start, event.end)
+
+export function getTodayEvents(startHour, endHour, day, data) {
+  const check = checkBound(day, {
+    start: setHours(asHours(startHour), day),
+    end: setHours(asHours(endHour), day),
+  })
+  return data.filter(e => !e.allDay).filter(check)
+}
+
+export function getFullDayEvents(day, data) {
+  return data.filter(e => e.allDay && isSameDay(day, e.start))
+}
+
+export function getWeekEvents(startWeek, data) {
+  const int = {
+    start: startWeek,
+    end: endOfWeek(startWeek),
+  }
+  return [
+    ...data.filter(e => e.allDay && isWithinInterval(int, e.start)),
+    ...data.filter(e => !e.allDay).filter(checkInWeek(int)),
+  ]
 }

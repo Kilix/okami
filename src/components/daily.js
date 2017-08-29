@@ -10,11 +10,17 @@ import addDays from 'date-fns/fp/addDays'
 import addHours from 'date-fns/fp/addHours'
 import format from 'date-fns/fp/formatWithOptions'
 import isSameDay from 'date-fns/fp/isSameDay'
-import isWithinInterval from 'date-fns/fp/isWithinInterval'
 import isAfter from 'date-fns/fp/isAfter'
 
 import controller from '../controller'
-import {debounce, range, placeEvents, computeNow} from '../utils'
+import {
+  debounce,
+  range,
+  placeEvents,
+  computeNow,
+  getTodayEvents,
+  getFullDayEvents,
+} from '../utils'
 
 class DailyCalendar extends React.Component {
   componentWillMount() {
@@ -34,45 +40,15 @@ class DailyCalendar extends React.Component {
     this.setState(old => ({currentDay: subDays(1, old.currentDay)}))
   _gotoToday = () => this.setState(() => ({currentDay: startOfDay(new Date())}))
 
-  _getTodaysEvent = day => {
-    const base = this.props.data.filter(
-      e =>
-        isSameDay(day, e.start) &&
-        isWithinInterval(
-          {
-            start: addHours(asHours(this.props.startHour), startOfDay(e.start)),
-            end: addHours(asHours(this.props.endHour), startOfDay(e.start)),
-          },
-          e.start
-        )
-    )
-    const fullDay = base.filter(e => e.end === '*').map(e => ({
-      ...e,
-      start: addHours(asHours(this.props.startHour), startOfDay(e.start)),
-      end: addHours(asHours(this.props.endHour), startOfDay(e.start)),
-    }))
-    const events = base.filter(e => e.end !== '*')
-    return {
-      fullDay,
-      events,
-    }
-  }
   _computeEvents = day => {
-    if (!this.column) return {events: [], fullDay: []}
-    const {startHour, rowHeight} = this.props
+    if (!this.column) return []
+    const {startHour, endHour, data, rowHeight} = this.props
     const wrapper = this.column.getBoundingClientRect()
-    const {fullDay, events: todayEvents} = this._getTodaysEvent(day)
 
-    const fullDayEvents = fullDay.map((e, idx) => ({
-      key: e.title,
-      event: e,
-    }))
-
-    let events = todayEvents
+    let events = getTodayEvents(startHour, endHour, day, data)
     events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
     events = placeEvents(events, wrapper, rowHeight, startHour)
-
-    return {fullDay: fullDayEvents, events}
+    return events
   }
   _computeNow = () => {
     if (!this.column) return {display: 'none'}
@@ -91,6 +67,7 @@ class DailyCalendar extends React.Component {
       rowHeight,
       children,
       showNow,
+      data,
     } = this.props
     const {currentDay} = this.state
     const hours = range(asHours(startHour), asHours(endHour))
@@ -131,7 +108,8 @@ class DailyCalendar extends React.Component {
       calendar: {
         date: currentDay,
         label: format({locale: this.props.locale}, dateFormat, currentDay),
-        ...this._computeEvents(currentDay),
+        events: this._computeEvents(currentDay),
+        fullDayEvents: getFullDayEvents(startHour, endHour, currentDay, data),
       },
     }
     return children(props)

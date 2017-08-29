@@ -19,7 +19,13 @@ import isAfter from 'date-fns/fp/isAfter'
 import getDay from 'date-fns/getDay'
 
 import controller from '../controller'
-import {debounce, range, shiftLeft} from '../utils'
+import {
+  debounce,
+  range,
+  shiftLeft,
+  getTodayEvents,
+  getFullDayEvents,
+} from '../utils'
 
 class MonthlyCalendar extends React.Component {
   componentWillMount() {
@@ -50,22 +56,9 @@ class MonthlyCalendar extends React.Component {
         new Date()
       ),
     }))
-  _getTodaysEvent = day =>
-    this.props.data.filter(e => isSameDay(day, e.start)).map(
-      e =>
-        e.end === '*'
-          ? {
-              ...e,
-              start: addHours(
-                asHours(this.props.startHour),
-                startOfDay(e.start)
-              ),
-              end: '*',
-            }
-          : e
-    )
   _computeEvents = day => {
-    const events = this._getTodaysEvent(day)
+    const {data} = this.props
+    const events = getTodayEvents('PT0H', 'PT24H', day, data)
     events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
 
     return events.map(e => ({event: e, key: e.title}))
@@ -73,7 +66,7 @@ class MonthlyCalendar extends React.Component {
   _dateLabel = startMonth =>
     format({locale: this.props.locale}, 'MMMM', startMonth)
   render() {
-    const {dateFormat, rowHeight, startingDay, children} = this.props
+    const {dateFormat, rowHeight, startingDay, children, data} = this.props
     const {startMonth} = this.state
     const weeks = range(7)
     const endMonth = compose(addMonths(1), startOfDay)(startMonth)
@@ -117,6 +110,7 @@ class MonthlyCalendar extends React.Component {
               date: day,
               label: format({locale: this.props.locale}, dateFormat, day),
               events: this._computeEvents(day),
+              fullDayEvents: getFullDayEvents(day, data),
             }
           }),
         ]

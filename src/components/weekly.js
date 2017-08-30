@@ -126,10 +126,10 @@ class WeeklyCalendar extends React.Component {
     const weekEvents = this._computeWeekEvents()
     console.log(weekEvents)
     const props = {
+      hours,
       rowHeight,
       end: endWeek,
       start: startWeek,
-      hours,
       nextWeek: this._nextWeek,
       prevWeek: this._prevWeek,
       gotoToday: this._gotoToday,
@@ -150,7 +150,6 @@ class WeeklyCalendar extends React.Component {
         idx,
       })),
       columnProps: {
-        style: {position: 'relative', height: rowHeight * hours.length},
         innerRef: r => {
           if (typeof this.column === 'undefined') {
             this.column = r
@@ -158,19 +157,14 @@ class WeeklyCalendar extends React.Component {
           }
         },
       },
-      getWeekEventsContainerProps: (opt = {}) => ({
-        style: {
-          position: 'relative',
-          height: rowHeight * weekEvents.length,
-          ...opt.style,
-        },
+      weekEventsContainerProps: {
         innerRef: r => {
           if (typeof this.weekEventsContainer === 'undefined') {
             this.weekEventsContainer = r
             this.forceUpdate()
           }
         },
-      }),
+      },
       weekEvents,
       calendar: weeks.reduce((days, w) => {
         const day = addDays(w, startWeek)

@@ -11,12 +11,14 @@ import {
   DayLabel,
   Event,
   DateDisplayer,
+  NowLine,
 } from '../dummy'
 
 export default ({className, style, ...props}) =>
   <DailyCalendar startHour="PT6H" endHour="PT22H" showNow {...props}>
     {({
       calendar,
+      dayEvents,
       hours,
       rowHeight,
       nextDay,
@@ -26,6 +28,7 @@ export default ({className, style, ...props}) =>
       hourLabels,
       columnProps,
       showNowProps,
+      dayEventsContainerProps,
     }) =>
       <Div display="flex" flexDirection="column" {...{className, style}}>
         <Div display="flex">
@@ -35,7 +38,7 @@ export default ({className, style, ...props}) =>
           <DateDisplayer children={dateLabel} />
         </Div>
         <Container>
-          <Div paddingTop={rowHeight * 2}>
+          <Div paddingTop={rowHeight * (dayEvents.length + 1)}>
             {hourLabels.map(({label, idx}) =>
               <HourLabel
                 key={`hour_label_${idx}`}
@@ -45,32 +48,27 @@ export default ({className, style, ...props}) =>
               />
             )}
           </Div>
-          <CalendarContainer>
-            <Div width="100%" position="relative">
+          <CalendarContainer style={{flexDirection: 'column'}}>
+            <Div display="flex">
               <DayLabel children={calendar.label} style={{height: rowHeight}} />
-              <Div style={{display: 'flex', height: rowHeight}} />
-              <Div {...columnProps}>
-                {hours.map((h, idx) =>
-                  <Cell
-                    key={idx}
-                    idx={idx}
-                    style={{height: rowHeight}}
-                    children="-"
-                  />
-                )}
-                {showNowProps
-                  ? <Div
-                      title={showNowProps.title}
-                      style={{
-                        zIndex: 99,
-                        position: 'absolute',
-                        backgroundColor: '#12FE23',
-                        height: 2,
-                        ...showNowProps.style,
-                      }}
-                    />
-                  : null}
-                {calendar.events.map(props => <Event {...props} />)}
+            </Div>
+            <Div {...dayEventsContainerProps}>
+              {dayEvents.map(props => <Event {...props} />)}
+            </Div>
+            <Div display="flex">
+              <Div width="100%" position="relative">
+                <Div {...columnProps}>
+                  {hours.map((h, idx) =>
+                    <Cell key={idx} idx={idx} style={{height: rowHeight}} />
+                  )}
+                  {showNowProps
+                    ? <NowLine
+                        title={showNowProps.title}
+                        style={showNowProps.style}
+                      />
+                    : null}
+                  {calendar.events.map(props => <Event {...props} />)}
+                </Div>
               </Div>
             </Div>
           </CalendarContainer>

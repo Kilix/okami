@@ -76,10 +76,10 @@ class MonthlyCalendar extends React.Component {
     )
     const month = range(-numberOfDaysBeforeMonth, getDaysInMonth(startMonth))
     const props = {
+      weeks,
       rowHeight,
       end: endMonth,
       start: startMonth,
-      weeks,
       nextMonth: this._nextMonth,
       prevMonth: this._prevMonth,
       gotoToday: this._gotoToday,

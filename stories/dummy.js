@@ -85,3 +85,10 @@ export const DateDisplayer = glamorous.div({
   fontSize: 14,
   paddingLeft: 15,
 })
+
+export const NowLine = glamorous.div({
+  zIndex: 99,
+  position: 'absolute',
+  backgroundColor: '#12FE23',
+  height: 2,
+})

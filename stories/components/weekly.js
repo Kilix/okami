@@ -11,6 +11,7 @@ import {
   DayLabel,
   Event,
   DateDisplayer,
+  NowLine,
 } from '../dummy'
 
 export default ({className, style, ...props}) =>
@@ -28,7 +29,7 @@ export default ({className, style, ...props}) =>
       dayLabels,
       hourLabels,
       columnProps,
-      getWeekEventsContainerProps,
+      weekEventsContainerProps,
     }) =>
       <Div display="flex" flexDirection="column" {...{className, style}}>
         <Div display="flex">
@@ -55,7 +56,7 @@ export default ({className, style, ...props}) =>
                 <DayLabel style={{height: rowHeight}} children={label} />
               )}
             </Div>
-            <Div {...getWeekEventsContainerProps()}>
+            <Div {...weekEventsContainerProps}>
               {weekEvents.map(props => <Event {...props} />)}
             </Div>
             <Div display="flex">
@@ -66,23 +67,12 @@ export default ({className, style, ...props}) =>
                   position="relative">
                   <Div {...columnProps}>
                     {hours.map((h, idx) =>
-                      <Cell
-                        key={idx}
-                        idx={idx}
-                        style={{height: rowHeight}}
-                        children="-"
-                      />
+                      <Cell key={idx} idx={idx} style={{height: rowHeight}} />
                     )}
                     {day.showNowProps
-                      ? <Div
+                      ? <NowLine
                           title={day.showNowProps.title}
-                          style={{
-                            zIndex: 99,
-                            position: 'absolute',
-                            backgroundColor: '#12FE23',
-                            height: 2,
-                            ...day.showNowProps.style,
-                          }}
+                          style={day.showNowProps.style}
                         />
                       : null}
                     {day.events.map(props => <Event {...props} />)}

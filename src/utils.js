@@ -8,6 +8,8 @@ import isSameDay from 'date-fns/fp/isSameDay'
 import isAfter from 'date-fns/fp/isAfter'
 import isBefore from 'date-fns/fp/isBefore'
 import endOfWeek from 'date-fns/fp/endOfWeek'
+import startOfDay from 'date-fns/fp/startOfDay'
+import endOfDay from 'date-fns/fp/endOfDay'
 
 export const days = {
   sunday: 0,
@@ -166,6 +168,17 @@ export function getWeekEvents(startWeek, data) {
   const int = {
     start: startWeek,
     end: endOfWeek(startWeek),
+  }
+  return [
+    ...data.filter(e => e.allDay && isWithinInterval(int, e.start)),
+    ...data.filter(e => !e.allDay).filter(checkInWeek(int)),
+  ]
+}
+
+export function getDayEvents(day, data) {
+  const int = {
+    start: startOfDay(day),
+    end: endOfDay(day),
   }
   return [
     ...data.filter(e => e.allDay && isWithinInterval(int, e.start)),

@@ -10,6 +10,8 @@ import isBefore from 'date-fns/fp/isBefore'
 import endOfWeek from 'date-fns/fp/endOfWeek'
 import startOfDay from 'date-fns/fp/startOfDay'
 import endOfDay from 'date-fns/fp/endOfDay'
+import addDays from 'date-fns/fp/addDays'
+import isValid from 'date-fns/isValid'
 
 export const days = {
   sunday: 0,
@@ -149,7 +151,7 @@ export function computeNow(wrapper, startHour, endHour) {
 const checkBound = (day, int) => event =>
   (isWithinInterval(int, event.start) && isSameDay(event.end, day)) ||
   (isWithinInterval(int, event.end) && isSameDay(event.start, day))
-const checkInWeek = int => event =>
+const checkIn = int => event =>
   areIntervalsOverlapping(event, int) && !isSameDay(event.start, event.end)
 
 export function getTodayEvents(startHour, endHour, day, data) {
@@ -157,21 +159,22 @@ export function getTodayEvents(startHour, endHour, day, data) {
     start: setHours(asHours(startHour), day),
     end: setHours(asHours(endHour), day),
   })
-  return data.filter(e => !e.allDay).filter(check)
+  return data
+    .filter(e => !e.allDay || typeof e.allDay !== 'boolean')
+    .filter(check)
 }
-
-export function getFullDayEvents(day, data) {
-  return data.filter(e => e.allDay && isSameDay(day, e.start))
-}
-
-export function getWeekEvents(startWeek, data) {
+export function getWeekEvents(startingDay, showWeekend, startWeek, data) {
   const int = {
     start: startWeek,
-    end: endOfWeek(startWeek),
+    end: showWeekend
+      ? endOfWeek(startWeek, {startOfDay: startingDay})
+      : addDays(4, startWeek),
   }
   return [
-    ...data.filter(e => e.allDay && isWithinInterval(int, e.start)),
-    ...data.filter(e => !e.allDay).filter(checkInWeek(int)),
+    ...data.filter(e => e.allDay && isWithinInterval(int, e.allDay)),
+    ...data
+      .filter(e => e.allDay && typeof e.allDay === 'boolean')
+      .filter(checkIn(int)),
   ]
 }
 
@@ -181,7 +184,9 @@ export function getDayEvents(day, data) {
     end: endOfDay(day),
   }
   return [
-    ...data.filter(e => e.allDay && isWithinInterval(int, e.start)),
-    ...data.filter(e => !e.allDay).filter(checkInWeek(int)),
+    ...data.filter(e => e.allDay && isWithinInterval(int, e.allDay)),
+    ...data
+      .filter(e => e.allDay && typeof e.allDay === 'boolean')
+      .filter(checkIn(int)),
   ]
 }

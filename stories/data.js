@@ -1,5 +1,4 @@
 import addDays from 'date-fns/fp/addDays'
-import subDays from 'date-fns/fp/subDays'
 import setHours from 'date-fns/fp/setHours'
 import startOfHour from 'date-fns/startOfHour'
 
@@ -93,8 +92,7 @@ export default [
     accepted: true,
   },
   {
-    allDay: true,
-    start: startOfHour(setHours(0, tomorrow)),
+    allDay: startOfHour(setHours(0, tomorrow)),
     title: 'Bid',
     email: 'email@gmail.com',
     accepted: true,
@@ -108,24 +106,30 @@ export default [
     accepted: false,
   },
   {
-    allDay: true,
-    start: startOfHour(setHours(0, today)),
+    allDay: startOfHour(setHours(0, today)),
     title: 'formation JS',
     email: 'email@gmail.com',
     accepted: null,
   },
   {
-    allDay: true,
-    start: startOfHour(setHours(0, today)),
+    allDay: startOfHour(setHours(0, today)),
     title: 'formation Java',
     email: 'email@gmail.com',
     accepted: null,
   },
   {
-    allDay: false,
+    allDay: true,
     start: startOfHour(setHours(14, today)),
     end: startOfHour(setHours(20, addDays(3, today))),
     title: 'formation Docker',
+    email: 'email@gmail.com',
+    accepted: null,
+  },
+  {
+    allDay: false,
+    start: startOfHour(setHours(19, today)),
+    end: startOfHour(setHours(12, tomorrow)),
+    title: 'test chavauche',
     email: 'email@gmail.com',
     accepted: null,
   },

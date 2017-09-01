@@ -2,6 +2,7 @@ import React from 'react'
 import {Div} from 'glamorous'
 
 import WeeklyCalendar from '../../src/components/weekly'
+import DailyCalendar from '../../src/components/daily'
 
 import {
   Container,
@@ -14,23 +15,21 @@ import {
   NowLine,
 } from '../dummy'
 
-export default ({className, style, ...props}) =>
-  <WeeklyCalendar startHour="PT3H" endHour="PT22H" showNow {...props}>
+export default ({className, style, ...props}) => (
+  <WeeklyCalendar startHour="PT3H" endHour="PT22H" {...props}>
     {({
       calendar,
       weekEvents,
-      hours,
       rowHeight,
       nextWeek,
       prevWeek,
       gotoToday,
       toggleWeekend,
       dateLabel,
-      dayLabels,
-      hourLabels,
-      columnProps,
-      weekEventsContainerProps,
-    }) =>
+      DaysLabels,
+      HoursLabels,
+      getContainerProps,
+    }) => (
       <Div display="flex" flexDirection="column" {...{className, style}}>
         <Div display="flex">
           <button onClick={gotoToday}>Today</button>
@@ -40,47 +39,46 @@ export default ({className, style, ...props}) =>
           <DateDisplayer children={dateLabel} />
         </Div>
         <Container>
-          <Div paddingTop={rowHeight * (weekEvents.length + 1)}>
-            {hourLabels.map(({idx, label}) =>
-              <HourLabel
-                key={`hour_label_${idx}`}
-                idx={idx}
-                children={label}
-                style={{height: rowHeight}}
-              />
-            )}
-          </Div>
+          <HoursLabels
+            style={{paddingTop: rowHeight * (weekEvents.length + 1)}}
+            renderChild={props => <HourLabel style={{height: rowHeight}} {...props} />}
+          />
           <CalendarContainer style={{flexDirection: 'column'}}>
+            <DaysLabels
+              style={{display: 'flex'}}
+              renderChild={props => <DayLabel style={{height: rowHeight}} {...props} />}
+            />
+            <Div {...getContainerProps()}>{weekEvents.map(props => <Event {...props} />)}</Div>
             <Div display="flex">
-              {dayLabels.map(({idx, label}) =>
-                <DayLabel style={{height: rowHeight}} children={label} />
-              )}
-            </Div>
-            <Div {...weekEventsContainerProps}>
-              {weekEvents.map(props => <Event {...props} />)}
-            </Div>
-            <Div display="flex">
-              {calendar.map((day, idx) =>
-                <Div
-                  key={`day_${idx}`}
-                  width={`${100 / calendar.length}%`}
-                  position="relative">
-                  <Div {...columnProps}>
-                    {hours.map((h, idx) =>
-                      <Cell key={idx} idx={idx} style={{height: rowHeight}} />
-                    )}
-                    {day.showNowProps
-                      ? <NowLine
-                          title={day.showNowProps.title}
-                          style={day.showNowProps.style}
-                        />
-                      : null}
-                    {day.events.map(props => <Event {...props} />)}
-                  </Div>
-                </Div>
-              )}
+              {calendar.map(({day}, idx) => (
+                <DailyCalendar
+                  key={`daily_cal_${idx}`}
+                  startHour="PT3H"
+                  endHour="PT22H"
+                  showNow
+                  start={day}
+                >
+                  {({calendar, hours, columnProps, showNowProps}) => (
+                    <Div display="flex" flex={1}>
+                      <Div width="100%" position="relative">
+                        <Div {...columnProps} width="100%">
+                          {hours.map((h, idx) => (
+                            <Cell key={idx} idx={idx} style={{height: rowHeight}} />
+                          ))}
+                          {showNowProps ? (
+                            <NowLine title={showNowProps.title} style={showNowProps.style} />
+                          ) : null}
+                          {calendar.events.map(props => <Event {...props} />)}
+                        </Div>
+                      </Div>
+                    </Div>
+                  )}
+                </DailyCalendar>
+              ))}
             </Div>
           </CalendarContainer>
         </Container>
-      </Div>}
+      </Div>
+    )}
   </WeeklyCalendar>
+)

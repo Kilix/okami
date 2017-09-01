@@ -12,46 +12,38 @@ import Monthly from './components/monthly'
 import data from './data'
 
 storiesOf('Sync', module)
-  .add('Weekly', () =>
+  .add('Weekly', () => (
     <Calendar
       data={data}
       startingDay="monday"
       dateFormat="ddd DD/MM"
       hourFormat="HH"
-      locale={frLocale}>
+      locale={frLocale}
+    >
       <Weekly />
     </Calendar>
-  )
-  .add('Daily', () =>
+  ))
+  .add('Daily', () => (
     <Calendar
       data={data}
       startingDay="monday"
       dateFormat="ddd DD/MM"
       hourFormat="HH"
-      locale={frLocale}>
+      locale={frLocale}
+    >
       <Daily />
     </Calendar>
-  )
-  .add('Monthly', () =>
-    <Calendar
-      data={data}
-      startingDay="monday"
-      dateFormat="DD"
-      hourFormat="HH"
-      locale={frLocale}>
+  ))
+  .add('Monthly', () => (
+    <Calendar data={data} startingDay="monday" dateFormat="dddd" hourFormat="HH" locale={frLocale}>
       <Monthly />
     </Calendar>
-  )
-  .add('Multiple', () =>
-    <Calendar
-      data={data}
-      startingDay="monday"
-      dateFormat="DD"
-      hourFormat="HH"
-      locale={frLocale}>
+  ))
+  .add('Multiple', () => (
+    <Calendar data={data} startingDay="monday" dateFormat="DD" hourFormat="HH" locale={frLocale}>
       <Div display="flex" alignItems="stretch">
         <Monthly style={{flex: 2}} />
         <Daily style={{flex: 1}} />
       </Div>
     </Calendar>
-  )
+  ))

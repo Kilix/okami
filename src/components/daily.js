@@ -14,19 +14,15 @@ import isAfter from 'date-fns/fp/isAfter'
 import getDay from 'date-fns/getDay'
 
 import controller from '../controller'
-import {
-  debounce,
-  range,
-  placeEvents,
-  computeNow,
-  getTodayEvents,
-  getDayEvents,
-} from '../utils'
+import {debounce, range, placeEvents, computeNow, getTodayEvents, getDayEvents} from '../utils'
 
 class DailyCalendar extends React.Component {
   componentWillMount() {
     const {start} = this.props
     this.setState(() => ({currentDay: startOfDay(start)}))
+  }
+  componentWillReceiveProps(props) {
+    this.setState(() => ({currentDay: startOfDay(props.start)}))
   }
   resize = debounce(() => this.forceUpdate(), 300, true)
   componentDidMount() {
@@ -35,10 +31,8 @@ class DailyCalendar extends React.Component {
   componentWillUnmount() {
     window.removeEventListener('resize', this.resize)
   }
-  _nextDay = () =>
-    this.setState(old => ({currentDay: addDays(1, old.currentDay)}))
-  _prevDay = () =>
-    this.setState(old => ({currentDay: subDays(1, old.currentDay)}))
+  _nextDay = () => this.setState(old => ({currentDay: addDays(1, old.currentDay)}))
+  _prevDay = () => this.setState(old => ({currentDay: subDays(1, old.currentDay)}))
   _gotoToday = () => this.setState(() => ({currentDay: startOfDay(new Date())}))
 
   _computeEvents = day => {
@@ -50,6 +44,18 @@ class DailyCalendar extends React.Component {
     events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
     events = placeEvents(events, wrapper, rowHeight, startHour, endHour)
     return events
+  }
+  _simpleCompute = day => {
+    const {startHour, endHour, data} = this.props
+
+    let events = getTodayEvents(startHour, endHour, day, data)
+    events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
+    return events.map(e => {
+      return {
+        key: e.title,
+        event: e,
+      }
+    })
   }
   _computeNow = () => {
     if (!this.column) return {display: 'none'}
@@ -74,8 +80,7 @@ class DailyCalendar extends React.Component {
       }
     })
   }
-  _dateLabel = start =>
-    format({locale: this.props.locale}, 'DD MMM YYYY', start)
+  _dateLabel = start => format({locale: this.props.locale}, this.props.dateFormat, start)
   render() {
     const {
       startHour,
@@ -85,6 +90,7 @@ class DailyCalendar extends React.Component {
       rowHeight,
       children,
       showNow,
+      placeEvents,
     } = this.props
     const {currentDay} = this.state
     const hours = range(asHours(startHour), asHours(endHour))
@@ -99,10 +105,7 @@ class DailyCalendar extends React.Component {
       gotoToday: this._gotoToday,
       dateLabel: this._dateLabel(currentDay),
       hourLabels: hours.map((h, idx) => ({
-        label: compose(
-          format({locale: this.props.locale}, hourFormat),
-          addHours(h)
-        )(currentDay),
+        label: compose(format({locale: this.props.locale}, hourFormat), addHours(h))(currentDay),
         idx,
       })),
       columnProps: {
@@ -125,7 +128,7 @@ class DailyCalendar extends React.Component {
       calendar: {
         date: currentDay,
         label: format({locale: this.props.locale}, dateFormat, currentDay),
-        events: this._computeEvents(currentDay),
+        events: placeEvents ? this._computeEvents(currentDay) : this._simpleCompute(currentDay),
       },
       ...(showNow &&
       isSameDay(new Date(), currentDay) && {
@@ -145,9 +148,11 @@ DailyCalendar.defaultProps = {
   rowHeight: 30,
   start: new Date(),
   showNow: false,
+  placeEvents: true,
 }
 
 DailyCalendar.PropTypes = {
+  placeEvents: PropTypes.bool,
   startHour: PropTypes.string,
   endHour: PropTypes.string,
   rowHeight: PropTypes.number,

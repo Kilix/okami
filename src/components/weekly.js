@@ -6,25 +6,21 @@ import {asHours} from 'pomeranian-durations'
 
 import startOfWeek from 'date-fns/fp/startOfWeekWithOptions'
 import getMonth from 'date-fns/fp/getMonth'
+import getDay from 'date-fns/fp/getDay'
 import startOfDay from 'date-fns/fp/startOfDay'
 import subWeeks from 'date-fns/fp/subWeeks'
 import addWeeks from 'date-fns/fp/addWeeks'
 import addDays from 'date-fns/fp/addDays'
-import addHours from 'date-fns/fp/addHours'
 import format from 'date-fns/fp/formatWithOptions'
-import isSameDay from 'date-fns/fp/isSameDay'
+import endOfWeek from 'date-fns/endOfWeek'
 import isAfter from 'date-fns/fp/isAfter'
-import getDay from 'date-fns/getDay'
+import isBefore from 'date-fns/fp/isBefore'
+import differenceInDays from 'date-fns/differenceInDays'
 
 import controller from '../controller'
-import {
-  debounce,
-  range,
-  placeEvents,
-  computeNow,
-  getTodayEvents,
-  getWeekEvents,
-} from '../utils'
+import HoursLabels from './hoursLabels'
+import DaysLabels from './daysLabels'
+import {debounce, range, getWeekEvents} from '../utils'
 
 class WeeklyCalendar extends React.Component {
   componentWillMount() {
@@ -32,6 +28,11 @@ class WeeklyCalendar extends React.Component {
     this.setState(() => ({
       startWeek: startOfWeek({weekStartsOn: startingDay}, start),
       showWeekend: this.props.showWeekend,
+    }))
+  }
+  componentWillReceiveProps(props) {
+    this.setState(() => ({
+      startWeek: startOfWeek({weekStartsOn: props.startingDay}, props.start),
     }))
   }
   resize = debounce(() => this.forceUpdate(), 300, true)
@@ -58,47 +59,51 @@ class WeeklyCalendar extends React.Component {
     }))
   _gotoToday = () =>
     this.setState(() => ({
-      startWeek: startOfWeek(
-        {weekStartsOn: this.props.startingDay},
-        new Date()
-      ),
+      startWeek: startOfWeek({weekStartsOn: this.props.startingDay}, new Date()),
     }))
-  _computeEvents = day => {
-    if (!this.column) return []
-    const {startHour, endHour, data, rowHeight} = this.props
-    const wrapper = this.column.getBoundingClientRect()
-    let events = getTodayEvents(startHour, endHour, day, data)
-
-    events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
-    events = placeEvents(events, wrapper, rowHeight, startHour, endHour)
-
-    return events
-  }
   _computeWeekEvents = () => {
-    if (!this.weekEventsContainer) return []
-    const wrapper = this.weekEventsContainer.getBoundingClientRect()
-    const {data, rowHeight} = this.props
+    if (!this.containerProps) return {events: [], counters: [0, 0, 0, 0, 0, 0, 0], max: 0}
+    const wrapper = this.containerProps.getBoundingClientRect()
+    const {data, rowHeight, startingDay} = this.props
     const {startWeek, showWeekend} = this.state
-    return getWeekEvents(startWeek, data).map(e => {
-      const nbDays = getDay(e.end) - getDay(e.start)
-      const diffDay = getDay(e.start) - getDay(startWeek)
+    const endWeek = showWeekend
+      ? endOfWeek(startWeek, {weekStartsOn: startingDay})
+      : addDays(4, startWeek)
+    let events = getWeekEvents(startingDay, showWeekend, startWeek, data)
+    events = events.sort((a, b) => {
+      if (typeof a.allDay !== 'boolean' && typeof b.allDay !== 'boolean') return 0
+      else if (typeof a.allDay !== 'boolean' && typeof b.allDay === 'boolean') return 1
+      return -1
+    })
+    const counters = [0, 0, 0, 0, 0, 0, 0]
+    const weekEvents = events.map(e => {
+      const s = typeof e.allDay === 'boolean' ? e.start : e.allDay
+      const ss = isBefore(startWeek, s) ? startWeek : s
+      const end = isAfter(endWeek, e.end) ? endWeek : e.end
+      const nbDays = e.end ? differenceInDays(end, ss) + 1 : 1
+      const diffDay = differenceInDays(ss, startWeek)
       const w = wrapper.width / (showWeekend ? 7 : 5)
+      const t = counters[getDay(ss)] * rowHeight
+      for (let i = 0; i < nbDays; i++) {
+        counters[getDay(ss) + i] = counters[getDay(ss) + i] + 1
+      }
       return {
         key: e.title,
         event: e,
         style: {
+          position: 'absolute',
+          top: t,
           left: diffDay * w,
-          width: e.allDay ? w : nbDays * w,
+          width: !e.allDay ? w : nbDays * w,
           height: rowHeight,
         },
       }
     })
-  }
-  _computeNow = () => {
-    if (!this.column) return {display: 'none'}
-    const {startHour, endHour} = this.props
-    const wrapper = this.column.getBoundingClientRect()
-    return computeNow(wrapper, startHour, endHour)
+    return {
+      events: weekEvents,
+      counters,
+      max: counters.reduce((a, b) => (a < b ? b : a), 0),
+    }
   }
 
   _dateLabel = (start, end) => {
@@ -110,15 +115,7 @@ class WeeklyCalendar extends React.Component {
     return `${s} - ${e}`
   }
   render() {
-    const {
-      startHour,
-      endHour,
-      dateFormat,
-      hourFormat,
-      rowHeight,
-      showNow,
-      children,
-    } = this.props
+    const {startHour, endHour, rowHeight, children} = this.props
     const {startWeek, showWeekend} = this.state
     const weeks = showWeekend ? range(7) : range(5)
     const hours = range(asHours(startHour), asHours(endHour))
@@ -126,7 +123,6 @@ class WeeklyCalendar extends React.Component {
     const weekEvents = this._computeWeekEvents()
     console.log(weekEvents)
     const props = {
-      hours,
       rowHeight,
       end: endWeek,
       start: startWeek,
@@ -135,55 +131,26 @@ class WeeklyCalendar extends React.Component {
       gotoToday: this._gotoToday,
       toggleWeekend: this._toggleWeekend,
       dateLabel: this._dateLabel(startWeek, endWeek),
-      dayLabels: weeks.map((d, idx) => ({
-        label: compose(
-          format({locale: this.props.locale}, dateFormat),
-          addDays(d)
-        )(startWeek),
-        idx,
-      })),
-      hourLabels: hours.map((h, idx) => ({
-        label: compose(
-          format({locale: this.props.locale}, hourFormat),
-          addHours(h)
-        )(startWeek),
-        idx,
-      })),
-      columnProps: {
+      DaysLabels: props => (
+        <DaysLabels rowHeight={rowHeight} weeks={weeks} start={startWeek} {...props} />
+      ),
+      HoursLabels: props => (
+        <HoursLabels rowHeight={rowHeight} hours={hours} start={startWeek} {...props} />
+      ),
+      getContainerProps: ({style = {}} = {}) => ({
+        style: {position: 'relative', height: rowHeight * weekEvents.max, ...style},
         innerRef: r => {
-          if (typeof this.column === 'undefined') {
-            this.column = r
+          if (typeof this.containerProps === 'undefined') {
+            this.containerProps = r
             this.forceUpdate()
           }
         },
-      },
-      weekEventsContainerProps: {
-        innerRef: r => {
-          if (typeof this.weekEventsContainer === 'undefined') {
-            this.weekEventsContainer = r
-            this.forceUpdate()
-          }
-        },
-      },
-      weekEvents,
+      }),
+      weekEvents: weekEvents.events,
       calendar: weeks.reduce((days, w) => {
         const day = addDays(w, startWeek)
-        return [
-          ...days,
-          {
-            date: day,
-            label: format({locale: this.props.locale}, dateFormat, day),
-            // fullDay: this._computeFullDayEvents(day),
-            events: this._computeEvents(day),
-            ...(showNow &&
-            isSameDay(day, new Date()) && {
-              showNowProps: {
-                style: this._computeNow(),
-                title: format({locale: this.props.locale}, 'hh:mm', new Date()),
-              },
-            }),
-          },
-        ]
+        const c = getDay(day)
+        return [...days, {day, offset: weekEvents.counters[c]}]
       }, []),
     }
 
@@ -211,11 +178,5 @@ WeeklyCalendar.PropTypes = {
   showNow: PropTypes.bool,
 }
 
-const enhance = controller([
-  'data',
-  'locale',
-  'startingDay',
-  'dateFormat',
-  'hourFormat',
-])
+const enhance = controller(['data', 'locale', 'startingDay'])
 export default enhance(WeeklyCalendar)

@@ -2,30 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {compose} from 'recompose'
 
-import {asHours} from 'pomeranian-durations'
-
 import startOfMonth from 'date-fns/fp/startOfMonthWithOptions'
 import startOfWeek from 'date-fns/fp/startOfWeekWithOptions'
-import differenceInCalendarDays from 'date-fns/fp/differenceInCalendarDays'
-import getDaysInMonth from 'date-fns/getDaysInMonth'
 import startOfDay from 'date-fns/fp/startOfDay'
 import subMonths from 'date-fns/fp/subMonths'
 import addMonths from 'date-fns/fp/addMonths'
 import addDays from 'date-fns/fp/addDays'
-import addHours from 'date-fns/fp/addHours'
+import addWeeks from 'date-fns/fp/addWeeks'
 import format from 'date-fns/fp/formatWithOptions'
-import isSameDay from 'date-fns/fp/isSameDay'
-import isAfter from 'date-fns/fp/isAfter'
-import getDay from 'date-fns/getDay'
+import getMonth from 'date-fns/getMonth'
 
 import controller from '../controller'
-import {
-  debounce,
-  range,
-  shiftLeft,
-  getTodayEvents,
-  getFullDayEvents,
-} from '../utils'
+import DaysLabels from './daysLabels'
+import {debounce, range} from '../utils'
 
 class MonthlyCalendar extends React.Component {
   componentWillMount() {
@@ -51,30 +40,23 @@ class MonthlyCalendar extends React.Component {
     }))
   _gotoToday = () =>
     this.setState(() => ({
-      startMonth: startOfMonth(
-        {weekStartsOn: this.props.startingDay},
-        new Date()
-      ),
+      startMonth: startOfMonth({weekStartsOn: this.props.startingDay}, new Date()),
     }))
-  _computeEvents = day => {
-    const {data} = this.props
-    const events = getTodayEvents('PT0H', 'PT24H', day, data)
-    events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
-
-    return events.map(e => ({event: e, key: e.title}))
-  }
-  _dateLabel = startMonth =>
-    format({locale: this.props.locale}, 'MMMM', startMonth)
+  _dateLabel = startMonth => format({locale: this.props.locale}, 'MMMM', startMonth)
   render() {
-    const {dateFormat, rowHeight, startingDay, children, data} = this.props
+    const {rowHeight, startingDay, children} = this.props
     const {startMonth} = this.state
     const weeks = range(7)
     const endMonth = compose(addMonths(1), startOfDay)(startMonth)
-    const numberOfDaysBeforeMonth = differenceInCalendarDays(
-      startOfWeek({weekStartsOn: startingDay}, startMonth),
-      startMonth
-    )
-    const month = range(-numberOfDaysBeforeMonth, getDaysInMonth(startMonth))
+    const startWeek = startOfWeek({weekStartsOn: startingDay}, startMonth)
+    let s = startWeek
+    let month = [s]
+    const monthNb = getMonth(startMonth)
+    while (true) {
+      s = addWeeks(1, s)
+      if (getMonth(s) !== monthNb) break
+      month.push(s)
+    }
     const props = {
       weeks,
       rowHeight,
@@ -84,37 +66,10 @@ class MonthlyCalendar extends React.Component {
       prevMonth: this._prevMonth,
       gotoToday: this._gotoToday,
       dateLabel: this._dateLabel(startMonth),
-      dayLabels: weeks.map((d, idx) => ({
-        key: `label_day_${idx}`,
-        label: compose(
-          format({locale: this.props.locale}, 'dddd'),
-          addDays(d),
-          startOfWeek({weekStartsOn: startingDay})
-        )(new Date()),
-        idx,
-      })),
-      columnProps: {
-        innerRef: r => {
-          if (typeof this.column === 'undefined') {
-            this.column = r
-            this.forceUpdate()
-          }
-        },
-      },
-      calendar: shiftLeft(startingDay, weeks).reduce((days, w) => {
-        return [
-          ...days,
-          month.filter(m => getDay(addDays(m, startMonth)) === w).map(m => {
-            const day = addDays(m, startMonth)
-            return {
-              date: day,
-              label: format({locale: this.props.locale}, dateFormat, day),
-              events: this._computeEvents(day),
-              fullDayEvents: getFullDayEvents(day, data),
-            }
-          }),
-        ]
-      }, []),
+      DaysLabels: props => (
+        <DaysLabels rowHeight={rowHeight} weeks={weeks} start={startWeek} {...props} />
+      ),
+      calendar: month,
     }
 
     return children(props)
@@ -133,11 +88,5 @@ MonthlyCalendar.PropTypes = {
   locale: PropTypes.object,
 }
 
-const enhance = controller([
-  'data',
-  'locale',
-  'startingDay',
-  'dateFormat',
-  'hourFormat',
-])
+const enhance = controller(['data', 'locale', 'startingDay', 'dateFormat', 'hourFormat'])
 export default enhance(MonthlyCalendar)

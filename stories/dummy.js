@@ -71,15 +71,17 @@ const EventDiv = glamorous.div(
     backgroundColor: event.color ? event.color : '#232323',
   })
 )
-export const Event = ({event, style}) =>
+export const Event = ({event, style}) => (
   <EventDiv style={style} event={event} title={event.title}>
     {event.title}
   </EventDiv>
+)
 
-export const NoEvent = props =>
+export const NoEvent = props => (
   <Div flex={1} alignSelf="stretch" textAlign="center" lineHeight="30px">
     -
   </Div>
+)
 
 export const DateDisplayer = glamorous.div({
   fontSize: 14,

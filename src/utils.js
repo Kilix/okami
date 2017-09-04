@@ -13,15 +13,6 @@ import endOfDay from 'date-fns/fp/endOfDay'
 import addDays from 'date-fns/fp/addDays'
 import isValid from 'date-fns/isValid'
 
-export const days = {
-  sunday: 0,
-  monday: 1,
-  tuesday: 2,
-  wednesday: 3,
-  thursday: 4,
-  friday: 5,
-  saturday: 6,
-}
 export function shiftLeft(n, arr) {
   return arr.slice(n, arr.length).concat(arr.slice(0, n))
 }

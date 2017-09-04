@@ -56,6 +56,7 @@ class WeeklyCalendar extends React.Component {
       startHour: this.props.startHour,
       endHour: this.props.endHour,
       startingDay: this.props.startingDay,
+      rowHeight: this.props.rowHeight,
     }
   }
   resize = debounce(() => this.forceUpdate(), 300, true)
@@ -183,7 +184,8 @@ WeeklyCalendar.childContextTypes = {
   type: PropTypes.string,
   startHour: PropTypes.string,
   endHour: PropTypes.string,
-  startingDay: PropTypes.string,
+  startingDay: PropTypes.number,
+  rowHeight: PropTypes.number,
 }
 
 WeeklyCalendar.defaultProps = {
@@ -208,5 +210,13 @@ WeeklyCalendar.PropTypes = {
   type: PropTypes.string,
 }
 
-const enhance = controller(['data', 'locale', 'startingDay', 'type', 'startHour', 'endHour'])
+const enhance = controller([
+  'data',
+  'locale',
+  'startingDay',
+  'type',
+  'startHour',
+  'endHour',
+  'rowHeight',
+])
 export default enhance(WeeklyCalendar)

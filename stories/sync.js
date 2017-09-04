@@ -10,6 +10,13 @@ import Daily from './components/daily'
 import Monthly from './components/monthly'
 
 import data from './data'
+import data2 from './data2'
+
+const css = document.createElement('style')
+css.innerHTML = `
+* { box-sizing: border-box; }
+`
+document.body.appendChild(css)
 
 storiesOf('Sync', module)
   .add('Weekly', () => (
@@ -37,7 +44,14 @@ storiesOf('Sync', module)
     </Calendar>
   ))
   .add('Monthly', () => (
-    <Calendar data={data} startingDay="monday" dateFormat="dddd" hourFormat="HH" locale={frLocale}>
+    <Calendar
+      data={data2}
+      startingDay="monday"
+      dateFormat="dddd"
+      hourFormat="HH"
+      locale={frLocale}
+      rowHeight={20}
+    >
       <Monthly />
     </Calendar>
   ))

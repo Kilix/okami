@@ -2,7 +2,15 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import enLocale from 'date-fns/locale/en-US'
 
-import {days} from './utils'
+const days = {
+  sunday: 0,
+  monday: 1,
+  tuesday: 2,
+  wednesday: 3,
+  thursday: 4,
+  friday: 5,
+  saturday: 6,
+}
 
 class CalendarSync extends Component {
   constructor(props) {
@@ -13,7 +21,7 @@ class CalendarSync extends Component {
 
   getChildContext() {
     const {startingDay} = this.state
-    const {dateFormat, hourFormat, locale, data, startHour, endHour} = this.props
+    const {dateFormat, hourFormat, locale, data, startHour, endHour, rowHeight} = this.props
     return {
       startingDay,
       dateFormat,
@@ -21,6 +29,7 @@ class CalendarSync extends Component {
       locale,
       data,
       startHour,
+      rowHeight,
       endHour,
     }
   }
@@ -38,6 +47,7 @@ CalendarSync.defaultProps = {
   hourFormat: 'HH:mm',
   startingDay: 'sunday',
   locale: enLocale,
+  rowHeight: 30,
   data: [],
 }
 
@@ -48,6 +58,7 @@ CalendarSync.childContextTypes = {
   locale: PropTypes.object,
   data: PropTypes.array,
   startHour: PropTypes.string,
+  rowHeight: PropTypes.number,
   endHour: PropTypes.string,
 }
 

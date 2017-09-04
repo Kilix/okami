@@ -29,6 +29,7 @@ class MonthlyCalendar extends React.Component {
       startingDay: this.props.startingDay,
       dateFormat: this.props.dateFormat,
       hourFormat: this.props.hourFormat,
+      rowHeight: this.props.rowHeight,
     }
   }
   _nextMonth = () => this.setState(old => ({startMonth: addMonths(1, old.startMonth)}))
@@ -77,7 +78,8 @@ MonthlyCalendar.childContextTypes = {
   type: PropTypes.string,
   dateFormat: PropTypes.string,
   hourFormat: PropTypes.string,
-  startingDay: PropTypes.string,
+  startingDay: PropTypes.number,
+  rowHeight: PropTypes.number,
 }
 MonthlyCalendar.defaultProps = {
   rowHeight: 30,
@@ -93,5 +95,13 @@ MonthlyCalendar.PropTypes = {
   type: PropTypes.string,
 }
 
-const enhance = controller(['data', 'locale', 'startingDay', 'dateFormat', 'hourFormat', 'type'])
+const enhance = controller([
+  'data',
+  'locale',
+  'startingDay',
+  'dateFormat',
+  'hourFormat',
+  'type',
+  'rowHeight',
+])
 export default enhance(MonthlyCalendar)

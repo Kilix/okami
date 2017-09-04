@@ -10,16 +10,12 @@ import {DayLabel, DateDisplayer, Event} from '../dummy'
 const MonthCell = glamorous.div(
   {
     flex: 1,
-    backgroundColor: '#FAFAFA',
-    padding: 8,
-    boxSizing: 'border-box',
-    border: '1px solid #FFF',
+    position: 'relative',
     overflow: 'hidden',
+    backgroundColor: '#FFF',
+    boxShadow: 'inset 0 0 0 1px #EDEDED',
   },
-  props => ({
-    height: props.h,
-    opacity: !props.currentMonth ? 0.5 : 1,
-  })
+  props => ({height: props.h})
 )
 
 export default ({className, style, ...props}) => (
@@ -53,7 +49,7 @@ export default ({className, style, ...props}) => (
           />
           <Div display="flex" flexDirection="column">
             {calendar.map((startWeek, idx) => (
-              <WeeklyCalendar key={`weekly_${idx}`} start={startWeek} rowHeight={20}>
+              <WeeklyCalendar key={`weekly_${idx}`} start={startWeek}>
                 {({calendar: weekly, weekEvents, getContainerProps}) => (
                   <Div position="relative" width="100%">
                     <Div
@@ -67,19 +63,20 @@ export default ({className, style, ...props}) => (
                     </Div>
                     <Div display="flex">
                       {weekly.map(({day, offset}, idx) => (
-                        <DailyCalendar
-                          key={`daily_cal_${idx}`}
-                          start={day}
-                          dateFormat="DD"
-                          rowHeight={20}
-                        >
+                        <DailyCalendar key={`daily_cal_${idx}`} start={day} dateFormat="DD">
                           {({calendar: daily, start: currentDay, dateLabel}) => (
-                            <MonthCell
-                              h={250}
-                              currentMonth={getMonth(currentMonth) === getMonth(currentDay)}
-                            >
-                              <Div>{dateLabel}</Div>
-                              {daily.events.map((props, idx) => <Event {...props} />)}
+                            <MonthCell h={250}>
+                              <Div
+                                position="absolute"
+                                top={4}
+                                left={4}
+                                opacity={getMonth(currentMonth) === getMonth(currentDay) ? 1 : 0.3}
+                              >
+                                {dateLabel}
+                              </Div>
+                              <Div paddingTop={rowHeight}>
+                                {daily.events.map((props, idx) => <Event {...props} />)}
+                              </Div>
                             </MonthCell>
                           )}
                         </DailyCalendar>

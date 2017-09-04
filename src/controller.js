@@ -12,6 +12,7 @@ const defaultContext = [
   'endHour',
   'offset',
   'type',
+  'rowHeight',
 ]
 export default (p = defaultContext) => {
   const pp = p.reduce((acc, val) => ({...acc, [val]: PropTypes.any}), {})
@@ -27,6 +28,7 @@ export default (p = defaultContext) => {
         data: PropTypes.array,
         offset: PropTypes.array,
         type: PropTypes.string,
+        rowHeight: PropTypes.number,
       }
       render() {
         const ppa = Object.keys(this.context)

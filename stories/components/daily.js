@@ -28,7 +28,6 @@ export default ({className, style, ...props}) => (
       hourLabels,
       columnProps,
       showNowProps,
-      dayEventsContainerProps,
     }) => (
       <Div display="flex" flexDirection="column" {...{className, style}}>
         <Div display="flex">
@@ -52,7 +51,7 @@ export default ({className, style, ...props}) => (
             <Div display="flex">
               <DayLabel children={calendar.label} style={{height: rowHeight}} />
             </Div>
-            <Div {...dayEventsContainerProps}>{dayEvents.map(props => <Event {...props} />)}</Div>
+            <Div>{dayEvents.map(props => <Event {...props} />)}</Div>
             <Div display="flex">
               <Div width="100%" position="relative">
                 <Div {...columnProps}>

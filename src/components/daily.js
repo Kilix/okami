@@ -55,7 +55,7 @@ class DailyCalendar extends React.Component {
   _simpleCompute = day => {
     const {startHour, endHour, data, offset, rowHeight} = this.props
     const d = getDay(this.state.currentDay)
-    const o = offset[d] * rowHeight + 3
+    const o = offset[d] * rowHeight
 
     let events = getTodayEvents(startHour, endHour, day, data)
     events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
@@ -78,24 +78,17 @@ class DailyCalendar extends React.Component {
     return computeNow(wrapper, startHour, endHour)
   }
   _computeDayEvents = () => {
-    if (this.dayEventsContainer) {
-      const wrapper = this.dayEventsContainer.getBoundingClientRect()
-      const {data, rowHeight} = this.props
-      const {currentDay} = this.state
-      this.setState(() => ({
-        dayEvents: getDayEvents(currentDay, data).map(e => {
-          return {
-            key: e.title,
-            event: e,
-            style: {
-              left: 0,
-              width: wrapper.width,
-              height: rowHeight,
-            },
-          }
-        }),
-      }))
-    }
+    const {data, rowHeight} = this.props
+    const {currentDay} = this.state
+    this.setState(() => ({
+      dayEvents: getDayEvents(currentDay, data).map(e => {
+        return {
+          key: e.title,
+          event: e,
+          style: {height: rowHeight},
+        }
+      }),
+    }))
   }
   _dateLabel = start => format({locale: this.props.locale}, this.props.dateFormat, start)
   render() {
@@ -134,14 +127,6 @@ class DailyCalendar extends React.Component {
         innerRef: r => {
           if (typeof this.column === 'undefined') {
             this.column = r
-            this.forceUpdate()
-          }
-        },
-      },
-      dayEventsContainerProps: {
-        innerRef: r => {
-          if (typeof this.dayEventsContainer === 'undefined') {
-            this.dayEventsContainer = r
             this.forceUpdate()
           }
         },
@@ -188,5 +173,6 @@ const enhance = controller([
   'type',
   'startHour',
   'endHour',
+  'rowHeight',
 ])
 export default enhance(DailyCalendar)

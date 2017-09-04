@@ -76,10 +76,25 @@ export const Event = ({event, style}) => (
   </EventDiv>
 )
 
-export const NoEvent = props => (
-  <Div flex={1} alignSelf="stretch" textAlign="center" lineHeight="30px">
-    -
-  </Div>
+const MEventDiv = glamorous.div({
+  zIndex: 9,
+  poisiton: 'relative',
+  display: 'flex',
+  flexDirecton: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  fontSize: 12,
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  cursor: 'pointer',
+  padding: '0 5px',
+})
+
+export const MEvent = ({event, style}) => (
+  <MEventDiv style={style} event={event} title={event.title}>
+    {event.title}
+  </MEventDiv>
 )
 
 export const DateDisplayer = glamorous.div({

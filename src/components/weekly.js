@@ -16,6 +16,7 @@ import endOfWeek from 'date-fns/endOfWeek'
 import isAfter from 'date-fns/fp/isAfter'
 import isBefore from 'date-fns/fp/isBefore'
 import differenceInDays from 'date-fns/differenceInDays'
+import isWithinInterval from 'date-fns/isWithinInterval'
 
 import controller from '../controller'
 import HoursLabels from './hoursLabels'
@@ -91,9 +92,11 @@ class WeeklyCalendar extends React.Component {
         : addDays(4, startWeek)
       let events = getWeekEvents(startingDay, showWeekend, startWeek, data)
       events = events.sort((a, b) => {
-        if (typeof a.allDay !== 'boolean' && typeof b.allDay !== 'boolean') return 0
-        else if (typeof a.allDay !== 'boolean' && typeof b.allDay === 'boolean') return 1
-        return -1
+        const anbDays = a.end ? differenceInDays(a.end, a.start) + 1 : 1
+        const bnbDays = b.end ? differenceInDays(b.end, b.start) + 1 : 1
+        if (anbDays > bnbDays) return -1
+        else if (anbDays < bnbDays) return 1
+        else return 0
       })
       const counters = [0, 0, 0, 0, 0, 0, 0]
       const weekEvents = events.map(e => {
@@ -104,8 +107,10 @@ class WeeklyCalendar extends React.Component {
         const diffDay = differenceInDays(ss, startWeek)
         const w = wrapper.width / (showWeekend ? 7 : 5)
         const t = counters[getDay(ss)] * rowHeight
+
         for (let i = 0; i < nbDays; i++) {
-          counters[getDay(ss) + i] = counters[getDay(ss) + i] + 1
+          const q = getDay(ss) + i > 6 ? 0 : getDay(ss) + i
+          counters[q] = counters[q] + 1
         }
         return {
           key: e.title,

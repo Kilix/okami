@@ -8,6 +8,8 @@ import Calendar from '../src/'
 import Weekly from './components/weekly'
 import Daily from './components/daily'
 import Monthly from './components/monthly'
+import MonthlySync from './components/syncMonth'
+import DailySync from './components/syncDaily'
 
 import data from './data'
 import data2 from './data2'
@@ -19,17 +21,6 @@ css.innerHTML = `
 document.body.appendChild(css)
 
 storiesOf('Sync', module)
-  .add('Weekly', () => (
-    <Calendar
-      data={data}
-      startingDay="monday"
-      dateFormat="ddd DD/MM"
-      hourFormat="HH"
-      locale={frLocale}
-    >
-      <Weekly />
-    </Calendar>
-  ))
   .add('Daily', () => (
     <Calendar
       data={data}
@@ -41,6 +32,17 @@ storiesOf('Sync', module)
       locale={frLocale}
     >
       <Daily />
+    </Calendar>
+  ))
+  .add('Weekly', () => (
+    <Calendar
+      data={data}
+      startingDay="monday"
+      dateFormat="ddd DD/MM"
+      hourFormat="HH"
+      locale={frLocale}
+    >
+      <Weekly />
     </Calendar>
   ))
   .add('Monthly', () => (
@@ -55,11 +57,26 @@ storiesOf('Sync', module)
       <Monthly />
     </Calendar>
   ))
-  .add('Multiple', () => (
-    <Calendar data={data} startingDay="monday" dateFormat="DD" hourFormat="HH" locale={frLocale}>
-      <Div display="flex" alignItems="stretch">
-        <Monthly style={{flex: 2}} />
-        <Daily style={{flex: 1}} />
-      </Div>
-    </Calendar>
-  ))
+  .add('Multiple Sync', () => {
+    class Sync extends React.Component {
+      state = {s: new Date()}
+      _setDate = date => this.setState(() => ({s: date}))
+      render() {
+        return (
+          <Calendar
+            data={data2}
+            startingDay="monday"
+            dateFormat="DD"
+            hourFormat="HH"
+            locale={frLocale}
+          >
+            <Div display="flex" alignItems="stretch">
+              <MonthlySync style={{flex: 2}} onClick={this._setDate} />
+              <DailySync start={this.state.s} style={{flex: 1}} />
+            </Div>
+          </Calendar>
+        )
+      }
+    }
+    return <Sync />
+  })

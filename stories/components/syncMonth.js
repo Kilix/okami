@@ -18,7 +18,7 @@ const MonthCell = glamorous.div(
   props => ({height: props.h})
 )
 
-export default ({className, style, ...props}) => (
+export default ({className, style, onClick, ...props}) => (
   <MonthlyCalendar {...props}>
     {({
       calendar,
@@ -65,7 +65,7 @@ export default ({className, style, ...props}) => (
                       {weekly.map(({day, offset}, idx) => (
                         <DailyCalendar key={`daily_cal_${idx}`} start={day} dateFormat="DD">
                           {({calendar: daily, start: currentDay, dateLabel}) => (
-                            <MonthCell h={250}>
+                            <MonthCell h={159} onClick={() => onClick(currentDay)}>
                               <Div
                                 position="absolute"
                                 top={4}

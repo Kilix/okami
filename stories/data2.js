@@ -1,3 +1,10 @@
+import addDays from 'date-fns/fp/addDays'
+import setHours from 'date-fns/fp/setHours'
+import startOfHour from 'date-fns/startOfHour'
+
+const today = new Date()
+const tomorrow = addDays(1, today)
+
 export default [
   {
     id: 1,
@@ -74,5 +81,132 @@ export default [
     title: 'porttitor',
     allDay: '2017-09-07T11:25:03Z',
     color: '#18b417',
+  },
+  {
+    allDay: false,
+    start: startOfHour(setHours(1, tomorrow)),
+    end: startOfHour(setHours(5, tomorrow)),
+    title: 'Before',
+    email: 'email@gmail.com',
+    accepted: true,
+    color: '#1234AE',
+  },
+  {
+    allDay: false,
+    start: startOfHour(setHours(20, tomorrow)),
+    end: startOfHour(setHours(23, tomorrow)),
+    title: 'After',
+    email: 'email@gmail.com',
+    accepted: true,
+    color: '#1234AE',
+  },
+  {
+    allDay: false,
+    start: startOfHour(setHours(10, tomorrow)),
+    end: startOfHour(setHours(13, tomorrow)),
+    title: 'CM JS',
+    email: 'email@gmail.com',
+    accepted: true,
+    color: '#AFED23',
+  },
+  {
+    allDay: false,
+    start: startOfHour(setHours(10, today)),
+    end: startOfHour(setHours(13, today)),
+    title: 'CM Feel Good',
+    email: 'email@gmail.com',
+    accepted: true,
+    color: '#AFED23',
+  },
+  {
+    allDay: false,
+    start: startOfHour(setHours(9, today)),
+    end: startOfHour(setHours(11, today)),
+    title: 'CM Java',
+    email: 'email@gmail.com',
+    accepted: true,
+    color: '#AFED23',
+  },
+  {
+    allDay: false,
+    start: startOfHour(setHours(14, tomorrow)),
+    end: startOfHour(setHours(16, tomorrow)),
+    title: 'Test',
+    email: 'email@gmail.com',
+    accepted: true,
+  },
+  {
+    allDay: false,
+    start: startOfHour(setHours(14, tomorrow)),
+    end: startOfHour(setHours(15, tomorrow)),
+    title: 'Test 2',
+    email: 'email@gmail.com',
+    accepted: true,
+  },
+  {
+    allDay: false,
+    start: startOfHour(setHours(17, tomorrow)),
+    end: startOfHour(setHours(19, tomorrow)),
+    title: 'Test 3',
+    email: 'email@gmail.com',
+    accepted: true,
+  },
+  {
+    allDay: false,
+    start: startOfHour(setHours(13, tomorrow)),
+    end: startOfHour(setHours(20, tomorrow)),
+    title: 'Test 4',
+    email: 'email@gmail.com',
+    accepted: true,
+  },
+  {
+    allDay: false,
+    start: startOfHour(setHours(9, tomorrow)),
+    end: startOfHour(setHours(11, tomorrow)),
+    title: 'Test 5',
+    email: 'email@gmail.com',
+    accepted: true,
+  },
+  {
+    allDay: startOfHour(setHours(0, tomorrow)),
+    title: 'Bid',
+    email: 'email@gmail.com',
+    accepted: true,
+  },
+  {
+    allDay: false,
+    start: startOfHour(setHours(14, today)),
+    end: startOfHour(setHours(20, today)),
+    title: 'Gouter',
+    email: 'email@gmail.com',
+    accepted: false,
+  },
+  {
+    allDay: startOfHour(setHours(0, today)),
+    title: 'formation JS',
+    email: 'email@gmail.com',
+    accepted: null,
+  },
+  {
+    allDay: startOfHour(setHours(0, today)),
+    title: 'formation Java',
+    email: 'email@gmail.com',
+    accepted: null,
+  },
+  {
+    allDay: true,
+    start: startOfHour(setHours(14, today)),
+    end: startOfHour(setHours(20, addDays(3, today))),
+    title: 'formation Docker',
+    email: 'email@gmail.com',
+    accepted: null,
+  },
+  {
+    allDay: false,
+    start: startOfHour(setHours(19, today)),
+    end: startOfHour(setHours(12, tomorrow)),
+    title: 'test chavauche',
+    email: 'email@gmail.com',
+    accepted: null,
   },
 ]

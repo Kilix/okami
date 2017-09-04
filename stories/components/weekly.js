@@ -40,7 +40,7 @@ export default ({className, style, ...props}) => (
         </Div>
         <Container>
           <HoursLabels
-            style={{paddingTop: rowHeight * (weekEvents.length + 1)}}
+            style={{paddingTop: rowHeight * (weekEvents.length ? weekEvents.length : 1)}}
             renderChild={props => <HourLabel style={{height: rowHeight}} {...props} />}
           />
           <CalendarContainer style={{flexDirection: 'column'}}>
@@ -51,13 +51,7 @@ export default ({className, style, ...props}) => (
             <Div {...getContainerProps()}>{weekEvents.map(props => <Event {...props} />)}</Div>
             <Div display="flex">
               {calendar.map(({day}, idx) => (
-                <DailyCalendar
-                  key={`daily_cal_${idx}`}
-                  startHour="PT3H"
-                  endHour="PT22H"
-                  showNow
-                  start={day}
-                >
+                <DailyCalendar key={`daily_cal_${idx}`} showNow start={day}>
                   {({calendar, hours, columnProps, showNowProps}) => (
                     <Div display="flex" flex={1}>
                       <Div width="100%" position="relative">
@@ -65,9 +59,7 @@ export default ({className, style, ...props}) => (
                           {hours.map((h, idx) => (
                             <Cell key={idx} idx={idx} style={{height: rowHeight}} />
                           ))}
-                          {showNowProps ? (
-                            <NowLine title={showNowProps.title} style={showNowProps.style} />
-                          ) : null}
+                          <NowLine {...showNowProps} />
                           {calendar.events.map(props => <Event {...props} />)}
                         </Div>
                       </Div>

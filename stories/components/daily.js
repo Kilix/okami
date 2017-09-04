@@ -15,7 +15,7 @@ import {
 } from '../dummy'
 
 export default ({className, style, ...props}) => (
-  <DailyCalendar startHour="PT6H" endHour="PT22H" showNow {...props}>
+  <DailyCalendar showNow {...props}>
     {({
       calendar,
       dayEvents,
@@ -57,9 +57,7 @@ export default ({className, style, ...props}) => (
               <Div width="100%" position="relative">
                 <Div {...columnProps}>
                   {hours.map((h, idx) => <Cell key={idx} idx={idx} style={{height: rowHeight}} />)}
-                  {showNowProps ? (
-                    <NowLine title={showNowProps.title} style={showNowProps.style} />
-                  ) : null}
+                  <NowLine {...showNowProps} />
                   {calendar.events.map(props => <Event {...props} />)}
                 </Div>
               </Div>

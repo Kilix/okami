@@ -107,7 +107,6 @@ export function placeEvents(events, root, rowHeight, startHour, endHour) {
       const eh = asHours(endHour)
       return collidingGroup.map((event, idx) => {
         const {start, end} = event
-        // prettier-ignore
         const s = isBefore(setHours(sh, start), start) ? 0 : getHours(start) - sh
         const e = isAfter(setHours(eh, end), end) ? eh - sh : getHours(end) - sh
 
@@ -116,8 +115,7 @@ export function placeEvents(events, root, rowHeight, startHour, endHour) {
           style: {
             position: 'absolute',
             top: rowHeight * s,
-            left:
-              root.width / nbEvents * idx - (idx !== 0 ? root.width / 10 : 0),
+            left: root.width / nbEvents * idx - (idx !== 0 ? root.width / 10 : 0),
             width: root.width / nbEvents + (nbEvents > 1 ? root.width / 10 : 0),
             height: rowHeight * (e - s),
           },
@@ -159,22 +157,16 @@ export function getTodayEvents(startHour, endHour, day, data) {
     start: setHours(asHours(startHour), day),
     end: setHours(asHours(endHour), day),
   })
-  return data
-    .filter(e => !e.allDay || typeof e.allDay !== 'boolean')
-    .filter(check)
+  return data.filter(e => !e.allDay || typeof e.allDay !== 'boolean').filter(check)
 }
 export function getWeekEvents(startingDay, showWeekend, startWeek, data) {
   const int = {
     start: startWeek,
-    end: showWeekend
-      ? endOfWeek(startWeek, {startOfDay: startingDay})
-      : addDays(4, startWeek),
+    end: showWeekend ? endOfWeek(startWeek, {startOfDay: startingDay}) : addDays(4, startWeek),
   }
   return [
     ...data.filter(e => e.allDay && isWithinInterval(int, e.allDay)),
-    ...data
-      .filter(e => e.allDay && typeof e.allDay === 'boolean')
-      .filter(checkIn(int)),
+    ...data.filter(e => e.allDay && typeof e.allDay === 'boolean').filter(checkIn(int)),
   ]
 }
 
@@ -185,8 +177,6 @@ export function getDayEvents(day, data) {
   }
   return [
     ...data.filter(e => e.allDay && isWithinInterval(int, e.allDay)),
-    ...data
-      .filter(e => e.allDay && typeof e.allDay === 'boolean')
-      .filter(checkIn(int)),
+    ...data.filter(e => e.allDay && typeof e.allDay === 'boolean').filter(checkIn(int)),
   ]
 }

@@ -29,6 +29,8 @@ storiesOf('Sync', module)
       startingDay="monday"
       dateFormat="ddd DD/MM"
       hourFormat="HH"
+      startHour="PT3H"
+      endHour="PT22H"
       locale={frLocale}
     >
       <Daily />

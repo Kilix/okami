@@ -17,23 +17,30 @@ import controller from '../controller'
 import {debounce, range, placeEvents, computeNow, getTodayEvents, getDayEvents} from '../utils'
 
 class DailyCalendar extends React.Component {
-  componentWillMount() {
-    const {start} = this.props
-    this.setState(() => ({currentDay: startOfDay(start)}))
+  state = {
+    currentDay: undefined,
+    dayEvents: [],
   }
+  componentWillMount = () => this.setState(() => ({currentDay: startOfDay(this.props.start)}))
   componentWillReceiveProps(props) {
-    this.setState(() => ({currentDay: startOfDay(props.start)}))
+    this.setState(() => ({currentDay: startOfDay(props.start)}), () => this._computeDayEvents())
   }
-  resize = debounce(() => this.forceUpdate(), 300, true)
   componentDidMount() {
+    this._computeDayEvents()
     window.addEventListener('resize', this.resize)
   }
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.resize)
+  componentWillUnmount = () => window.removeEventListener('resize', this.resize)
+
+  _nextDay = () => {
+    this.setState(old => ({currentDay: addDays(1, old.currentDay)}), () => this._computeDayEvents())
   }
-  _nextDay = () => this.setState(old => ({currentDay: addDays(1, old.currentDay)}))
-  _prevDay = () => this.setState(old => ({currentDay: subDays(1, old.currentDay)}))
-  _gotoToday = () => this.setState(() => ({currentDay: startOfDay(new Date())}))
+  _prevDay = () => {
+    this.setState(old => ({currentDay: subDays(1, old.currentDay)}), () => this._computeDayEvents())
+  }
+  _gotoToday = () => {
+    this.setState(() => ({currentDay: startOfDay(new Date())}), () => this._computeDayEvents())
+  }
+  resize = debounce(() => this.forceUpdate(), 300, true)
 
   _computeEvents = day => {
     if (!this.column) return []
@@ -46,39 +53,49 @@ class DailyCalendar extends React.Component {
     return events
   }
   _simpleCompute = day => {
-    const {startHour, endHour, data} = this.props
+    const {startHour, endHour, data, offset, rowHeight} = this.props
+    const d = getDay(this.state.currentDay)
+    const o = offset[d] * rowHeight + 3
 
     let events = getTodayEvents(startHour, endHour, day, data)
     events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
     return events.map(e => {
       return {
         key: e.title,
+        style: {
+          position: 'relative',
+          top: o,
+          height: rowHeight,
+        },
         event: e,
       }
     })
   }
   _computeNow = () => {
     if (!this.column) return {display: 'none'}
-    const {startHour, endHour} = this.props
+    const {startHour, endHour, rowHeight} = this.props
     const wrapper = this.column.getBoundingClientRect()
     return computeNow(wrapper, startHour, endHour)
   }
   _computeDayEvents = () => {
-    if (!this.dayEventsContainer) return []
-    const wrapper = this.dayEventsContainer.getBoundingClientRect()
-    const {data, rowHeight} = this.props
-    const {currentDay} = this.state
-    return getDayEvents(currentDay, data).map(e => {
-      return {
-        key: e.title,
-        event: e,
-        style: {
-          left: 0,
-          width: wrapper.width,
-          height: rowHeight,
-        },
-      }
-    })
+    if (this.dayEventsContainer) {
+      const wrapper = this.dayEventsContainer.getBoundingClientRect()
+      const {data, rowHeight} = this.props
+      const {currentDay} = this.state
+      this.setState(() => ({
+        dayEvents: getDayEvents(currentDay, data).map(e => {
+          return {
+            key: e.title,
+            event: e,
+            style: {
+              left: 0,
+              width: wrapper.width,
+              height: rowHeight,
+            },
+          }
+        }),
+      }))
+    }
   }
   _dateLabel = start => format({locale: this.props.locale}, this.props.dateFormat, start)
   render() {
@@ -90,12 +107,17 @@ class DailyCalendar extends React.Component {
       rowHeight,
       children,
       showNow,
-      placeEvents,
+      type,
     } = this.props
-    const {currentDay} = this.state
+    const {currentDay, dayEvents} = this.state
     const hours = range(asHours(startHour), asHours(endHour))
-    const dayEvents = this._computeDayEvents()
-
+    const showNowProps =
+      showNow && isSameDay(new Date(), currentDay)
+        ? {
+            style: this._computeNow(),
+            title: format({locale: this.props.locale}, 'hh:mm', new Date()),
+          }
+        : {style: {display: 'none'}}
     const props = {
       hours,
       rowHeight,
@@ -128,15 +150,10 @@ class DailyCalendar extends React.Component {
       calendar: {
         date: currentDay,
         label: format({locale: this.props.locale}, dateFormat, currentDay),
-        events: placeEvents ? this._computeEvents(currentDay) : this._simpleCompute(currentDay),
+        events:
+          type !== 'monthly' ? this._computeEvents(currentDay) : this._simpleCompute(currentDay),
       },
-      ...(showNow &&
-      isSameDay(new Date(), currentDay) && {
-        showNowProps: {
-          style: this._computeNow(),
-          title: format({locale: this.props.locale}, 'hh:mm', new Date()),
-        },
-      }),
+      showNowProps,
     }
     return children(props)
   }
@@ -148,11 +165,11 @@ DailyCalendar.defaultProps = {
   rowHeight: 30,
   start: new Date(),
   showNow: false,
-  placeEvents: true,
+  offset: [0, 0, 0, 0, 0, 0, 0],
+  type: 'daily',
 }
 
 DailyCalendar.PropTypes = {
-  placeEvents: PropTypes.bool,
   startHour: PropTypes.string,
   endHour: PropTypes.string,
   rowHeight: PropTypes.number,
@@ -162,5 +179,14 @@ DailyCalendar.PropTypes = {
   showNow: PropTypes.bool,
 }
 
-const enhance = controller(['data', 'locale', 'dateFormat', 'hourFormat'])
+const enhance = controller([
+  'data',
+  'locale',
+  'dateFormat',
+  'hourFormat',
+  'offset',
+  'type',
+  'startHour',
+  'endHour',
+])
 export default enhance(DailyCalendar)

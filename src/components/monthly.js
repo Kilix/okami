@@ -19,30 +19,27 @@ import {debounce, range} from '../utils'
 class MonthlyCalendar extends React.Component {
   componentWillMount() {
     const {start, startingDay} = this.props
-    this.setState(() => ({
-      startMonth: startOfMonth({weekStartsOn: startingDay}, start),
-    }))
+    this.setState(() => ({startMonth: startOfMonth({weekStartsOn: startingDay}, start)}))
   }
-  resize = debounce(() => this.forceUpdate(), 300, true)
-  componentDidMount() {
-    window.addEventListener('resize', this.resize)
+  componentDidMount = () => window.addEventListener('resize', this.resize)
+  componentWillUnmount = () => window.removeEventListener('resize', this.resize)
+  getChildContext() {
+    return {
+      type: 'monthly',
+      startingDay: this.props.startingDay,
+      dateFormat: this.props.dateFormat,
+      hourFormat: this.props.hourFormat,
+    }
   }
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.resize)
-  }
-  _nextMonth = () =>
-    this.setState(old => ({
-      startMonth: addMonths(1, old.startMonth),
-    }))
-  _prevMonth = () =>
-    this.setState(old => ({
-      startMonth: subMonths(1, old.startMonth),
-    }))
+  _nextMonth = () => this.setState(old => ({startMonth: addMonths(1, old.startMonth)}))
+  _prevMonth = () => this.setState(old => ({startMonth: subMonths(1, old.startMonth)}))
   _gotoToday = () =>
     this.setState(() => ({
       startMonth: startOfMonth({weekStartsOn: this.props.startingDay}, new Date()),
     }))
   _dateLabel = startMonth => format({locale: this.props.locale}, 'MMMM', startMonth)
+  resize = debounce(() => this.forceUpdate(), 300, true)
+
   render() {
     const {rowHeight, startingDay, children} = this.props
     const {startMonth} = this.state
@@ -76,9 +73,16 @@ class MonthlyCalendar extends React.Component {
   }
 }
 
+MonthlyCalendar.childContextTypes = {
+  type: PropTypes.string,
+  dateFormat: PropTypes.string,
+  hourFormat: PropTypes.string,
+  startingDay: PropTypes.string,
+}
 MonthlyCalendar.defaultProps = {
   rowHeight: 30,
   start: new Date(),
+  type: 'monthly',
 }
 
 MonthlyCalendar.PropTypes = {
@@ -86,7 +90,8 @@ MonthlyCalendar.PropTypes = {
   start: PropTypes.instanceOf(Date),
   data: PropTypes.object.isRequired,
   locale: PropTypes.object,
+  type: PropTypes.string,
 }
 
-const enhance = controller(['data', 'locale', 'startingDay', 'dateFormat', 'hourFormat'])
+const enhance = controller(['data', 'locale', 'startingDay', 'dateFormat', 'hourFormat', 'type'])
 export default enhance(MonthlyCalendar)

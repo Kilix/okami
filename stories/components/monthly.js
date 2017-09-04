@@ -17,7 +17,7 @@ const MonthCell = glamorous.div(
     overflow: 'hidden',
   },
   props => ({
-    minHeight: props.h,
+    height: props.h,
     opacity: !props.currentMonth ? 0.5 : 1,
   })
 )
@@ -53,7 +53,7 @@ export default ({className, style, ...props}) => (
           />
           <Div display="flex" flexDirection="column">
             {calendar.map((startWeek, idx) => (
-              <WeeklyCalendar key={`weekly_${idx}`} start={startWeek} rowHeight={rowHeight}>
+              <WeeklyCalendar key={`weekly_${idx}`} start={startWeek} rowHeight={20}>
                 {({calendar: weekly, weekEvents, getContainerProps}) => (
                   <Div position="relative" width="100%">
                     <Div
@@ -69,19 +69,17 @@ export default ({className, style, ...props}) => (
                       {weekly.map(({day, offset}, idx) => (
                         <DailyCalendar
                           key={`daily_cal_${idx}`}
-                          placeEvents={false}
                           start={day}
                           dateFormat="DD"
+                          rowHeight={20}
                         >
                           {({calendar: daily, start: currentDay, dateLabel}) => (
                             <MonthCell
-                              h={150}
+                              h={250}
                               currentMonth={getMonth(currentMonth) === getMonth(currentDay)}
                             >
                               <Div>{dateLabel}</Div>
-                              <Div marginTop={rowHeight * offset + 5}>
-                                {daily.events.map((props, idx) => <Event {...props} />)}
-                              </Div>
+                              {daily.events.map((props, idx) => <Event {...props} />)}
                             </MonthCell>
                           )}
                         </DailyCalendar>

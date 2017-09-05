@@ -2,6 +2,7 @@ import React from 'react'
 import {Div} from 'glamorous'
 
 import DailyCalendar from '../../src/components/daily'
+import Navigation from '../../src/components/navigation'
 
 import {
   Container,
@@ -16,25 +17,19 @@ import {
 
 export default ({className, style, ...props}) => (
   <DailyCalendar showNow {...props}>
-    {({
-      calendar,
-      dayEvents,
-      hours,
-      rowHeight,
-      nextDay,
-      prevDay,
-      gotoToday,
-      dateLabel,
-      hourLabels,
-      columnProps,
-      showNowProps,
-    }) => (
+    {({calendar, dayEvents, hours, rowHeight, hourLabels, columnProps, showNowProps}) => (
       <Div display="flex" flexDirection="column" {...{className, style}}>
         <Div display="flex">
-          <button onClick={gotoToday}>Today</button>
-          <button onClick={prevDay}>Prev day</button>
-          <button onClick={nextDay}>Next day</button>
-          <DateDisplayer children={dateLabel} />
+          <Navigation dateFormat="ddd DD MMMM">
+            {({next, prev, today, currentDate}) => (
+              <Div display="flex">
+                <button onClick={today}>Today</button>
+                <button onClick={prev}>Prev day</button>
+                <button onClick={next}>Next day</button>
+                <DateDisplayer children={currentDate} />
+              </Div>
+            )}
+          </Navigation>
         </Div>
         <Container>
           <Div paddingTop={rowHeight * (dayEvents.length + 1)}>

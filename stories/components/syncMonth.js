@@ -5,6 +5,7 @@ import getMonth from 'date-fns/getMonth'
 import MonthlyCalendar from '../../src/components/monthly'
 import WeeklyCalendar from '../../src/components/weekly'
 import DailyCalendar from '../../src/components/daily'
+import Navigation from '../../src/components/navigation'
 import {DayLabel, DateDisplayer, Event, MEvent} from '../dummy'
 
 const MonthCell = glamorous.div(
@@ -20,23 +21,18 @@ const MonthCell = glamorous.div(
 
 export default ({className, style, onClick, ...props}) => (
   <MonthlyCalendar {...props}>
-    {({
-      calendar,
-      start: currentMonth,
-      rowHeight,
-      nextMonth,
-      prevMonth,
-      gotoToday,
-      DaysLabels,
-      dateLabel,
-    }) => (
+    {({calendar, start: currentMonth, rowHeight, DaysLabels, dateLabel}) => (
       <Div display="flex" flexDirection="column" {...{className, style}}>
-        <Div display="flex">
-          <button onClick={gotoToday}>Today</button>
-          <button onClick={prevMonth}>Prev month</button>
-          <button onClick={nextMonth}>Next month</button>
-          <DateDisplayer children={dateLabel} />
-        </Div>
+        <Navigation dateFormat="MMMM">
+          {({next, prev, today, currentDate}) => (
+            <Div display="flex">
+              <button onClick={today}>Today</button>
+              <button onClick={prev}>Prev month</button>
+              <button onClick={next}>Next month</button>
+              <DateDisplayer children={currentDate} />
+            </Div>
+          )}
+        </Navigation>
         <Div
           justifyContent="flex-start"
           width="100%"

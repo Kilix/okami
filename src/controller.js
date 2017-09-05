@@ -13,6 +13,14 @@ const defaultContext = [
   'offset',
   'type',
   'rowHeight',
+  'gotoToday',
+  'nextMonth',
+  'prevMonth',
+  'nextWeek',
+  'prevWeek',
+  'nextDay',
+  'prevDay',
+  'dateLabel',
 ]
 export default (p = defaultContext) => {
   const pp = p.reduce((acc, val) => ({...acc, [val]: PropTypes.any}), {})
@@ -29,6 +37,14 @@ export default (p = defaultContext) => {
         offset: PropTypes.array,
         type: PropTypes.string,
         rowHeight: PropTypes.number,
+        gotoToday: PropTypes.func,
+        nextMonth: PropTypes.func,
+        prevMonth: PropTypes.func,
+        nextWeek: PropTypes.func,
+        prevWeek: PropTypes.func,
+        nextDay: PropTypes.func,
+        prevDay: PropTypes.func,
+        dateLabel: PropTypes.func,
       }
       render() {
         const ppa = Object.keys(this.context)

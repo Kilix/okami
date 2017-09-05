@@ -30,7 +30,15 @@ class DailyCalendar extends React.Component {
     window.addEventListener('resize', this.resize)
   }
   componentWillUnmount = () => window.removeEventListener('resize', this.resize)
-
+  getChildContext() {
+    return {
+      type: 'daily',
+      nextDay: this._nextDay,
+      prevDay: this._prevDay,
+      gotoToday: this._gotoToday,
+      dateLabel: this._dateLabel,
+    }
+  }
   _nextDay = () => {
     this.setState(old => ({currentDay: addDays(1, old.currentDay)}), () => this._computeDayEvents())
   }
@@ -90,7 +98,12 @@ class DailyCalendar extends React.Component {
       }),
     }))
   }
-  _dateLabel = start => format({locale: this.props.locale}, this.props.dateFormat, start)
+  _dateLabel = dateFormat =>
+    format(
+      {locale: this.props.locale},
+      dateFormat ? dateFormat : this.props.dateFormat,
+      this.state.currentDay
+    )
   render() {
     const {
       startHour,
@@ -118,7 +131,7 @@ class DailyCalendar extends React.Component {
       nextDay: this._nextDay,
       prevDay: this._prevDay,
       gotoToday: this._gotoToday,
-      dateLabel: this._dateLabel(currentDay),
+      dateLabel: this._dateLabel(),
       hourLabels: hours.map((h, idx) => ({
         label: compose(format({locale: this.props.locale}, hourFormat), addHours(h))(currentDay),
         idx,
@@ -142,6 +155,13 @@ class DailyCalendar extends React.Component {
     }
     return children(props)
   }
+}
+DailyCalendar.childContextTypes = {
+  type: PropTypes.string,
+  nextDay: PropTypes.func,
+  prevDay: PropTypes.func,
+  gotoToday: PropTypes.func,
+  dateLabel: PropTypes.func,
 }
 
 DailyCalendar.defaultProps = {

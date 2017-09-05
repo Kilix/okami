@@ -30,6 +30,10 @@ class MonthlyCalendar extends React.Component {
       dateFormat: this.props.dateFormat,
       hourFormat: this.props.hourFormat,
       rowHeight: this.props.rowHeight,
+      nextMonth: this._nextMonth,
+      prevMonth: this._prevMonth,
+      gotoToday: this._gotoToday,
+      dateLabel: this._dateLabel,
     }
   }
   _nextMonth = () => this.setState(old => ({startMonth: addMonths(1, old.startMonth)}))
@@ -38,7 +42,8 @@ class MonthlyCalendar extends React.Component {
     this.setState(() => ({
       startMonth: startOfMonth({weekStartsOn: this.props.startingDay}, new Date()),
     }))
-  _dateLabel = startMonth => format({locale: this.props.locale}, 'MMMM', startMonth)
+  _dateLabel = dateFormat =>
+    format({locale: this.props.locale}, dateFormat ? dateFormat : 'MMMM', this.state.startMonth)
   resize = debounce(() => this.forceUpdate(), 300, true)
 
   render() {
@@ -63,7 +68,7 @@ class MonthlyCalendar extends React.Component {
       nextMonth: this._nextMonth,
       prevMonth: this._prevMonth,
       gotoToday: this._gotoToday,
-      dateLabel: this._dateLabel(startMonth),
+      dateLabel: this._dateLabel(),
       DaysLabels: props => (
         <DaysLabels rowHeight={rowHeight} weeks={weeks} start={startWeek} {...props} />
       ),
@@ -80,6 +85,10 @@ MonthlyCalendar.childContextTypes = {
   hourFormat: PropTypes.string,
   startingDay: PropTypes.number,
   rowHeight: PropTypes.number,
+  nextMonth: PropTypes.func,
+  prevMonth: PropTypes.func,
+  gotoToday: PropTypes.func,
+  dateLabel: PropTypes.func,
 }
 MonthlyCalendar.defaultProps = {
   rowHeight: 30,

@@ -58,6 +58,10 @@ class WeeklyCalendar extends React.Component {
       endHour: this.props.endHour,
       startingDay: this.props.startingDay,
       rowHeight: this.props.rowHeight,
+      nextWeek: this._nextWeek,
+      prevWeek: this._prevWeek,
+      gotoToday: this._gotoToday,
+      dateLabel: this._dateLabel,
     }
   }
   resize = debounce(() => this.forceUpdate(), 300, true)
@@ -134,12 +138,17 @@ class WeeklyCalendar extends React.Component {
     }
   }
 
-  _dateLabel = (start, end) => {
+  _dateLabel = dateFormat => {
+    const {startWeek} = this.state
+    const endWeek = compose(addWeeks(1), startOfDay)(startWeek)
+    if (dateFormat) {
+      return format({locale: this.props.locale}, dateFormat, startWeek)
+    }
     const s =
-      getMonth(start) === getMonth(end)
-        ? format({locale: this.props.locale}, 'DD', start)
-        : format({locale: this.props.locale}, 'DD MMM', start)
-    const e = format({locale: this.props.locale}, 'DD MMM YYYY', end)
+      getMonth(startWeek) === getMonth(endWeek)
+        ? format({locale: this.props.locale}, 'DD', startWeek)
+        : format({locale: this.props.locale}, 'DD MMM', startWeek)
+    const e = format({locale: this.props.locale}, 'DD MMM YYYY', endWeek)
     return `${s} - ${e}`
   }
   render() {
@@ -156,7 +165,7 @@ class WeeklyCalendar extends React.Component {
       prevWeek: this._prevWeek,
       gotoToday: this._gotoToday,
       toggleWeekend: this._toggleWeekend,
-      dateLabel: this._dateLabel(startWeek, endWeek),
+      dateLabel: this._dateLabel(),
       DaysLabels: props => (
         <DaysLabels rowHeight={rowHeight} weeks={weeks} start={startWeek} {...props} />
       ),
@@ -191,6 +200,10 @@ WeeklyCalendar.childContextTypes = {
   endHour: PropTypes.string,
   startingDay: PropTypes.number,
   rowHeight: PropTypes.number,
+  nextWeek: PropTypes.func,
+  prevWeek: PropTypes.func,
+  gotoToday: PropTypes.func,
+  dateLabel: PropTypes.func,
 }
 
 WeeklyCalendar.defaultProps = {

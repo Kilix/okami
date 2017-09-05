@@ -98,17 +98,21 @@ export function placeEvents(events, root, rowHeight, startHour, endHour) {
       const eh = asHours(endHour)
       return collidingGroup.map((event, idx) => {
         const {start, end} = event
-        const s = isBefore(setHours(sh, start), start) ? 0 : getHours(start) - sh
-        const e = isAfter(setHours(eh, end), end) ? eh - sh : getHours(end) - sh
+        const s = isBefore(setHours(sh, start), start)
+          ? 0
+          : (getHours(start) - sh) * 60 + getMinutes(start)
+        const e = isAfter(setHours(eh, end), end)
+          ? (eh - sh) * 60
+          : (getHours(end) - sh) * 60 + getMinutes(end)
 
         return {
           event,
           style: {
             position: 'absolute',
-            top: rowHeight * s,
+            top: rowHeight * (s / 60),
             left: root.width / nbEvents * idx - (idx !== 0 ? root.width / 10 : 0),
             width: root.width / nbEvents + (nbEvents > 1 ? root.width / 10 : 0),
-            height: rowHeight * (e - s),
+            height: rowHeight * ((e - s) / 60),
           },
         }
       })

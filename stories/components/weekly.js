@@ -29,7 +29,7 @@ export default ({className, style, ...props}) => (
       getContainerProps,
     }) => (
       <Div display="flex" flexDirection="column" {...{className, style}}>
-        <Navigation dateFormat="[n°]W">
+        <Navigation>
           {({next, prev, today, currentDate}) => (
             <Div display="flex">
               <button onClick={today}>Today</button>

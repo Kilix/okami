@@ -1,6 +1,7 @@
 import addDays from 'date-fns/fp/addDays'
 import setHours from 'date-fns/fp/setHours'
 import startOfHour from 'date-fns/startOfHour'
+import addMinutes from 'date-fns/fp/addMinutes'
 
 const today = new Date()
 const tomorrow = addDays(1, today)
@@ -8,7 +9,7 @@ const tomorrow = addDays(1, today)
 export default [
   {
     allDay: false,
-    start: startOfHour(setHours(1, tomorrow)),
+    start: addMinutes(30, startOfHour(setHours(1, tomorrow))),
     end: startOfHour(setHours(5, tomorrow)),
     title: 'Before',
     email: 'email@gmail.com',
@@ -26,7 +27,7 @@ export default [
   },
   {
     allDay: false,
-    start: startOfHour(setHours(10, tomorrow)),
+    start: addMinutes(30, startOfHour(setHours(10, tomorrow))),
     end: startOfHour(setHours(13, tomorrow)),
     title: 'CM JS',
     email: 'email@gmail.com',

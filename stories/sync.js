@@ -52,7 +52,7 @@ storiesOf('Sync', module)
       dateFormat="dddd"
       hourFormat="HH"
       locale={frLocale}
-      rowHeight={20}
+      rowHeight={30}
     >
       <Monthly />
     </Calendar>

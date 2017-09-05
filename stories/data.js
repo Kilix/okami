@@ -8,6 +8,7 @@ const tomorrow = addDays(1, today)
 
 export default [
   {
+    id: 0,
     allDay: false,
     start: addMinutes(30, startOfHour(setHours(1, tomorrow))),
     end: startOfHour(setHours(5, tomorrow)),
@@ -17,6 +18,7 @@ export default [
     color: '#1234AE',
   },
   {
+    id: 1,
     allDay: false,
     start: startOfHour(setHours(20, tomorrow)),
     end: startOfHour(setHours(23, tomorrow)),
@@ -26,6 +28,7 @@ export default [
     color: '#1234AE',
   },
   {
+    id: 2,
     allDay: false,
     start: addMinutes(30, startOfHour(setHours(10, tomorrow))),
     end: startOfHour(setHours(13, tomorrow)),
@@ -35,6 +38,7 @@ export default [
     color: '#AFED23',
   },
   {
+    id: 3,
     allDay: false,
     start: startOfHour(setHours(10, today)),
     end: startOfHour(setHours(13, today)),
@@ -44,6 +48,7 @@ export default [
     color: '#AFED23',
   },
   {
+    id: 4,
     allDay: false,
     start: startOfHour(setHours(9, today)),
     end: startOfHour(setHours(11, today)),
@@ -53,6 +58,7 @@ export default [
     color: '#AFED23',
   },
   {
+    id: 5,
     allDay: false,
     start: startOfHour(setHours(14, tomorrow)),
     end: startOfHour(setHours(16, tomorrow)),
@@ -61,6 +67,7 @@ export default [
     accepted: true,
   },
   {
+    id: 6,
     allDay: false,
     start: startOfHour(setHours(14, tomorrow)),
     end: startOfHour(setHours(15, tomorrow)),
@@ -69,6 +76,7 @@ export default [
     accepted: true,
   },
   {
+    id: 7,
     allDay: false,
     start: startOfHour(setHours(17, tomorrow)),
     end: startOfHour(setHours(19, tomorrow)),
@@ -77,6 +85,7 @@ export default [
     accepted: true,
   },
   {
+    id: 8,
     allDay: false,
     start: startOfHour(setHours(13, tomorrow)),
     end: startOfHour(setHours(20, tomorrow)),
@@ -85,6 +94,7 @@ export default [
     accepted: true,
   },
   {
+    id: 9,
     allDay: false,
     start: startOfHour(setHours(9, tomorrow)),
     end: startOfHour(setHours(11, tomorrow)),
@@ -93,12 +103,14 @@ export default [
     accepted: true,
   },
   {
+    id: 10,
     allDay: startOfHour(setHours(0, tomorrow)),
     title: 'Bid',
     email: 'email@gmail.com',
     accepted: true,
   },
   {
+    id: 11,
     allDay: false,
     start: startOfHour(setHours(14, today)),
     end: startOfHour(setHours(20, today)),
@@ -107,18 +119,21 @@ export default [
     accepted: false,
   },
   {
+    id: 12,
     allDay: startOfHour(setHours(0, today)),
     title: 'formation JS',
     email: 'email@gmail.com',
     accepted: null,
   },
   {
+    id: 13,
     allDay: startOfHour(setHours(0, today)),
     title: 'formation Java',
     email: 'email@gmail.com',
     accepted: null,
   },
   {
+    id: 14,
     allDay: true,
     start: startOfHour(setHours(14, today)),
     end: startOfHour(setHours(20, addDays(3, today))),
@@ -127,6 +142,7 @@ export default [
     accepted: null,
   },
   {
+    id: 15,
     allDay: false,
     start: startOfHour(setHours(19, today)),
     end: startOfHour(setHours(12, tomorrow)),

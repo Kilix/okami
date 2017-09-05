@@ -117,7 +117,7 @@ class WeeklyCalendar extends React.Component {
           counters[q] = counters[q] + 1
         }
         return {
-          key: e.title,
+          key: e.id,
           event: e,
           style: {
             position: 'absolute',

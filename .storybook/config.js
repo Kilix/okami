@@ -1,5 +1,6 @@
 import {configure} from '@storybook/react'
 import {setOptions} from '@storybook/addon-options'
+import 'babel-polyfill'
 
 setOptions({
   name: 'React Calendar',
@@ -14,6 +15,7 @@ setOptions({
 
 function loadStories() {
   require('../stories/sync.js')
+  require('../stories/google.js')
 }
 
 configure(loadStories, module)

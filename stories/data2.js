@@ -1,13 +1,14 @@
 import addDays from 'date-fns/fp/addDays'
 import setHours from 'date-fns/fp/setHours'
 import startOfHour from 'date-fns/startOfHour'
+import addMinutes from 'date-fns/fp/addMinutes'
 
 const today = new Date()
 const tomorrow = addDays(1, today)
 
 export default [
   {
-    id: 1,
+    id: 25,
     title: 'nisl duis bibendum felis',
     start: '2017-09-15T17:12:35Z',
     end: '2017-09-27T04:05:33Z',
@@ -15,7 +16,7 @@ export default [
     color: '#c5f650',
   },
   {
-    id: 2,
+    id: 24,
     title: 'leo rhoncus sed vestibulum',
     start: '2017-10-11T00:24:58Z',
     end: '2017-11-24T20:02:47Z',
@@ -23,7 +24,7 @@ export default [
     color: '#8d9e50',
   },
   {
-    id: 3,
+    id: 23,
     title: 'maecenas tincidunt lacus at velit',
     start: '2017-09-30T18:14:20Z',
     end: '2017-11-05T15:19:08Z',
@@ -31,7 +32,7 @@ export default [
     color: '#8057b5',
   },
   {
-    id: 4,
+    id: 22,
     title: 'mauris eget',
     start: '2017-10-07T00:23:40Z',
     end: '2017-11-20T12:55:01Z',
@@ -39,7 +40,7 @@ export default [
     color: '#4edcc6',
   },
   {
-    id: 5,
+    id: 21,
     title: 'ac est lacinia nisi venenatis',
     start: '2017-08-30T20:29:18Z',
     end: '2017-12-01T14:18:47Z',
@@ -47,7 +48,7 @@ export default [
     color: '#708004',
   },
   {
-    id: 1,
+    id: 20,
     title: 'mauris eget massa tempor convallis',
     start: '2017-09-05T20:12:46Z',
     end: '2017-09-07T09:38:37Z',
@@ -55,7 +56,7 @@ export default [
     color: '#03995d',
   },
   {
-    id: 2,
+    id: 19,
     title: 'platea dictumst',
     start: '2017-09-04T08:23:16Z',
     end: '2017-09-04T08:51:11Z',
@@ -63,13 +64,13 @@ export default [
     color: '#e56ba3',
   },
   {
-    id: 3,
+    id: 18,
     title: 'massa donec',
     allDay: '2017-09-06T02:04:32Z',
     color: '#bdc89c',
   },
   {
-    id: 4,
+    id: 17,
     title: 'arcu sed augue aliquam erat',
     start: '2017-09-08T09:27:09Z',
     end: '2017-09-10T10:41:33Z',
@@ -77,14 +78,15 @@ export default [
     color: '#6ba768',
   },
   {
-    id: 5,
+    id: 16,
     title: 'porttitor',
     allDay: '2017-09-07T11:25:03Z',
     color: '#18b417',
   },
   {
+    id: 0,
     allDay: false,
-    start: startOfHour(setHours(1, tomorrow)),
+    start: addMinutes(30, startOfHour(setHours(1, tomorrow))),
     end: startOfHour(setHours(5, tomorrow)),
     title: 'Before',
     email: 'email@gmail.com',
@@ -92,6 +94,7 @@ export default [
     color: '#1234AE',
   },
   {
+    id: 1,
     allDay: false,
     start: startOfHour(setHours(20, tomorrow)),
     end: startOfHour(setHours(23, tomorrow)),
@@ -101,8 +104,9 @@ export default [
     color: '#1234AE',
   },
   {
+    id: 2,
     allDay: false,
-    start: startOfHour(setHours(10, tomorrow)),
+    start: addMinutes(30, startOfHour(setHours(10, tomorrow))),
     end: startOfHour(setHours(13, tomorrow)),
     title: 'CM JS',
     email: 'email@gmail.com',
@@ -110,6 +114,7 @@ export default [
     color: '#AFED23',
   },
   {
+    id: 3,
     allDay: false,
     start: startOfHour(setHours(10, today)),
     end: startOfHour(setHours(13, today)),
@@ -119,6 +124,7 @@ export default [
     color: '#AFED23',
   },
   {
+    id: 4,
     allDay: false,
     start: startOfHour(setHours(9, today)),
     end: startOfHour(setHours(11, today)),
@@ -128,6 +134,7 @@ export default [
     color: '#AFED23',
   },
   {
+    id: 5,
     allDay: false,
     start: startOfHour(setHours(14, tomorrow)),
     end: startOfHour(setHours(16, tomorrow)),
@@ -136,6 +143,7 @@ export default [
     accepted: true,
   },
   {
+    id: 6,
     allDay: false,
     start: startOfHour(setHours(14, tomorrow)),
     end: startOfHour(setHours(15, tomorrow)),
@@ -144,6 +152,7 @@ export default [
     accepted: true,
   },
   {
+    id: 7,
     allDay: false,
     start: startOfHour(setHours(17, tomorrow)),
     end: startOfHour(setHours(19, tomorrow)),
@@ -152,6 +161,7 @@ export default [
     accepted: true,
   },
   {
+    id: 8,
     allDay: false,
     start: startOfHour(setHours(13, tomorrow)),
     end: startOfHour(setHours(20, tomorrow)),
@@ -160,6 +170,7 @@ export default [
     accepted: true,
   },
   {
+    id: 9,
     allDay: false,
     start: startOfHour(setHours(9, tomorrow)),
     end: startOfHour(setHours(11, tomorrow)),
@@ -168,12 +179,14 @@ export default [
     accepted: true,
   },
   {
+    id: 10,
     allDay: startOfHour(setHours(0, tomorrow)),
     title: 'Bid',
     email: 'email@gmail.com',
     accepted: true,
   },
   {
+    id: 11,
     allDay: false,
     start: startOfHour(setHours(14, today)),
     end: startOfHour(setHours(20, today)),
@@ -182,18 +195,21 @@ export default [
     accepted: false,
   },
   {
+    id: 12,
     allDay: startOfHour(setHours(0, today)),
     title: 'formation JS',
     email: 'email@gmail.com',
     accepted: null,
   },
   {
+    id: 13,
     allDay: startOfHour(setHours(0, today)),
     title: 'formation Java',
     email: 'email@gmail.com',
     accepted: null,
   },
   {
+    id: 14,
     allDay: true,
     start: startOfHour(setHours(14, today)),
     end: startOfHour(setHours(20, addDays(3, today))),
@@ -202,6 +218,7 @@ export default [
     accepted: null,
   },
   {
+    id: 15,
     allDay: false,
     start: startOfHour(setHours(19, today)),
     end: startOfHour(setHours(12, tomorrow)),

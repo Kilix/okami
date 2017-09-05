@@ -69,7 +69,7 @@ class DailyCalendar extends React.Component {
     events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
     return events.map(e => {
       return {
-        key: e.title,
+        key: e.id,
         style: {
           position: 'relative',
           top: o,
@@ -91,7 +91,7 @@ class DailyCalendar extends React.Component {
     this.setState(() => ({
       dayEvents: getDayEvents(currentDay, data).map(e => {
         return {
-          key: e.title,
+          key: e.id,
           event: e,
           style: {height: rowHeight},
         }

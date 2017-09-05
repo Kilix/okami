@@ -118,12 +118,12 @@ export function placeEvents(events, root, rowHeight, startHour, endHour) {
       })
     })
     return flatten(groupEvents).map(e => ({
-      key: e.event.title,
+      key: e.event.id,
       ...e,
     }))
   }
   return events.map(e => ({
-    key: e.title,
+    key: e.id,
     event: e,
   }))
 }

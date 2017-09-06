@@ -13,7 +13,7 @@ const babelConfig = {
 
 export default [
   {
-    name: 'react-calendar',
+    name: 'okami',
     input: 'src/index.js',
     output: {file: pkg.browser, format: 'umd'},
     external: ['react', 'recompose', 'debounce', 'prop-types', 'date-fns', 'pomeranian-durations'],

@@ -1,9 +1,9 @@
 {
-  "name": "react-calendar",
+  "name": "okami",
   "version": "0.0.1",
-  "main": "dist/react-calendar.cjs.js",
-  "module": "dist/react-calendar.esm.js",
-  "browser": "dist/react-calendar.umd.js",
+  "main": "dist/okami.cjs.js",
+  "module": "dist/okami.esm.js",
+  "browser": "dist/okami.umd.js",
   "author": "wcastand <wcastand@gmail.com> (https://github.com/wcastand)",
   "license": "MIT",
   "files": [
@@ -11,7 +11,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/wcastand/react-calendar.git"
+    "url": "https://github.com/wcastand/okami.git"
   },
   "scripts": {
     "start": "nps",

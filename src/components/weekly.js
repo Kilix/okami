@@ -16,7 +16,6 @@ import endOfWeek from 'date-fns/endOfWeek'
 import isAfter from 'date-fns/fp/isAfter'
 import isBefore from 'date-fns/fp/isBefore'
 import differenceInDays from 'date-fns/differenceInDays'
-import isWithinInterval from 'date-fns/isWithinInterval'
 
 import controller from '../controller'
 import HoursLabels from './hoursLabels'

@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {compose, getContext} from 'recompose'
 
 const defaultContext = [
   'locale',

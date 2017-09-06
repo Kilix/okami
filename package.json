@@ -1,6 +1,6 @@
 {
   "name": "react-calendar",
-  "version": "0.1.2",
+  "version": "0.0.1",
   "main": "dist/react-calendar.cjs.js",
   "module": "dist/react-calendar.esm.js",
   "browser": "dist/react-calendar.umd.js",

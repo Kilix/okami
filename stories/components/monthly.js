@@ -49,11 +49,9 @@ export default ({className, style, ...props}) => (
                 {({calendar: weekly, weekEvents, getContainerProps}) => (
                   <Div position="relative" width="100%">
                     <Div
-                      {...getContainerProps({style: {position: 'absolute', marginTop: rowHeight}})}
-                      top={0}
-                      left={0}
-                      width="100%"
-                      height="100%"
+                      {...getContainerProps({
+                        style: {marginTop: rowHeight},
+                      })}
                     >
                       {weekEvents.map(props => <Event {...props} />)}
                     </Div>

@@ -15,7 +15,8 @@ import format from 'date-fns/fp/formatWithOptions'
 import endOfWeek from 'date-fns/endOfWeek'
 import isAfter from 'date-fns/fp/isAfter'
 import isBefore from 'date-fns/fp/isBefore'
-import differenceInDays from 'date-fns/differenceInDays'
+import differenceInHours from 'date-fns/differenceInHours'
+import getDayOfYear from 'date-fns/getDayOfYear'
 
 import controller from '../controller'
 import HoursLabels from './hoursLabels'
@@ -95,8 +96,8 @@ class WeeklyCalendar extends React.Component {
         : addDays(4, startWeek)
       let events = getWeekEvents(startingDay, showWeekend, startWeek, data)
       events = events.sort((a, b) => {
-        const anbDays = a.end ? differenceInDays(a.end, a.start) + 1 : 1
-        const bnbDays = b.end ? differenceInDays(b.end, b.start) + 1 : 1
+        const anbDays = a.end ? Math.floor(differenceInHours(a.end, a.start) / 24) + 1 : 1
+        const bnbDays = b.end ? Math.floor(differenceInHours(b.end, b.start) / 24) + 1 : 1
         if (anbDays > bnbDays) return -1
         else if (anbDays < bnbDays) return 1
         else return 0
@@ -106,16 +107,20 @@ class WeeklyCalendar extends React.Component {
         const s = typeof e.allDay === 'boolean' ? e.start : e.allDay
         const ss = isBefore(startWeek, s) ? startWeek : s
         const end = isAfter(endWeek, e.end) ? endWeek : e.end
-        const nbDays = e.end ? differenceInDays(end, ss) + 1 : 1
-        const diffDay = differenceInDays(ss, startWeek)
+        const nbDays = e.end ? getDayOfYear(end) - getDayOfYear(ss) + 1 : 1
+        const diffDay = getDayOfYear(ss) - getDayOfYear(startWeek)
         const w = wrapper.width / (showWeekend ? 7 : 5)
-        const t = counters[getDay(ss)] * rowHeight
 
+        let m = 0
         for (let i = 0; i < nbDays; i++) {
           const q = getDay(ss) + i > 6 ? 0 : getDay(ss) + i
-          counters[q] = counters[q] + 1
+          m = counters[q] > m ? counters[q] : m
         }
-        console.log(typeof e.allDay === 'boolean', !e.allDay, w, nbDays * w)
+        const t = m * rowHeight
+        for (let i = 0; i < nbDays; i++) {
+          const q = getDay(ss) + i > 6 ? 0 : getDay(ss) + i
+          counters[q] = m + 1
+        }
         return {
           key: e.id,
           event: e,
@@ -152,7 +157,7 @@ class WeeklyCalendar extends React.Component {
     return `${s} - ${e}`
   }
   render() {
-    const {startHour, endHour, rowHeight, children} = this.props
+    const {startHour, endHour, rowHeight, children, type} = this.props
     const {startWeek, showWeekend, weekEvents} = this.state
     const weeks = showWeekend ? range(7) : range(5)
     const hours = range(asHours(startHour), asHours(endHour))
@@ -173,7 +178,12 @@ class WeeklyCalendar extends React.Component {
         <HoursLabels rowHeight={rowHeight} hours={hours} start={startWeek} {...props} />
       ),
       getContainerProps: ({style = {}} = {}) => ({
-        style: {position: 'relative', height: rowHeight * weekEvents.max, ...style},
+        style: {
+          position: type === 'monthly' ? 'absolute' : 'relative',
+          height: rowHeight * weekEvents.max,
+          width: '100%',
+          ...style,
+        },
         innerRef: r => {
           if (typeof this.containerProps === 'undefined') {
             this.containerProps = r

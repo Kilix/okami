@@ -12,6 +12,7 @@ import format from 'date-fns/fp/formatWithOptions'
 import isSameDay from 'date-fns/fp/isSameDay'
 import isAfter from 'date-fns/fp/isAfter'
 import getDay from 'date-fns/getDay'
+import differenceInHours from 'date-fns/differenceInHours'
 
 import controller from '../controller'
 import {debounce, range, placeEvents, computeNow, getTodayEvents, getDayEvents} from '../utils'
@@ -60,13 +61,23 @@ class DailyCalendar extends React.Component {
     events = placeEvents(events, wrapper, rowHeight, startHour, endHour)
     return events
   }
-  _simpleCompute = day => {
+  _simpleCompute = () => {
     const {startHour, endHour, data, offset, rowHeight} = this.props
-    const d = getDay(this.state.currentDay)
+    const {currentDay} = this.state
+    const d = getDay(currentDay)
     const o = offset[d] * rowHeight
 
-    let events = getTodayEvents(startHour, endHour, day, data)
+    let events = getTodayEvents(startHour, endHour, currentDay, data)
+
     events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
+    events = events.sort((a, b) => {
+      const anbDays = a.end ? Math.floor(differenceInHours(a.end, a.start) / 24) + 1 : 1
+      const bnbDays = b.end ? Math.floor(differenceInHours(b.end, b.start) / 24) + 1 : 1
+      if (anbDays > bnbDays) return -1
+      else if (anbDays < bnbDays) return 1
+      else return 0
+    })
+
     return events.map(e => {
       return {
         key: e.id,
@@ -148,8 +159,7 @@ class DailyCalendar extends React.Component {
       calendar: {
         date: currentDay,
         label: format({locale: this.props.locale}, dateFormat, currentDay),
-        events:
-          type !== 'monthly' ? this._computeEvents(currentDay) : this._simpleCompute(currentDay),
+        events: type !== 'monthly' ? this._computeEvents(currentDay) : this._simpleCompute(),
       },
       showNowProps,
     }

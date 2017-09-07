@@ -1,6 +1,6 @@
 {
   "name": "okami",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "dist/okami.cjs.js",
   "module": "dist/okami.esm.js",
   "browser": "dist/okami.umd.js",

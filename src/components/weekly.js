@@ -115,6 +115,7 @@ class WeeklyCalendar extends React.Component {
           const q = getDay(ss) + i > 6 ? 0 : getDay(ss) + i
           counters[q] = counters[q] + 1
         }
+        console.log(typeof e.allDay === 'boolean', !e.allDay, w, nbDays * w)
         return {
           key: e.id,
           event: e,
@@ -122,7 +123,7 @@ class WeeklyCalendar extends React.Component {
             position: 'absolute',
             top: t,
             left: diffDay * w,
-            width: typeof e.allDay === 'boolean' && !e.allDay ? w : nbDays * w,
+            width: typeof e.allDay !== 'boolean' ? w : nbDays * w,
             height: rowHeight,
           },
         }

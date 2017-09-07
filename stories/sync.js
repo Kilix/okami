@@ -1,6 +1,8 @@
 import React from 'react'
 import {storiesOf} from '@storybook/react'
 import frLocale from 'date-fns/locale/fr'
+import parse from 'date-fns/parse'
+import isSameDay from 'date-fns/isSameDay'
 import {Div} from 'glamorous'
 
 import Calendar from '../src/'
@@ -13,6 +15,7 @@ import DailySync from './components/syncDaily'
 
 import data from './data'
 import data2 from './data2'
+import datagoogle from './googledata'
 
 const css = document.createElement('style')
 css.innerHTML = `
@@ -36,7 +39,18 @@ storiesOf('Sync', module)
   ))
   .add('Weekly', () => (
     <Calendar
-      data={data}
+      data={datagoogle.filter(e => e.status !== 'cancelled').map(e => ({
+        ...e,
+        ...(e.start.dateTime && {
+          start: parse(e.start.dateTime, 'YYYY-MM-DDTHH:mm:ss', new Date()),
+          end: parse(e.end.dateTime, 'YYYY-MM-DDTHH:mm:ss', new Date()),
+          allDay: !isSameDay(e.start.dateTime, e.end.dateTime),
+        }),
+        ...(e.start.date && {
+          allDay: parse(e.start.date, 'YYYY-MM-DD', new Date()),
+        }),
+        title: e.summary,
+      }))}
       startingDay="monday"
       dateFormat="ddd DD/MM"
       hourFormat="HH"

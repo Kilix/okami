@@ -52,7 +52,7 @@ export default ({className, style, ...props}) => (
             />
             <Div {...getContainerProps()}>{weekEvents.map(props => <Event {...props} />)}</Div>
             <Div display="flex">
-              {calendar.map(({day}, idx) => (
+              {calendar.map((day, idx) => (
                 <DailyCalendar key={`daily_cal_${idx}`} showNow start={day}>
                   {({calendar, hours, columnProps, showNowProps}) => (
                     <Div display="flex" flex={1}>

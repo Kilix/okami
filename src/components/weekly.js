@@ -17,6 +17,7 @@ import isAfter from 'date-fns/fp/isAfter'
 import isBefore from 'date-fns/fp/isBefore'
 import differenceInHours from 'date-fns/differenceInHours'
 import getDayOfYear from 'date-fns/getDayOfYear'
+import isSameDay from 'date-fns/isSameDay'
 
 import controller from '../controller'
 import HoursLabels from './hoursLabels'
@@ -95,38 +96,56 @@ class WeeklyCalendar extends React.Component {
         ? endOfWeek(startWeek, {weekStartsOn: startingDay})
         : addDays(4, startWeek)
       let events = getWeekEvents(startingDay, showWeekend, startWeek, data)
-      events = events.sort((a, b) => {
-        const anbDays = a.end ? Math.floor(differenceInHours(a.end, a.start) / 24) + 1 : 1
-        const bnbDays = b.end ? Math.floor(differenceInHours(b.end, b.start) / 24) + 1 : 1
-        if (anbDays > bnbDays) return -1
-        else if (anbDays < bnbDays) return 1
-        else return 0
+
+      events.sort((a, b) => {
+        if (isSameDay(a.start, b.start)) {
+          const AnbDays = e.end ? getDayOfYear(a.end) - getDayOfYear(a.start) + 1 : 1
+          const BnbDays = e.end ? getDayOfYear(b.end) - getDayOfYear(b.start) + 1 : 1
+          return AnbDays - BnbDays
+        }
+        return isAfter(a.start, b.start) ? -1 : 1
       })
-      const counters = [0, 0, 0, 0, 0, 0, 0]
+      const matrix = [[0, 0, 0, 0, 0, 0, 0]]
       const weekEvents = events.map(e => {
         const s = typeof e.allDay === 'boolean' ? e.start : e.allDay
         const ss = isBefore(startWeek, s) ? startWeek : s
-        const end = isAfter(endWeek, e.end) ? endWeek : e.end
-        const nbDays = e.end ? getDayOfYear(end) - getDayOfYear(ss) + 1 : 1
+        const end = e.end ? (isAfter(endWeek, e.end) ? endWeek : e.end) : null
+        const nbDays = end ? getDayOfYear(end) - getDayOfYear(ss) + 1 : 1
         const diffDay = getDayOfYear(ss) - getDayOfYear(startWeek)
+        const index = getDay(ss)
         const w = wrapper.width / (showWeekend ? 7 : 5)
 
-        let m = 0
-        for (let i = 0; i < nbDays; i++) {
-          const q = getDay(ss) + i > 6 ? 0 : getDay(ss) + i
-          m = counters[q] > m ? counters[q] : m
+        let y = 0
+        let added = false
+        for (let i = 0; i < matrix.length; i++) {
+          if (matrix[i][index] === 0) {
+            let free = true
+            for (let j = index; j < nbDays - 1; j++) {
+              if (matrix[i][j] === 1) free = false
+            }
+            console.log(free)
+            if (free) {
+              y = i
+              added = true
+              for (let j = index; j < index + nbDays - 1; j++) matrix[i][j] = 1
+              break
+            }
+          }
         }
-        const t = m * rowHeight
-        for (let i = 0; i < nbDays; i++) {
-          const q = getDay(ss) + i > 6 ? 0 : getDay(ss) + i
-          counters[q] = m + 1
+        if (!added) {
+          matrix.push(
+            [0, 0, 0, 0, 0, 0, 0].map((h, idx) => (idx >= index && idx < index + nbDays ? 1 : 0))
+          )
+          y = matrix.length - 1
         }
+        console.log(added, index, y, nbDays, matrix[y][index], e.title)
+
         return {
           key: e.id,
           event: e,
           style: {
             position: 'absolute',
-            top: t,
+            top: rowHeight * y,
             left: diffDay * w,
             width: typeof e.allDay !== 'boolean' ? w : nbDays * w,
             height: rowHeight,
@@ -136,8 +155,7 @@ class WeeklyCalendar extends React.Component {
       this.setState(() => ({
         weekEvents: {
           events: weekEvents,
-          counters,
-          max: counters.reduce((a, b) => (a < b ? b : a), 0),
+          max: matrix.length,
         },
       }))
     }
@@ -195,7 +213,7 @@ class WeeklyCalendar extends React.Component {
       calendar: weeks.reduce((days, w) => {
         const day = addDays(w, startWeek)
         const c = getDay(day)
-        return [...days, {day, offset: weekEvents.counters[c]}]
+        return [...days, day]
       }, []),
     }
 

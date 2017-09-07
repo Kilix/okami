@@ -56,7 +56,7 @@ export default ({className, style, ...props}) => (
                       {weekEvents.map(props => <Event {...props} />)}
                     </Div>
                     <Div display="flex">
-                      {weekly.map(({day, offset}, idx) => (
+                      {weekly.map(({day}, idx) => (
                         <DailyCalendar key={`daily_cal_${idx}`} start={day} dateFormat="DD">
                           {({calendar: daily, start: currentDay, dateLabel}) => (
                             <MonthCell h={250}>
@@ -69,7 +69,7 @@ export default ({className, style, ...props}) => (
                                 {dateLabel}
                               </Div>
                               <Div paddingTop={rowHeight} height="100%">
-                                {daily.events.map((props, idx) => <MEvent {...props} />)}
+                                {/*daily.events.map((props, idx) => <MEvent {...props} />)*/}
                               </Div>
                             </MonthCell>
                           )}

@@ -122,7 +122,7 @@ class WeeklyCalendar extends React.Component {
             position: 'absolute',
             top: t,
             left: diffDay * w,
-            width: !e.allDay ? w : nbDays * w,
+            width: typeof e.allDay === 'boolean' && !e.allDay ? w : nbDays * w,
             height: rowHeight,
           },
         }

@@ -28,7 +28,7 @@ class WeeklyCalendar extends React.Component {
   state = {
     startWeek: undefined,
     showWeekend: true,
-    weekEvents: {events: [], counters: [0, 0, 0, 0, 0, 0, 0], max: 0},
+    weekEvents: {events: [], max: 0},
   }
   componentWillMount() {
     const {start, startingDay} = this.props
@@ -51,9 +51,11 @@ class WeeklyCalendar extends React.Component {
   }
   componentWillUnmount = () => window.removeEventListener('resize', this.resize)
   getChildContext() {
-    const {weekEvents} = this.state
+    const {startWeek, showWeekend, weekEvents} = this.state
+    const {startHour, endHour} = this.props
+    const weeks = showWeekend ? range(7) : range(5)
+    const hours = range(asHours(startHour), asHours(endHour))
     return {
-      offset: weekEvents.counters,
       type: this.props.type ? this.props.type : 'weekly',
       startHour: this.props.startHour,
       endHour: this.props.endHour,
@@ -63,6 +65,11 @@ class WeeklyCalendar extends React.Component {
       prevWeek: this._prevWeek,
       gotoToday: this._gotoToday,
       dateLabel: this._dateLabel,
+      offset: weekEvents.max + 1,
+      matrix: weekEvents.matrix,
+      startWeek,
+      weeks,
+      hours,
     }
   }
   resize = debounce(() => this.forceUpdate(), 300, true)
@@ -99,8 +106,8 @@ class WeeklyCalendar extends React.Component {
 
       events.sort((a, b) => {
         if (isSameDay(a.start, b.start)) {
-          const AnbDays = e.end ? getDayOfYear(a.end) - getDayOfYear(a.start) + 1 : 1
-          const BnbDays = e.end ? getDayOfYear(b.end) - getDayOfYear(b.start) + 1 : 1
+          const AnbDays = a.end ? getDayOfYear(a.end) - getDayOfYear(a.start) + 1 : 1
+          const BnbDays = b.end ? getDayOfYear(b.end) - getDayOfYear(b.start) + 1 : 1
           return AnbDays - BnbDays
         }
         return isAfter(a.start, b.start) ? -1 : 1
@@ -123,22 +130,26 @@ class WeeklyCalendar extends React.Component {
             for (let j = index; j < nbDays - 1; j++) {
               if (matrix[i][j] === 1) free = false
             }
-            console.log(free)
             if (free) {
               y = i
               added = true
-              for (let j = index; j < index + nbDays - 1; j++) matrix[i][j] = 1
+              for (let j = index; j < index + nbDays; j++) {
+                const k = j === 7 ? 0 : j
+                matrix[i][k] = 1
+              }
               break
             }
           }
         }
         if (!added) {
-          matrix.push(
-            [0, 0, 0, 0, 0, 0, 0].map((h, idx) => (idx >= index && idx < index + nbDays ? 1 : 0))
-          )
+          const mm = [0, 0, 0, 0, 0, 0, 0]
+          for (let j = index; j < index + nbDays; j++) {
+            const k = j === 7 ? 0 : j
+            mm[k] = 1
+          }
+          matrix.push(mm)
           y = matrix.length - 1
         }
-        console.log(added, index, y, nbDays, matrix[y][index], e.title)
 
         return {
           key: e.id,
@@ -152,9 +163,13 @@ class WeeklyCalendar extends React.Component {
           },
         }
       })
+      console.log('===================')
+      matrix.map(m => console.log(m))
+      console.log('===================')
       this.setState(() => ({
         weekEvents: {
           events: weekEvents,
+          matrix: matrix.reduce((acc, v) => acc.map((a, idx) => a + v[idx]), [0, 0, 0, 0, 0, 0, 0]),
           max: matrix.length,
         },
       }))
@@ -189,12 +204,6 @@ class WeeklyCalendar extends React.Component {
       gotoToday: this._gotoToday,
       toggleWeekend: this._toggleWeekend,
       dateLabel: this._dateLabel(),
-      DaysLabels: props => (
-        <DaysLabels rowHeight={rowHeight} weeks={weeks} start={startWeek} {...props} />
-      ),
-      HoursLabels: props => (
-        <HoursLabels rowHeight={rowHeight} hours={hours} start={startWeek} {...props} />
-      ),
       getContainerProps: ({style = {}} = {}) => ({
         style: {
           position: type === 'monthly' ? 'absolute' : 'relative',
@@ -222,7 +231,6 @@ class WeeklyCalendar extends React.Component {
 }
 
 WeeklyCalendar.childContextTypes = {
-  offset: PropTypes.array,
   type: PropTypes.string,
   startHour: PropTypes.string,
   endHour: PropTypes.string,
@@ -232,6 +240,11 @@ WeeklyCalendar.childContextTypes = {
   prevWeek: PropTypes.func,
   gotoToday: PropTypes.func,
   dateLabel: PropTypes.func,
+  startWeek: PropTypes.instanceOf(Date),
+  weeks: PropTypes.array,
+  hours: PropTypes.array,
+  offset: PropTypes.number,
+  matrix: PropTypes.array,
 }
 
 WeeklyCalendar.defaultProps = {

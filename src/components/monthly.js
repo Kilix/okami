@@ -24,6 +24,9 @@ class MonthlyCalendar extends React.Component {
   componentDidMount = () => window.addEventListener('resize', this.resize)
   componentWillUnmount = () => window.removeEventListener('resize', this.resize)
   getChildContext() {
+    const {startingDay} = this.props
+    const {startMonth} = this.state
+    const startWeek = startOfWeek({weekStartsOn: startingDay}, startMonth)
     return {
       type: 'monthly',
       startingDay: this.props.startingDay,
@@ -34,6 +37,8 @@ class MonthlyCalendar extends React.Component {
       prevMonth: this._prevMonth,
       gotoToday: this._gotoToday,
       dateLabel: this._dateLabel,
+      weeks: range(7),
+      startWeek,
     }
   }
   _nextMonth = () => this.setState(old => ({startMonth: addMonths(1, old.startMonth)}))
@@ -69,9 +74,6 @@ class MonthlyCalendar extends React.Component {
       prevMonth: this._prevMonth,
       gotoToday: this._gotoToday,
       dateLabel: this._dateLabel(),
-      DaysLabels: props => (
-        <DaysLabels rowHeight={rowHeight} weeks={weeks} start={startWeek} {...props} />
-      ),
       calendar: month,
     }
 
@@ -89,6 +91,8 @@ MonthlyCalendar.childContextTypes = {
   prevMonth: PropTypes.func,
   gotoToday: PropTypes.func,
   dateLabel: PropTypes.func,
+  startWeek: PropTypes.instanceOf(Date),
+  weeks: PropTypes.array,
 }
 MonthlyCalendar.defaultProps = {
   rowHeight: 30,

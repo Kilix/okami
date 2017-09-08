@@ -9,7 +9,6 @@ const defaultContext = [
   'hourFormat',
   'startHour',
   'endHour',
-  'offset',
   'type',
   'rowHeight',
   'gotoToday',
@@ -20,6 +19,12 @@ const defaultContext = [
   'nextDay',
   'prevDay',
   'dateLabel',
+  'startWeek',
+  'currentDay',
+  'hours',
+  'weeks',
+  'offset',
+  'matrix',
 ]
 export default (p = defaultContext) => {
   const pp = p.reduce((acc, val) => ({...acc, [val]: PropTypes.any}), {})
@@ -33,7 +38,6 @@ export default (p = defaultContext) => {
         endHour: PropTypes.string,
         locale: PropTypes.object,
         data: PropTypes.array,
-        offset: PropTypes.array,
         type: PropTypes.string,
         rowHeight: PropTypes.number,
         gotoToday: PropTypes.func,
@@ -44,6 +48,12 @@ export default (p = defaultContext) => {
         nextDay: PropTypes.func,
         prevDay: PropTypes.func,
         dateLabel: PropTypes.func,
+        startWeek: PropTypes.instanceOf(Date),
+        currentDay: PropTypes.instanceOf(Date),
+        weeks: PropTypes.array,
+        hours: PropTypes.array,
+        offset: PropTypes.number,
+        matrix: PropTypes.array,
       }
       render() {
         const ppa = Object.keys(this.context)

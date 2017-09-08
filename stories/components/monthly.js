@@ -6,6 +6,8 @@ import MonthlyCalendar from '../../src/components/monthly'
 import WeeklyCalendar from '../../src/components/weekly'
 import DailyCalendar from '../../src/components/daily'
 import Navigation from '../../src/components/navigation'
+import DaysLabels from '../../src/components/daysLabels'
+
 import {DayLabel, DateDisplayer, Event, MEvent} from '../dummy'
 
 const MonthCell = glamorous.div(
@@ -21,7 +23,7 @@ const MonthCell = glamorous.div(
 
 export default ({className, style, ...props}) => (
   <MonthlyCalendar {...props}>
-    {({calendar, start: currentMonth, rowHeight, DaysLabels, dateLabel}) => (
+    {({calendar, start: currentMonth, rowHeight, dateLabel}) => (
       <Div display="flex" flexDirection="column" {...{className, style}}>
         <Navigation dateFormat="MMMM">
           {({next, prev, today, currentDate}) => (
@@ -48,15 +50,11 @@ export default ({className, style, ...props}) => (
               <WeeklyCalendar key={`weekly_${idx}`} start={startWeek}>
                 {({calendar: weekly, weekEvents, getContainerProps}) => (
                   <Div position="relative" width="100%">
-                    <Div
-                      {...getContainerProps({
-                        style: {marginTop: rowHeight},
-                      })}
-                    >
+                    <Div {...getContainerProps({style: {marginTop: rowHeight}})}>
                       {weekEvents.map(props => <Event {...props} />)}
                     </Div>
                     <Div display="flex">
-                      {weekly.map(({day}, idx) => (
+                      {weekly.map((day, idx) => (
                         <DailyCalendar key={`daily_cal_${idx}`} start={day} dateFormat="DD">
                           {({calendar: daily, start: currentDay, dateLabel}) => (
                             <MonthCell h={250}>
@@ -69,7 +67,7 @@ export default ({className, style, ...props}) => (
                                 {dateLabel}
                               </Div>
                               <Div paddingTop={rowHeight} height="100%">
-                                {/*daily.events.map((props, idx) => <MEvent {...props} />)*/}
+                                {daily.events.map((props, idx) => <MEvent {...props} />)}
                               </Div>
                             </MonthCell>
                           )}

@@ -5,13 +5,13 @@ import format from 'date-fns/fp/formatWithOptions'
 
 import controller from '../controller'
 
-class HoursLabels extends React.Component {
+class N extends React.Component {
   render() {
     const {
       rowHeight,
       dateFormat,
       locale,
-      start,
+      startWeek,
       weeks,
       children,
       renderChild,
@@ -19,7 +19,7 @@ class HoursLabels extends React.Component {
     } = this.props
 
     const formattedDays = weeks.map((d, idx) =>
-      compose(format({locale}, dateFormat), addDays(d))(start)
+      compose(format({locale}, dateFormat), addDays(d))(startWeek)
     )
     if (typeof children !== 'undefined' && typeof children === 'function') {
       return children({weeks: formattedDays})
@@ -27,14 +27,14 @@ class HoursLabels extends React.Component {
     if (typeof renderChild !== 'undefined') {
       return (
         <div {...props}>
-          {formattedDays.map((h, idx) => renderChild({children: h, idx, key: `hour_label_${idx}`}))}
+          {formattedDays.map((h, idx) => renderChild({children: h, idx, key: `day_label_${idx}`}))}
         </div>
       )
     }
     return (
       <div {...props}>
         {formattedDays.map((h, idx) => (
-          <div key={`hour_label_${idx}`} style={{height: rowHeight}}>
+          <div key={`day_label_${idx}`} style={{height: rowHeight}}>
             {h}
           </div>
         ))}
@@ -43,5 +43,5 @@ class HoursLabels extends React.Component {
   }
 }
 
-const enhance = controller(['locale', 'dateFormat'])
-export default enhance(HoursLabels)
+const enhance = controller(['locale', 'dateFormat', 'rowHeight', 'weeks', 'startWeek'])
+export default enhance(N)

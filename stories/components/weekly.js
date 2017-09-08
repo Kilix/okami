@@ -4,6 +4,8 @@ import {Div} from 'glamorous'
 import WeeklyCalendar from '../../src/components/weekly'
 import DailyCalendar from '../../src/components/daily'
 import Navigation from '../../src/components/navigation'
+import DaysLabels from '../../src/components/daysLabels'
+import HoursLabels from '../../src/components/hoursLabels'
 
 import {
   Container,
@@ -18,16 +20,7 @@ import {
 
 export default ({className, style, ...props}) => (
   <WeeklyCalendar startHour="PT3H" endHour="PT22H" {...props}>
-    {({
-      calendar,
-      weekEvents,
-      rowHeight,
-      toggleWeekend,
-      dateLabel,
-      DaysLabels,
-      HoursLabels,
-      getContainerProps,
-    }) => (
+    {({calendar, weekEvents, rowHeight, toggleWeekend, dateLabel, getContainerProps}) => (
       <Div display="flex" flexDirection="column" {...{className, style}}>
         <Navigation>
           {({next, prev, today, currentDate}) => (
@@ -42,7 +35,6 @@ export default ({className, style, ...props}) => (
         </Navigation>
         <Container>
           <HoursLabels
-            style={{paddingTop: rowHeight * (weekEvents.length ? weekEvents.length : 1)}}
             renderChild={props => <HourLabel style={{height: rowHeight}} {...props} />}
           />
           <CalendarContainer style={{flexDirection: 'column'}}>

@@ -5,18 +5,24 @@ import format from 'date-fns/fp/formatWithOptions'
 
 import controller from '../controller'
 
-class HoursLabels extends React.Component {
+class Labels extends React.Component {
   render() {
     const {
       rowHeight,
       hourFormat,
-      start,
+      startWeek,
+      currentDay,
       hours,
       children,
       renderChild,
       locale,
+      offset,
+      type,
+      style,
       ...props
     } = this.props
+    const start = type === 'weekly' ? startWeek : currentDay
+    const ss = style ? {...style, paddingTop: offset * rowHeight} : {paddingTop: offset * rowHeight}
 
     const formattedHours = hours.map((h, idx) =>
       compose(format({locale}, hourFormat), addHours(h))(start)
@@ -26,7 +32,7 @@ class HoursLabels extends React.Component {
     }
     if (typeof renderChild !== 'undefined') {
       return (
-        <div {...props}>
+        <div {...props} style={ss}>
           {formattedHours.map((h, idx) =>
             renderChild({children: h, idx, key: `hour_label_${idx}`})
           )}
@@ -34,7 +40,7 @@ class HoursLabels extends React.Component {
       )
     }
     return (
-      <div {...props}>
+      <div {...props} style={ss}>
         {formattedHours.map((h, idx) => (
           <div key={`hour_label_${idx}`} style={{height: rowHeight}}>
             {h}
@@ -45,5 +51,15 @@ class HoursLabels extends React.Component {
   }
 }
 
-const enhance = controller(['locale', 'hourFormat'])
+const HoursLabels = props => {
+  const p = {
+    weekly: ['locale', 'hourFormat', 'rowHeight', 'hours', 'startWeek', 'offset'],
+    daily: ['locale', 'hourFormat', 'rowHeight', 'hours', 'currentDay'],
+  }
+  const enhance = controller(p[props.type])
+  const N = enhance(Labels)
+  return <N {...props} />
+}
+
+const enhance = controller(['type'])
 export default enhance(HoursLabels)

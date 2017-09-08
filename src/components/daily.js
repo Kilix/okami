@@ -32,12 +32,16 @@ class DailyCalendar extends React.Component {
   }
   componentWillUnmount = () => window.removeEventListener('resize', this.resize)
   getChildContext() {
+    const {startHour, endHour} = this.props
+    const hours = range(asHours(startHour), asHours(endHour))
     return {
       type: 'daily',
       nextDay: this._nextDay,
       prevDay: this._prevDay,
       gotoToday: this._gotoToday,
       dateLabel: this._dateLabel,
+      currentDay: this.state.currentDay,
+      hours,
     }
   }
   _nextDay = () => {
@@ -62,11 +66,10 @@ class DailyCalendar extends React.Component {
     return events
   }
   _simpleCompute = () => {
-    const {startHour, endHour, data, offset, rowHeight} = this.props
+    const {startHour, endHour, data, matrix, rowHeight} = this.props
     const {currentDay} = this.state
     const d = getDay(currentDay)
-    const o = offset[d] * rowHeight
-
+    const o = matrix[d] * rowHeight
     let events = getTodayEvents(startHour, endHour, currentDay, data)
 
     events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
@@ -143,10 +146,6 @@ class DailyCalendar extends React.Component {
       prevDay: this._prevDay,
       gotoToday: this._gotoToday,
       dateLabel: this._dateLabel(),
-      hourLabels: hours.map((h, idx) => ({
-        label: compose(format({locale: this.props.locale}, hourFormat), addHours(h))(currentDay),
-        idx,
-      })),
       columnProps: {
         innerRef: r => {
           if (typeof this.column === 'undefined') {
@@ -172,6 +171,8 @@ DailyCalendar.childContextTypes = {
   prevDay: PropTypes.func,
   gotoToday: PropTypes.func,
   dateLabel: PropTypes.func,
+  currentDay: PropTypes.instanceOf(Date),
+  hours: PropTypes.array,
 }
 
 DailyCalendar.defaultProps = {
@@ -180,7 +181,7 @@ DailyCalendar.defaultProps = {
   rowHeight: 30,
   start: new Date(),
   showNow: false,
-  offset: [0, 0, 0, 0, 0, 0, 0],
+  matrix: [0, 0, 0, 0, 0, 0, 0],
   type: 'daily',
 }
 
@@ -199,7 +200,7 @@ const enhance = controller([
   'locale',
   'dateFormat',
   'hourFormat',
-  'offset',
+  'matrix',
   'type',
   'startHour',
   'endHour',

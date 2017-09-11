@@ -2,6 +2,7 @@ import React from 'react'
 import {Div} from 'glamorous'
 
 import DailyCalendar from '../../src/components/daily'
+import HoursLabels from '../../src/components/hoursLabels'
 
 import {
   Container,
@@ -16,32 +17,13 @@ import {
 
 export default ({className, style, ...props}) => (
   <DailyCalendar showNow {...props}>
-    {({
-      calendar,
-      dayEvents,
-      hours,
-      rowHeight,
-      dateLabel,
-      hourLabels,
-      columnProps,
-      showNowProps,
-    }) => (
+    {({calendar, dayEvents, hours, rowHeight, dateLabel, columnProps, showNowProps}) => (
       <Div display="flex" flexDirection="column" {...{className, style}}>
         <Container>
-          <Div>
-            <HourLabel
-              idx={0}
-              children="all day"
-              style={{height: rowHeight * dayEvents.length, backgroundColor: '#DADADA'}}
+          <Div paddingTop={rowHeight * dayEvents.length}>
+            <HoursLabels
+              renderChild={props => <HourLabel style={{height: rowHeight}} {...props} />}
             />
-            {hourLabels.map(({label, idx}) => (
-              <HourLabel
-                key={`hour_label_${idx}`}
-                idx={idx}
-                children={label}
-                style={{height: rowHeight}}
-              />
-            ))}
           </Div>
           <CalendarContainer style={{flexDirection: 'column'}}>
             <Div>{dayEvents.map(props => <Event {...props} />)}</Div>

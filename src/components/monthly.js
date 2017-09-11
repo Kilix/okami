@@ -49,7 +49,7 @@ class MonthlyCalendar extends React.Component {
     }))
   _dateLabel = dateFormat =>
     format({locale: this.props.locale}, dateFormat ? dateFormat : 'MMMM', this.state.startMonth)
-  resize = debounce(() => this.forceUpdate(), 300, true)
+  resize = debounce(() => this.forceUpdate(), 100, false)
 
   render() {
     const {rowHeight, startingDay, children} = this.props

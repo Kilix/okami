@@ -6,6 +6,8 @@ import MonthlyCalendar from '../../src/components/monthly'
 import WeeklyCalendar from '../../src/components/weekly'
 import DailyCalendar from '../../src/components/daily'
 import Navigation from '../../src/components/navigation'
+import DaysLabels from '../../src/components/daysLabels'
+
 import {DayLabel, DateDisplayer, Event, MEvent} from '../dummy'
 
 const MonthCell = glamorous.div(
@@ -21,7 +23,7 @@ const MonthCell = glamorous.div(
 
 export default ({className, style, onClick, ...props}) => (
   <MonthlyCalendar {...props}>
-    {({calendar, start: currentMonth, rowHeight, DaysLabels, dateLabel}) => (
+    {({calendar, start: currentMonth, rowHeight, dateLabel}) => (
       <Div display="flex" flexDirection="column" {...{className, style}}>
         <Navigation dateFormat="MMMM">
           {({next, prev, today, currentDate}) => (
@@ -58,7 +60,7 @@ export default ({className, style, onClick, ...props}) => (
                       {weekEvents.map(props => <Event {...props} />)}
                     </Div>
                     <Div display="flex">
-                      {weekly.map(({day, offset}, idx) => (
+                      {weekly.map((day, idx) => (
                         <DailyCalendar key={`daily_cal_${idx}`} start={day} dateFormat="DD">
                           {({calendar: daily, start: currentDay, dateLabel}) => (
                             <MonthCell h={159} onClick={() => onClick(currentDay)}>

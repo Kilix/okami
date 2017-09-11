@@ -53,17 +53,19 @@ class DailyCalendar extends React.Component {
   _gotoToday = () => {
     this.setState(() => ({currentDay: startOfDay(new Date())}), () => this._computeDayEvents())
   }
-  resize = debounce(() => this.forceUpdate(), 300, true)
+  resize = debounce(() => this.forceUpdate(), 100, false)
 
   _computeEvents = day => {
-    if (!this.column) return []
     const {startHour, endHour, data, rowHeight} = this.props
-    const wrapper = this.column.getBoundingClientRect()
-
     let events = getTodayEvents(startHour, endHour, day, data)
     events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
-    events = placeEvents(events, wrapper, rowHeight, startHour, endHour)
-    return events
+
+    if (this.column) {
+      const wrapper = this.column.getBoundingClientRect()
+      return placeEvents(events, wrapper, rowHeight, startHour, endHour)
+    } else {
+      return events.map(e => ({key: e.id, event: e}))
+    }
   }
   _simpleCompute = () => {
     const {startHour, endHour, data, matrix, rowHeight} = this.props
@@ -182,6 +184,7 @@ DailyCalendar.defaultProps = {
   start: new Date(),
   showNow: false,
   matrix: [0, 0, 0, 0, 0, 0, 0],
+  offset: 0,
   type: 'daily',
 }
 

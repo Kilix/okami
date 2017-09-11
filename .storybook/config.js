@@ -15,7 +15,6 @@ setOptions({
 
 function loadStories() {
   require('../stories/sync.js')
-  require('../stories/google.js')
 }
 
 configure(loadStories, module)

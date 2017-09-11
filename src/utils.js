@@ -71,6 +71,11 @@ export function range(start, stop, step) {
   return range
 }
 
+export function around(number) {
+  var value = (number * 2).toFixed() / 2
+  return value
+}
+
 export function placeEvents(events, root, rowHeight, startHour, endHour) {
   if (events.length > 0) {
     var groupEvents = []
@@ -97,21 +102,22 @@ export function placeEvents(events, root, rowHeight, startHour, endHour) {
       const eh = asHours(endHour)
       return collidingGroup.map((event, idx) => {
         const {start, end} = event
-        const s = isBefore(setHours(sh, start), start)
-          ? 0
-          : (getHours(start) - sh) * 60 + getMinutes(start)
-        const e = isAfter(setHours(eh, end), end)
-          ? (eh - sh) * 60
-          : (getHours(end) - sh) * 60 + getMinutes(end)
+        const ratio = root.width / nbEvents
+        const smallRatio = root.width / 10
+        const hoursToMinutes = entry => around((getHours(entry) - sh) * 60) + getMinutes(entry)
+        const boundedStart = isBefore(setHours(sh, start), start) ? 0 : hoursToMinutes(start)
+        const boundedEnd = isAfter(setHours(eh, end), end)
+          ? around((eh - sh) / 60)
+          : hoursToMinutes(end)
 
         return {
           event,
           style: {
             position: 'absolute',
-            top: rowHeight * (s / 60),
-            left: root.width / nbEvents * idx - (idx !== 0 ? root.width / 10 : 0),
-            width: root.width / nbEvents + (nbEvents > 1 ? root.width / 10 : 0),
-            height: rowHeight * ((e - s) / 60),
+            top: rowHeight * around(boundedStart / 60),
+            left: around(ratio * idx - (idx !== 0 ? smallRatio : 0)),
+            width: around(ratio + (nbEvents > 1 ? smallRatio : 0)),
+            height: rowHeight * around((boundedEnd - boundedStart) / 60),
           },
         }
       })
@@ -129,9 +135,9 @@ export function placeEvents(events, root, rowHeight, startHour, endHour) {
 
 export function computeNow(wrapper, startHour, endHour) {
   const now = new Date()
-  const diffDayMin = (asHours(endHour) - asHours(startHour)) * 60
-  const diffMin = (getHours(now) - asHours(startHour)) * 60 + getMinutes(now)
-  const top = diffMin * wrapper.height / diffDayMin
+  const diffDayMin = around((asHours(endHour) - asHours(startHour)) * 60)
+  const diffMin = around((getHours(now) - asHours(startHour)) * 60) + getMinutes(now)
+  const top = around(diffMin * wrapper.height / diffDayMin)
   return {
     position: 'absolute',
     top,

@@ -72,7 +72,7 @@ class WeeklyCalendar extends React.Component {
       hours,
     }
   }
-  resize = debounce(() => this.forceUpdate(), 300, true)
+  resize = debounce(() => this.forceUpdate(), 100, false)
   _toggleWeekend = (force = null) =>
     this.setState(
       old => ({showWeekend: force === null ? !old.showWeekend : force}),
@@ -95,24 +95,24 @@ class WeeklyCalendar extends React.Component {
       () => this._computeWeekEvents()
     )
   _computeWeekEvents = () => {
+    const {data, rowHeight, startingDay} = this.props
+    const {startWeek, showWeekend} = this.state
+    const endWeek = showWeekend
+      ? endOfWeek(startWeek, {weekStartsOn: startingDay})
+      : addDays(4, startWeek)
+    let events = getWeekEvents(startingDay, showWeekend, startWeek, data)
+    const matrix = [[0, 0, 0, 0, 0, 0, 0]]
+    events.sort((a, b) => {
+      if (isSameDay(a.start, b.start)) {
+        const AnbDays = a.end ? getDayOfYear(a.end) - getDayOfYear(a.start) + 1 : 1
+        const BnbDays = b.end ? getDayOfYear(b.end) - getDayOfYear(b.start) + 1 : 1
+        return AnbDays - BnbDays
+      }
+      return isAfter(a.start, b.start) ? -1 : 1
+    })
+
     if (this.containerProps) {
       const wrapper = this.containerProps.getBoundingClientRect()
-      const {data, rowHeight, startingDay} = this.props
-      const {startWeek, showWeekend} = this.state
-      const endWeek = showWeekend
-        ? endOfWeek(startWeek, {weekStartsOn: startingDay})
-        : addDays(4, startWeek)
-      let events = getWeekEvents(startingDay, showWeekend, startWeek, data)
-
-      events.sort((a, b) => {
-        if (isSameDay(a.start, b.start)) {
-          const AnbDays = a.end ? getDayOfYear(a.end) - getDayOfYear(a.start) + 1 : 1
-          const BnbDays = b.end ? getDayOfYear(b.end) - getDayOfYear(b.start) + 1 : 1
-          return AnbDays - BnbDays
-        }
-        return isAfter(a.start, b.start) ? -1 : 1
-      })
-      const matrix = [[0, 0, 0, 0, 0, 0, 0]]
       const weekEvents = events.map(e => {
         const s = typeof e.allDay === 'boolean' ? e.start : e.allDay
         const ss = isBefore(startWeek, s) ? startWeek : s
@@ -163,14 +163,22 @@ class WeeklyCalendar extends React.Component {
           },
         }
       })
-      console.log('===================')
-      matrix.map(m => console.log(m))
-      console.log('===================')
       this.setState(() => ({
         weekEvents: {
           events: weekEvents,
           matrix: matrix.reduce((acc, v) => acc.map((a, idx) => a + v[idx]), [0, 0, 0, 0, 0, 0, 0]),
           max: matrix.length,
+        },
+      }))
+    } else {
+      this.setState(() => ({
+        weekEvents: {
+          events: events.map(e => ({
+            key: e.id,
+            event: e,
+          })),
+          matrix: [0, 0, 0, 0, 0, 0, 0],
+          max: 1,
         },
       }))
     }

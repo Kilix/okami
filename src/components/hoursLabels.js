@@ -51,6 +51,10 @@ class Labels extends React.Component {
   }
 }
 
+Labels.defaultProps = {
+  offset: 0,
+}
+
 const HoursLabels = props => {
   const p = {
     weekly: ['locale', 'hourFormat', 'rowHeight', 'hours', 'startWeek', 'offset'],

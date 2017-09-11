@@ -18,8 +18,8 @@ module.exports = {
       watch: 'rollup -c -w',
     },
     lint: {
-      default: 'eslint .',
-      fix: 'eslint . --fix',
+      default: 'eslint src',
+      fix: 'eslint src --fix',
     },
     format: {
       description: 'format the entire project',

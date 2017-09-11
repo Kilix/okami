@@ -140,7 +140,6 @@ This will use the `dateFormat` from `<Calendar>` in `<MonthlyCalendar>` but `<Da
 | property | type     |
 |----------|----------|
 | `date`   | `Date`   |
-| `label`  | `string` |
 | `events` | `Array`  |
 
 

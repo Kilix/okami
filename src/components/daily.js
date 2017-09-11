@@ -158,7 +158,6 @@ class DailyCalendar extends React.Component {
       }),
       dayEvents,
       calendar: {
-        date: currentDay,
         label: format({locale: this.props.locale}, dateFormat, currentDay),
         events: type !== 'monthly' ? this._computeEvents(currentDay) : this._simpleCompute(),
       },

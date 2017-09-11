@@ -27,7 +27,7 @@ For more examples, look at the storybook :)
 
 import React from 'react'
 import frLocale from 'date-fns/locale/fr'
-import { Calendar, DailyCalendar } from 'okami
+import { Calendar, DailyCalendar } from 'okami'
 
 import data from './stories/data'
 

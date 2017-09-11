@@ -50,7 +50,9 @@ export default ({className, style, ...props}) => (
               <WeeklyCalendar key={`weekly_${idx}`} start={startWeek}>
                 {({calendar: weekly, weekEvents, getContainerProps}) => (
                   <Div position="relative" width="100%">
-                    <Div {...getContainerProps({style: {marginTop: rowHeight}})}>
+                    <Div
+                      {...getContainerProps({refKey: 'innerRef', style: {marginTop: rowHeight}})}
+                    >
                       {weekEvents.map(props => <Event {...props} />)}
                     </Div>
                     <Div display="flex">

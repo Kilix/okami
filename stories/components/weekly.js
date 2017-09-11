@@ -42,14 +42,16 @@ export default ({className, style, ...props}) => (
               style={{display: 'flex'}}
               renderChild={props => <DayLabel style={{height: rowHeight}} {...props} />}
             />
-            <Div {...getContainerProps()}>{weekEvents.map(props => <Event {...props} />)}</Div>
+            <Div {...getContainerProps({refKey: 'innerRef'})}>
+              {weekEvents.map(props => <Event {...props} />)}
+            </Div>
             <Div display="flex">
               {calendar.map((day, idx) => (
                 <DailyCalendar key={`daily_cal_${idx}`} showNow start={day}>
-                  {({calendar, hours, columnProps, showNowProps}) => (
+                  {({calendar, hours, getColumnProps, showNowProps}) => (
                     <Div display="flex" flex={1}>
                       <Div width="100%" position="relative">
-                        <Div {...columnProps} width="100%">
+                        <Div {...getColumnProps({refKey: 'innerRef'})} width="100%">
                           {hours.map((h, idx) => (
                             <Cell key={idx} idx={idx} style={{height: rowHeight}} />
                           ))}

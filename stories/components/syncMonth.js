@@ -51,7 +51,10 @@ export default ({className, style, onClick, ...props}) => (
                 {({calendar: weekly, weekEvents, getContainerProps}) => (
                   <Div position="relative" width="100%">
                     <Div
-                      {...getContainerProps({style: {position: 'absolute', marginTop: rowHeight}})}
+                      {...getContainerProps({
+                        refKey: 'innerRef',
+                        style: {position: 'absolute', marginTop: rowHeight},
+                      })}
                       top={0}
                       left={0}
                       width="100%"

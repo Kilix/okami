@@ -212,14 +212,14 @@ class WeeklyCalendar extends React.Component {
       gotoToday: this._gotoToday,
       toggleWeekend: this._toggleWeekend,
       dateLabel: this._dateLabel(),
-      getContainerProps: ({style = {}} = {}) => ({
+      getContainerProps: ({refKey = 'ref', style = {}}) => ({
         style: {
           position: type === 'monthly' ? 'absolute' : 'relative',
           height: rowHeight * weekEvents.max,
           width: '100%',
           ...style,
         },
-        innerRef: r => {
+        [refKey]: r => {
           if (typeof this.containerProps === 'undefined') {
             this.containerProps = r
             this.forceUpdate()

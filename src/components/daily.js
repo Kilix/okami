@@ -148,14 +148,14 @@ class DailyCalendar extends React.Component {
       prevDay: this._prevDay,
       gotoToday: this._gotoToday,
       dateLabel: this._dateLabel(),
-      columnProps: {
-        innerRef: r => {
+      getColumnProps: ({refKey = 'ref'}) => ({
+        [refKey]: r => {
           if (typeof this.column === 'undefined') {
             this.column = r
             this.forceUpdate()
           }
         },
-      },
+      }),
       dayEvents,
       calendar: {
         date: currentDay,

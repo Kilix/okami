@@ -14,6 +14,8 @@ We use composition to construct the calendar, which simply means:
 
 This allow to have a lot fo flexibility without repeating the logic and avoid complexity.
 
+We strongly recommend to use `okami` with [date-fns](https://date-fns.org/).
+
 ## Install
 
 ```yarn add okami```

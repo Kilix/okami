@@ -34,6 +34,7 @@ class Nav extends React.Component {
       next: this._next,
       prev: this._prev,
       today: this._today,
+      toggleWeekend: this.props.toggleWeekend,
       currentDate: this.props.dateLabel(this.props.dateFormat),
     }
     return this.props.children(props)
@@ -42,9 +43,9 @@ class Nav extends React.Component {
 
 const Navigation = props => {
   const p = {
-    monthly: ['gotoToday', 'nextMonth', 'prevMonth', 'dateLabel'],
-    weekly: ['gotoToday', 'nextWeek', 'prevWeek', 'dateLabel'],
-    daily: ['gotoToday', 'nextDay', 'prevDay', 'dateLabel'],
+    monthly: ['gotoToday', 'nextMonth', 'prevMonth', 'toggleWeekend', 'dateLabel'],
+    weekly: ['gotoToday', 'nextWeek', 'prevWeek', 'toggleWeekend', 'dateLabel'],
+    daily: ['gotoToday', 'nextDay', 'prevDay', 'toggleWeekend', 'dateLabel'],
   }
   const enhance = controller(p[props.type])
   const N = enhance(Nav)

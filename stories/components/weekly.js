@@ -20,10 +20,10 @@ import {
 
 export default ({className, style, ...props}) => (
   <WeeklyCalendar startHour="PT3H" endHour="PT22H" {...props}>
-    {({calendar, weekEvents, rowHeight, toggleWeekend, dateLabel, getContainerProps}) => (
+    {({calendar, weekEvents, rowHeight, dateLabel, getContainerProps}) => (
       <Div display="flex" flexDirection="column" {...{className, style}}>
         <Navigation>
-          {({next, prev, today, currentDate}) => (
+          {({next, prev, today, toggleWeekend, currentDate}) => (
             <Div display="flex">
               <button onClick={today}>Today</button>
               <button onClick={prev}>Prev week</button>

@@ -27,14 +27,12 @@ import {debounce, range, getWeekEvents} from '../utils'
 class WeeklyCalendar extends React.Component {
   state = {
     startWeek: undefined,
-    showWeekend: true,
     weekEvents: {events: [], max: 0},
   }
   componentWillMount() {
     const {start, startingDay} = this.props
     this.setState(() => ({
       startWeek: startOfWeek({weekStartsOn: startingDay}, start),
-      showWeekend: this.props.showWeekend,
     }))
   }
   componentWillReceiveProps(props) {
@@ -51,8 +49,8 @@ class WeeklyCalendar extends React.Component {
   }
   componentWillUnmount = () => window.removeEventListener('resize', this.resize)
   getChildContext() {
-    const {startWeek, showWeekend, weekEvents} = this.state
-    const {startHour, endHour} = this.props
+    const {startWeek, weekEvents} = this.state
+    const {startHour, showWeekend, endHour} = this.props
     const hours = range(asHours(startHour), asHours(endHour))
     return {
       type: this.props.type ? this.props.type : 'weekly',
@@ -72,14 +70,6 @@ class WeeklyCalendar extends React.Component {
     }
   }
   resize = debounce(() => this.forceUpdate(), 100, false)
-  _toggleWeekend = (force = null) =>
-    this.setState(
-      old => ({showWeekend: force === null ? !old.showWeekend : force}),
-      () => {
-        this._computeWeekEvents()
-        this.forceUpdate()
-      }
-    )
   _nextWeek = () => {
     this.setState(old => ({startWeek: addWeeks(1, old.startWeek)}), () => this._computeWeekEvents())
   }
@@ -94,8 +84,8 @@ class WeeklyCalendar extends React.Component {
       () => this._computeWeekEvents()
     )
   _computeWeekEvents = () => {
-    const {data, rowHeight, startingDay} = this.props
-    const {startWeek, showWeekend} = this.state
+    const {data, rowHeight, showWeekend, startingDay} = this.props
+    const {startWeek} = this.state
     const endWeek = showWeekend
       ? endOfWeek(startWeek, {weekStartsOn: startingDay})
       : addDays(4, startWeek)
@@ -197,8 +187,8 @@ class WeeklyCalendar extends React.Component {
     return `${s} - ${e}`
   }
   render() {
-    const {startHour, endHour, rowHeight, children, type} = this.props
-    const {startWeek, showWeekend, weekEvents} = this.state
+    const {startHour, endHour, showWeekend, rowHeight, children, type} = this.props
+    const {startWeek, weekEvents} = this.state
     const weeks = showWeekend ? range(7) : range(5)
     const hours = range(asHours(startHour), asHours(endHour))
     const endWeek = compose(addWeeks(1), startOfDay)(startWeek)
@@ -209,7 +199,7 @@ class WeeklyCalendar extends React.Component {
       nextWeek: this._nextWeek,
       prevWeek: this._prevWeek,
       gotoToday: this._gotoToday,
-      toggleWeekend: this._toggleWeekend,
+      toggleWeekend: this.props.toggleWeekend,
       dateLabel: this._dateLabel,
       getContainerProps: ({refKey = 'ref', style = {}}) => ({
         style: {
@@ -255,15 +245,7 @@ WeeklyCalendar.childContextTypes = {
   showWeekend: PropTypes.bool,
 }
 
-WeeklyCalendar.defaultProps = {
-  startHour: 'PT0H',
-  endHour: 'PT24H',
-  rowHeight: 30,
-  showWeekend: true,
-  start: new Date(),
-  showNow: false,
-  type: 'weekly',
-}
+WeeklyCalendar.defaultProps = {start: new Date(), showNow: false, type: 'weekly'}
 
 WeeklyCalendar.PropTypes = {
   startHour: PropTypes.string,
@@ -285,5 +267,7 @@ const enhance = controller([
   'startHour',
   'endHour',
   'rowHeight',
+  'showWeekend',
+  'toggleWeekend',
 ])
 export default enhance(WeeklyCalendar)

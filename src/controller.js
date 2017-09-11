@@ -22,6 +22,7 @@ const defaultContext = [
   'startWeek',
   'currentDay',
   'showWeekend',
+  'toggleWeekend',
   'offset',
   'matrix',
 ]
@@ -52,6 +53,7 @@ export default (p = defaultContext) => {
         showWeekend: PropTypes.bool,
         offset: PropTypes.number,
         matrix: PropTypes.array,
+        toggleWeekend: PropTypes.func,
       }
       render() {
         const ppa = Object.keys(this.context)

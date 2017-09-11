@@ -37,6 +37,7 @@ class MonthlyCalendar extends React.Component {
       prevMonth: this._prevMonth,
       gotoToday: this._gotoToday,
       dateLabel: this._dateLabel,
+      showWeekend: this.props.showWeekend,
       startWeek,
     }
   }
@@ -71,6 +72,7 @@ class MonthlyCalendar extends React.Component {
       prevMonth: this._prevMonth,
       gotoToday: this._gotoToday,
       dateLabel: this._dateLabel,
+      toggleWeekend: this.props.toggleWeekend,
       calendar: month,
     }
 
@@ -89,11 +91,9 @@ MonthlyCalendar.childContextTypes = {
   gotoToday: PropTypes.func,
   dateLabel: PropTypes.func,
   startWeek: PropTypes.instanceOf(Date),
+  showWeekend: PropTypes.bool,
 }
-MonthlyCalendar.defaultProps = {
-  rowHeight: 30,
-  start: new Date(),
-}
+MonthlyCalendar.defaultProps = {start: new Date()}
 
 MonthlyCalendar.PropTypes = {
   rowHeight: PropTypes.number,
@@ -109,5 +109,7 @@ const enhance = controller([
   'dateFormat',
   'hourFormat',
   'rowHeight',
+  'showWeekend',
+  'toggleWeekend',
 ])
 export default enhance(MonthlyCalendar)

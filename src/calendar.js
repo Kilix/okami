@@ -16,11 +16,15 @@ class Calendar extends Component {
   constructor(props) {
     const {startingDay} = props
     super(props)
-    this.state = {startingDay: days[startingDay]}
+    this.state = {startingDay: days[startingDay], showWeekend: props.showWeekend}
+  }
+
+  _toggleWeekend = (force = null) => {
+    this.setState(old => ({showWeekend: force !== null ? force : !old.showWeekend}))
   }
 
   getChildContext() {
-    const {startingDay} = this.state
+    const {startingDay, showWeekend} = this.state
     const {dateFormat, hourFormat, locale, data, startHour, endHour, rowHeight} = this.props
     return {
       startingDay,
@@ -31,6 +35,8 @@ class Calendar extends Component {
       startHour,
       rowHeight,
       endHour,
+      showWeekend,
+      toggleWeekend: this._toggleWeekend,
     }
   }
 
@@ -48,6 +54,7 @@ Calendar.PropTypes = {
   startingDay: PropTypes.string,
   locale: PropTypes.object,
   rowHeight: PropTypes.number,
+  showWeekend: PropTypes.bool,
   data: PropTypes.array.isRequired,
 }
 
@@ -59,6 +66,7 @@ Calendar.defaultProps = {
   startingDay: 'sunday',
   locale: enLocale,
   rowHeight: 30,
+  showWeekend: true,
   data: [],
 }
 
@@ -71,6 +79,8 @@ Calendar.childContextTypes = {
   startHour: PropTypes.string,
   rowHeight: PropTypes.number,
   endHour: PropTypes.string,
+  showWeekend: PropTypes.bool,
+  toggleWeekend: PropTypes.func,
 }
 
 export default Calendar

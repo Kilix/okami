@@ -26,11 +26,12 @@ export default ({className, style, ...props}) => (
     {({calendar, start: currentMonth, rowHeight, dateLabel}) => (
       <Div display="flex" flexDirection="column" {...{className, style}}>
         <Navigation dateFormat="MMMM">
-          {({next, prev, today, currentDate}) => (
+          {({next, prev, today, toggleWeekend, currentDate}) => (
             <Div display="flex">
               <button onClick={today}>Today</button>
               <button onClick={prev}>Prev month</button>
               <button onClick={next}>Next month</button>
+              <button onClick={() => toggleWeekend()}>toggle weekend</button>
               <DateDisplayer children={currentDate} />
             </Div>
           )}

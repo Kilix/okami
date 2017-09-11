@@ -64,6 +64,7 @@ const EventDiv = glamorous.div(
     textOverflow: 'ellipsis',
     cursor: 'pointer',
     padding: '0 5px',
+    minHeight: 30,
   },
   ({event}) => ({
     backgroundColor: event.color ? event.color : '#232323',

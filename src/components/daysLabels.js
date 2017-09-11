@@ -8,9 +8,18 @@ import {range} from '../utils'
 
 class N extends React.Component {
   render() {
-    const {rowHeight, dateFormat, locale, startWeek, children, renderChild, ...props} = this.props
-
-    const formattedDays = range(7).map((d, idx) =>
+    const {
+      rowHeight,
+      dateFormat,
+      locale,
+      showWeekend,
+      startWeek,
+      children,
+      renderChild,
+      ...props
+    } = this.props
+    const days = showWeekend ? range(7) : range(5)
+    const formattedDays = days.map((d, idx) =>
       compose(format({locale}, dateFormat), addDays(d))(startWeek)
     )
     if (typeof children !== 'undefined' && typeof children === 'function') {
@@ -35,5 +44,5 @@ class N extends React.Component {
   }
 }
 
-const enhance = controller(['locale', 'dateFormat', 'rowHeight', 'startWeek'])
+const enhance = controller(['locale', 'dateFormat', 'showWeekend', 'rowHeight', 'startWeek'])
 export default enhance(N)

@@ -53,7 +53,6 @@ class WeeklyCalendar extends React.Component {
   getChildContext() {
     const {startWeek, showWeekend, weekEvents} = this.state
     const {startHour, endHour} = this.props
-    const weeks = showWeekend ? range(7) : range(5)
     const hours = range(asHours(startHour), asHours(endHour))
     return {
       type: this.props.type ? this.props.type : 'weekly',
@@ -67,8 +66,8 @@ class WeeklyCalendar extends React.Component {
       dateLabel: this._dateLabel,
       offset: weekEvents.max + 1,
       matrix: weekEvents.matrix,
+      showWeekend,
       startWeek,
-      weeks,
       hours,
     }
   }
@@ -253,6 +252,7 @@ WeeklyCalendar.childContextTypes = {
   hours: PropTypes.array,
   offset: PropTypes.number,
   matrix: PropTypes.array,
+  showWeekend: PropTypes.bool,
 }
 
 WeeklyCalendar.defaultProps = {

@@ -21,6 +21,7 @@ const defaultContext = [
   'dateLabel',
   'startWeek',
   'currentDay',
+  'showWeekend',
   'offset',
   'matrix',
 ]
@@ -48,6 +49,7 @@ export default (p = defaultContext) => {
         dateLabel: PropTypes.func,
         startWeek: PropTypes.instanceOf(Date),
         currentDay: PropTypes.instanceOf(Date),
+        showWeekend: PropTypes.bool,
         offset: PropTypes.number,
         matrix: PropTypes.array,
       }

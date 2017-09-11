@@ -29,7 +29,7 @@ For more examples, look at the storybook :)
 
 import React from 'react'
 import frLocale from 'date-fns/locale/fr'
-import { Calendar, DailyCalendar } from 'okami'
+import { Calendar, DailyCalendar, Navigation, HoursLabels } from 'okami'
 
 import data from './stories/data'
 
@@ -50,7 +50,7 @@ export default props => (
     locale={frLocale}
   >
     <DailyCalendar showNow {...props}>
-      {({calendar, dayEvents}) => (
+      {({calendar, dayEvents, rowHeight}) => (
         <div style={{display: 'flex', flexDirection:'column'}}>
           <div style={{display:'flex'}}>
             <Navigation dateFormat="ddd DD MMMM">
@@ -65,6 +65,9 @@ export default props => (
             </Navigation>
           </div>
           <Container>
+            <div style={{paddingTop: rowHeight * (dayEvents.length + 1)}}>
+              <HoursLabels renderChild={props => <span style={{height: rowHeight}} {...props} />} />
+            </div>
             <CalendarContainer style={{flexDirection: 'column'}}>
               {dayEvents.map(props => <Event {...props} />)}
               {calendar.events.map(props => <Event {...props} />)}

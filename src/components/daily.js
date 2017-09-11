@@ -33,15 +33,15 @@ class DailyCalendar extends React.Component {
   componentWillUnmount = () => window.removeEventListener('resize', this.resize)
   getChildContext() {
     const {startHour, endHour} = this.props
-    const hours = range(asHours(startHour), asHours(endHour))
     return {
       type: 'daily',
+      startHour,
+      endHour,
       nextDay: this._nextDay,
       prevDay: this._prevDay,
       gotoToday: this._gotoToday,
       dateLabel: this._dateLabel,
       currentDay: this.state.currentDay,
-      hours,
     }
   }
   _nextDay = () => {
@@ -147,7 +147,7 @@ class DailyCalendar extends React.Component {
       nextDay: this._nextDay,
       prevDay: this._prevDay,
       gotoToday: this._gotoToday,
-      dateLabel: this._dateLabel(),
+      dateLabel: this._dateLabel,
       getColumnProps: ({refKey = 'ref'}) => ({
         [refKey]: r => {
           if (typeof this.column === 'undefined') {
@@ -169,12 +169,13 @@ class DailyCalendar extends React.Component {
 }
 DailyCalendar.childContextTypes = {
   type: PropTypes.string,
+  startHour: PropTypes.string,
+  endHour: PropTypes.string,
   nextDay: PropTypes.func,
   prevDay: PropTypes.func,
   gotoToday: PropTypes.func,
   dateLabel: PropTypes.func,
   currentDay: PropTypes.instanceOf(Date),
-  hours: PropTypes.array,
 }
 
 DailyCalendar.defaultProps = {

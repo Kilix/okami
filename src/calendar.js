@@ -12,7 +12,7 @@ const days = {
   saturday: 6,
 }
 
-class CalendarSync extends Component {
+class Calendar extends Component {
   constructor(props) {
     const {startingDay} = props
     super(props)
@@ -40,7 +40,18 @@ class CalendarSync extends Component {
   }
 }
 
-CalendarSync.defaultProps = {
+Calendar.PropTypes = {
+  startHour: PropTypes.string,
+  endHour: PropTypes.string,
+  dateFormat: PropTypes.string,
+  hourFormat: PropTypes.string,
+  startingDay: PropTypes.string,
+  locale: PropTypes.object,
+  rowHeight: PropTypes.number,
+  data: PropTypes.array.isRequired,
+}
+
+Calendar.defaultProps = {
   startHour: 'PT0H',
   endHour: 'PT24H',
   dateFormat: 'DD/MM/YYYY',
@@ -51,7 +62,7 @@ CalendarSync.defaultProps = {
   data: [],
 }
 
-CalendarSync.childContextTypes = {
+Calendar.childContextTypes = {
   startingDay: PropTypes.number,
   dateFormat: PropTypes.string,
   hourFormat: PropTypes.string,
@@ -62,4 +73,4 @@ CalendarSync.childContextTypes = {
   endHour: PropTypes.string,
 }
 
-export default CalendarSync
+export default Calendar

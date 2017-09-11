@@ -1,9 +1,11 @@
 import React from 'react'
 import {compose} from 'recompose'
+import {asHours} from 'pomeranian-durations'
 import addHours from 'date-fns/fp/addHours'
 import format from 'date-fns/fp/formatWithOptions'
 
 import controller from '../controller'
+import {range} from '../utils'
 
 class Labels extends React.Component {
   render() {
@@ -12,17 +14,20 @@ class Labels extends React.Component {
       hourFormat,
       startWeek,
       currentDay,
-      hours,
       children,
       renderChild,
       locale,
       offset,
       type,
       style,
+      startHour,
+      endHour,
       ...props
     } = this.props
     const start = type === 'weekly' ? startWeek : currentDay
     const ss = style ? {...style, paddingTop: offset * rowHeight} : {paddingTop: offset * rowHeight}
+
+    const hours = range(asHours(startHour), asHours(endHour))
 
     const formattedHours = hours.map((h, idx) =>
       compose(format({locale}, hourFormat), addHours(h))(start)
@@ -57,8 +62,8 @@ Labels.defaultProps = {
 
 const HoursLabels = props => {
   const p = {
-    weekly: ['locale', 'hourFormat', 'rowHeight', 'hours', 'startWeek', 'offset'],
-    daily: ['locale', 'hourFormat', 'rowHeight', 'hours', 'currentDay'],
+    weekly: ['locale', 'hourFormat', 'rowHeight', 'endHour', 'startHour', 'startWeek', 'offset'],
+    daily: ['locale', 'hourFormat', 'rowHeight', 'endHour', 'startHour', 'currentDay'],
   }
   const enhance = controller(p[props.type])
   const N = enhance(Labels)

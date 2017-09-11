@@ -4,21 +4,13 @@ import addDays from 'date-fns/fp/addDays'
 import format from 'date-fns/fp/formatWithOptions'
 
 import controller from '../controller'
+import {range} from '../utils'
 
 class N extends React.Component {
   render() {
-    const {
-      rowHeight,
-      dateFormat,
-      locale,
-      startWeek,
-      weeks,
-      children,
-      renderChild,
-      ...props
-    } = this.props
+    const {rowHeight, dateFormat, locale, startWeek, children, renderChild, ...props} = this.props
 
-    const formattedDays = weeks.map((d, idx) =>
+    const formattedDays = range(7).map((d, idx) =>
       compose(format({locale}, dateFormat), addDays(d))(startWeek)
     )
     if (typeof children !== 'undefined' && typeof children === 'function') {
@@ -43,5 +35,5 @@ class N extends React.Component {
   }
 }
 
-const enhance = controller(['locale', 'dateFormat', 'rowHeight', 'weeks', 'startWeek'])
+const enhance = controller(['locale', 'dateFormat', 'rowHeight', 'startWeek'])
 export default enhance(N)

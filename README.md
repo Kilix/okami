@@ -117,6 +117,8 @@ This will use the `dateFormat` from `<Calendar>` in `<MonthlyCalendar>` but `<Da
 
 ### Daily Calendar
 
+Render a day.
+
 #### Props
 
 | property      | type      | default      | description                        |
@@ -178,6 +180,8 @@ By default, it will use the react default ref key
 
 ### Weekly Calendar
 
+Render a week.
+
 #### Props
 
 | property      | type      | default      | description                        |
@@ -212,26 +216,9 @@ The style object is passed only if the `getContainerProps` is called and we have
 | `nextWeek`          | Go to next week                               |
 | `prevWeek`          | Go to previous week                           |
 | `gotoToday`         | Go to today                                   |
-| `toggleWeekend`     | show/hide weekend                             |
 | `dateLabel`         | get the date formatted                        |
 | `getContainerProps` | get the props for the container of the events |
 
-**toggleWeekend**
-
-Let you toggle the weekend in the calendar.
-If you don't pass a pamarater, it will toggle the prop. If you pass a boolean, it will force the value.
-
-```javascript
-
-const showWeekend = true
-
-toggleWeekend() // showWeekend = false
-toggleWeekend(true) // showWeekend = true
-toggleWeekend(true) // showWeekend = true
-toggleWeekend(false) // showWeekend = false
-[...]
-
-```
 
 **dateLabel**
 
@@ -249,6 +236,8 @@ By default, it will use the react default ref key.
 ---
 
 ### Monthly Calendar
+
+Render a month.
 
 #### Props
 
@@ -279,6 +268,111 @@ Allow you to render the current month with a special format.
 
 - dateFormat: use the convention from `date-fns` [format](https://date-fns.org/v1.28.5/docs/format)
 
+---
+
+### Navigation
+
+render the navigation for the calendar and the current label. The navigation and label are based on the type.
+If you use this in a `DailyCalendar`, `next()` will jump to the next day but if you use it in `MonthlyCalendar`, it will jump to the next month.
+You also get access to the function to toggle weekends on the calendar.
+
+If you force showWeekend on a sub component, don't forget to update manually this props.
+
+#### Props
+| property      | type      | description                        |
+|---------------|-----------|------------------------------------|
+| `dateFormat`  | `string`  | format of the date                 |
+
+#### Child Callback Function
+
+| property       | type       | description                                                    |
+|----------------|------------|----------------------------------------------------------------|
+| `type`         | `string`   | Type of calendar ('monthly', 'weekly', 'daily')                |
+| `currentDate`  | `string`   | Formatted date based on type                                   |
+
+| methods         | description                   |
+|-----------------|-------------------------------|
+| `next`          | Go to next based on type      |
+| `prev`          | Go to previous based on type  |
+| `today`         | Go to today                   |
+| `toggleWeekend` | show/hide weekend on calendar |
+
+**toggleWeekend**
+
+Let you toggle the weekend in the calendar.
+If you don't pass a pamarater, it will toggle the prop. If you pass a boolean, it will force the value.
+
+```javascript
+
+const showWeekend = true
+
+toggleWeekend() // showWeekend = false
+toggleWeekend(true) // showWeekend = true
+toggleWeekend(true) // showWeekend = true
+toggleWeekend(false) // showWeekend = false
+[...]
+
+```
+
+---
+
+### DaysLabels / HoursLabels
+
+render the days/hours labels for the calendar.
+You have 3 options to render those components:
+ - Child Callback function : allow full control
+ - `renderChild` props: pass a component that receive pre formatted props
+ - The default render that let you style the `div` container.
+
+#### Props
+| property      | type                  |
+|---------------|-----------------------|
+| `renderChild`  | `Element|Component`  |
+
+#### Child Callback Function
+
+**DaysLabels**
+
+| property       | type       | description                                                    |
+|----------------|------------|----------------------------------------------------------------|
+| `weeks`         | `array`   | Array of the formatted day labels                              |
+
+**HoursLabels**
+
+| property       | type       | description                                                    |
+|----------------|------------|----------------------------------------------------------------|
+| `hours`        | `array`   | Array of the formatted hour labels                              |
+
+```jsx
+  <HoursLabels>
+    { hours => hours.map(h => <span>{h}</span>} }
+  </HoursLabels>
+```
+
+#### `renderChild` prop
+
+props from the HoursLabels/DaysLabels are passed down to the container and the labels are rendered with the component from `renderChild`.
+
+```jsx
+  <HoursLabels renderChild={props => <span {...props} />} />
+```
+
+#### The default render function
+
+props from the HoursLabels/DaysLabels are passed down to the container.
+
+```<HoursLabels />```
+
+This is the render function used :
+```jsx
+<div {...props}>
+  {formattedDays.map((h, idx) => (
+    <div key={`day_label_${idx}`} style={{height: rowHeight}}>
+      {h}
+    </div>
+  ))}
+</div>
+```
 ---
 
 ### Data structure

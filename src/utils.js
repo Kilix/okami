@@ -81,9 +81,10 @@ export function around(number) {
   return value
 }
 
-export function placeEvents(ee, nodes, events, root, rowHeight, startHour, endHour) {
+export function placeEvents(ee, nodes, events, rowHeight, startHour, endHour) {
   const sh = asHours(startHour)
   const eh = asHours(endHour)
+  console.log(eh)
   return ee.map(i => {
     const {start, end} = events[i]
     const {level, depth, children} = nodes[i]
@@ -91,8 +92,9 @@ export function placeEvents(ee, nodes, events, root, rowHeight, startHour, endHo
     const hoursToMinutes = entry => around((getHours(entry) - sh) * 60) + getMinutes(entry)
     const boundedStart = isBefore(setHours(sh, start), start) ? 0 : hoursToMinutes(start)
     const boundedEnd = isAfter(setHours(eh, end), end)
-      ? around((eh - sh) / 60)
+      ? around((eh - sh) * 60)
       : hoursToMinutes(end)
+
     return {
       key: i,
       event: events[i],
@@ -116,7 +118,7 @@ export function computeNow(wrapper, startHour, endHour) {
     position: 'absolute',
     top,
     left: 0,
-    width: wrapper.width,
+    width: '100%',
   }
 }
 

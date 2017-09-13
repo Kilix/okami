@@ -76,12 +76,7 @@ class DailyCalendar extends React.Component {
           : acc,
       []
     )
-    if (this.column) {
-      const wrapper = this.column.getBoundingClientRect()
-      return placeEvents(ee, nodes, events, wrapper, rowHeight, startHour, endHour)
-    } else {
-      return ee.map(e => ({key: e, event: events[e]}))
-    }
+    return placeEvents(ee, nodes, events, rowHeight, startHour, endHour)
   }
   _simpleCompute = () => {
     const {startHour, endHour, events, matrix, rowHeight} = this.props

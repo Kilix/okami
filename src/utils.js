@@ -1,16 +1,21 @@
 import {asHours} from 'pomeranian-durations'
 import setHours from 'date-fns/fp/setHours'
+import getDate from 'date-fns/fp/getDate'
+import getMonth from 'date-fns/fp/getMonth'
+import getYear from 'date-fns/fp/getYear'
 import getHours from 'date-fns/fp/getHours'
 import getMinutes from 'date-fns/fp/getMinutes'
 import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping'
 import isWithinInterval from 'date-fns/fp/isWithinInterval'
 import isSameDay from 'date-fns/fp/isSameDay'
+import isEqual from 'date-fns/fp/isEqual'
 import isAfter from 'date-fns/fp/isAfter'
 import isBefore from 'date-fns/fp/isBefore'
 import endOfWeek from 'date-fns/fp/endOfWeek'
 import startOfDay from 'date-fns/fp/startOfDay'
 import endOfDay from 'date-fns/fp/endOfDay'
 import addDays from 'date-fns/fp/addDays'
+import getDayOfYear from 'date-fns/getDayOfYear'
 
 export function shiftLeft(n, arr) {
   return arr.slice(n, arr.length).concat(arr.slice(0, n))
@@ -76,61 +81,30 @@ export function around(number) {
   return value
 }
 
-export function placeEvents(events, root, rowHeight, startHour, endHour) {
-  if (events.length > 0) {
-    var groupEvents = []
-    for (let i = 0; i < events.length; i++) {
-      const event = events[i]
-      let added = false
-      for (let j = 0; j < groupEvents.length; j++) {
-        const collidingGroup = groupEvents[j]
-        const isColliding = collidingGroup.reduce(
-          (a, ee) => a || areIntervalsOverlapping(event, ee),
-          false
-        )
-        if (isColliding) {
-          groupEvents[j] = [...collidingGroup, event]
-          added = true
-          break
-        }
-      }
-      if (!added) groupEvents.push([event])
+export function placeEvents(ee, nodes, events, root, rowHeight, startHour, endHour) {
+  const sh = asHours(startHour)
+  const eh = asHours(endHour)
+  return ee.map(i => {
+    const {start, end} = events[i]
+    const {level, depth, children} = nodes[i]
+    const ratio = 100 / depth
+    const hoursToMinutes = entry => around((getHours(entry) - sh) * 60) + getMinutes(entry)
+    const boundedStart = isBefore(setHours(sh, start), start) ? 0 : hoursToMinutes(start)
+    const boundedEnd = isAfter(setHours(eh, end), end)
+      ? around((eh - sh) / 60)
+      : hoursToMinutes(end)
+    return {
+      key: i,
+      event: events[i],
+      style: {
+        position: 'absolute',
+        top: rowHeight * around(boundedStart / 60),
+        left: `${level * ratio}%`,
+        width: children.length === 0 ? `${100 - level * ratio}%` : `${ratio + 0.7 * ratio}%`,
+        height: rowHeight * around((boundedEnd - boundedStart) / 60),
+      },
     }
-    groupEvents = groupEvents.map(collidingGroup => {
-      const nbEvents = collidingGroup.length
-      const sh = asHours(startHour)
-      const eh = asHours(endHour)
-      return collidingGroup.map((event, idx) => {
-        const {start, end} = event
-        const ratio = root.width / nbEvents
-        const smallRatio = root.width / 10
-        const hoursToMinutes = entry => around((getHours(entry) - sh) * 60) + getMinutes(entry)
-        const boundedStart = isBefore(setHours(sh, start), start) ? 0 : hoursToMinutes(start)
-        const boundedEnd = isAfter(setHours(eh, end), end)
-          ? around((eh - sh) / 60)
-          : hoursToMinutes(end)
-
-        return {
-          event,
-          style: {
-            position: 'absolute',
-            top: rowHeight * around(boundedStart / 60),
-            left: around(ratio * idx - (idx !== 0 ? smallRatio : 0)),
-            width: around(ratio + (nbEvents > 1 ? smallRatio : 0)),
-            height: rowHeight * around((boundedEnd - boundedStart) / 60),
-          },
-        }
-      })
-    })
-    return flatten(groupEvents).map(e => ({
-      key: e.event.id,
-      ...e,
-    }))
-  }
-  return events.map(e => ({
-    key: e.id,
-    event: e,
-  }))
+  })
 }
 
 export function computeNow(wrapper, startHour, endHour) {
@@ -146,10 +120,10 @@ export function computeNow(wrapper, startHour, endHour) {
   }
 }
 
-const checkBound = (day, int) => event =>
+export const checkBound = (day, int) => event =>
   (isWithinInterval(int, event.start) && isSameDay(event.end, day)) ||
   (isWithinInterval(int, event.end) && isSameDay(event.start, day))
-const checkIn = int => event =>
+export const checkIn = int => event =>
   areIntervalsOverlapping(event, int) && !isSameDay(event.start, event.end)
 
 export function getTodayEvents(startHour, endHour, day, data) {
@@ -157,7 +131,7 @@ export function getTodayEvents(startHour, endHour, day, data) {
     start: setHours(asHours(startHour), day),
     end: setHours(asHours(endHour), day),
   })
-  return data.filter(e => !e.allDay || typeof e.allDay !== 'boolean').filter(check)
+  return data.filter(check)
 }
 export function getWeekEvents(startingDay, showWeekend, startWeek, data) {
   const int = {
@@ -176,7 +150,73 @@ export function getDayEvents(day, data) {
     end: endOfDay(day),
   }
   return [
-    ...data.filter(e => e.allDay && isWithinInterval(int, e.allDay)),
-    ...data.filter(e => e.allDay && typeof e.allDay === 'boolean').filter(checkIn(int)),
+    ...data.filter(e => typeof e.allDay !== 'boolean').filter(isWithinInterval(int)),
+    ...data.filter(e => typeof e.allDay === 'boolean').filter(checkIn(int)),
   ]
+}
+
+export function constructTree(data) {
+  let nodes = {}
+  const findChildren = id => {
+    const child = []
+    for (let i = 0; i < data.length; i++) {
+      const c = data[id]
+      const d = data[i]
+      const cl = getHours(c.end) - getHours(c.start)
+      const dl = getHours(d.end) - getHours(d.start)
+
+      if (
+        areIntervalsOverlapping(c, d) &&
+        (isAfter(c.start, d.start) || (isEqual(c.start, d.start) && c.id !== d.id && cl - dl > 0))
+      ) {
+        child.push(i)
+      }
+    }
+    return child
+  }
+  const makeNode = (level, id) => {
+    const cc = findChildren(id)
+    cc.map(n => {
+      if (typeof nodes[n] === 'undefined') {
+        nodes[n] = makeNode(level + 1, n)
+      } else {
+        if (nodes[n].level < level + 1) nodes[n].level = level + 1
+      }
+    })
+    return {
+      children: cc,
+      level,
+      depth: 1,
+    }
+  }
+  const max = TNodes =>
+    TNodes.reduce((acc, n) => {
+      const {level} = nodes[n]
+      const c = max(nodes[n].children)
+      const p = level < c ? c : level
+      return acc < p ? p : acc
+    }, 0)
+
+  const tNodes = []
+  for (let i = 0; i < data.length; i++) {
+    let isOverlapping = false
+    for (let j = 0; j < tNodes.length; j++) {
+      isOverlapping = isOverlapping || areIntervalsOverlapping(data[i], data[tNodes[j]])
+    }
+    if (isOverlapping === false) {
+      tNodes.push(i)
+    }
+  }
+  const assign = (max, TNodes) =>
+    TNodes.map(n => {
+      nodes[n].depth = nodes[n].depth < max ? max : nodes[n].depth
+      assign(max, nodes[n].children)
+    })
+  tNodes.map(n => {
+    if (typeof nodes[n] === 'undefined') nodes[n] = makeNode(0, n)
+    const m = max(nodes[n].children) + 1
+    nodes[n].depth = m
+    assign(m, nodes[n].children)
+  })
+  return nodes
 }

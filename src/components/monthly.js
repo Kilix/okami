@@ -98,12 +98,10 @@ MonthlyCalendar.defaultProps = {start: new Date()}
 MonthlyCalendar.PropTypes = {
   rowHeight: PropTypes.number,
   start: PropTypes.instanceOf(Date),
-  data: PropTypes.object.isRequired,
   locale: PropTypes.object,
 }
 
 const enhance = controller([
-  'data',
   'locale',
   'startingDay',
   'dateFormat',

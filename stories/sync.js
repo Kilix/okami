@@ -82,12 +82,12 @@ storiesOf('Sync', module)
           <Calendar
             data={data2}
             startingDay="monday"
-            dateFormat="DD"
+            dateFormat="dddd"
             hourFormat="HH"
             locale={frLocale}
           >
             <Div display="flex" alignItems="stretch">
-              <MonthlySync style={{flex: 2}} onClick={this._setDate} />
+              <MonthlySync style={{flex: 2}} onClick={this._setDate} rowHeight={20} />
               <DailySync start={this.state.s} style={{flex: 1}} />
             </Div>
           </Calendar>

@@ -2,6 +2,11 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import enLocale from 'date-fns/locale/en-US'
 
+import getHours from 'date-fns/fp/getHours'
+import isAfter from 'date-fns/fp/isAfter'
+
+import {constructTree} from './utils'
+
 const days = {
   sunday: 0,
   monday: 1,
@@ -12,11 +17,39 @@ const days = {
   saturday: 6,
 }
 
+function parseData(data) {
+  let events = data.filter(e => typeof e.allDay === 'boolean' && e.allDay === false)
+  events.sort((a, b) => {
+    if (getHours(a.start) === getHours(b.start)) {
+      return getHours(b.end) - getHours(b.start) - (getHours(a.end) - getHours(a.start))
+    }
+    return isAfter(a.start, b.start) ? -1 : 1
+  })
+
+  const fevents = data.filter(e => e.allDay)
+  return {
+    events,
+    fevents,
+    nodes: constructTree(events),
+  }
+}
+
 class Calendar extends Component {
   constructor(props) {
-    const {startingDay} = props
+    const {startingDay, data} = props
     super(props)
-    this.state = {startingDay: days[startingDay], showWeekend: props.showWeekend}
+    const e = parseData(data)
+
+    this.state = {
+      startingDay: days[startingDay],
+      showWeekend: props.showWeekend,
+      ...e,
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.data !== nextProps.data) {
+      this.setState(() => parseData(nextProps.data))
+    }
   }
 
   _toggleWeekend = (force = null) => {
@@ -24,14 +57,16 @@ class Calendar extends Component {
   }
 
   getChildContext() {
-    const {startingDay, showWeekend} = this.state
-    const {dateFormat, hourFormat, locale, data, startHour, endHour, rowHeight} = this.props
+    const {startingDay, showWeekend, events, fevents, nodes} = this.state
+    const {dateFormat, hourFormat, locale, startHour, endHour, rowHeight} = this.props
     return {
       startingDay,
       dateFormat,
       hourFormat,
+      events,
+      fevents,
+      nodes,
       locale,
-      data,
       startHour,
       rowHeight,
       endHour,
@@ -75,7 +110,9 @@ Calendar.childContextTypes = {
   dateFormat: PropTypes.string,
   hourFormat: PropTypes.string,
   locale: PropTypes.object,
-  data: PropTypes.array,
+  events: PropTypes.array,
+  fevents: PropTypes.array,
+  nodes: PropTypes.object,
   startHour: PropTypes.string,
   rowHeight: PropTypes.number,
   endHour: PropTypes.string,

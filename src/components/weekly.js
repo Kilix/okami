@@ -84,12 +84,12 @@ class WeeklyCalendar extends React.Component {
       () => this._computeWeekEvents()
     )
   _computeWeekEvents = () => {
-    const {data, rowHeight, showWeekend, startingDay} = this.props
+    const {fevents, rowHeight, showWeekend, startingDay} = this.props
     const {startWeek} = this.state
     const endWeek = showWeekend
       ? endOfWeek(startWeek, {weekStartsOn: startingDay})
       : addDays(4, startWeek)
-    let events = getWeekEvents(startingDay, showWeekend, startWeek, data)
+    let events = getWeekEvents(startingDay, showWeekend, startWeek, fevents)
     const matrix = [[0, 0, 0, 0, 0, 0, 0]]
     events.sort((a, b) => {
       if (isSameDay(a.start, b.start)) {
@@ -254,13 +254,13 @@ WeeklyCalendar.PropTypes = {
   rowHeight: PropTypes.number,
   start: PropTypes.instanceOf(Date),
   locale: PropTypes.object,
-  data: PropTypes.object.isRequired,
+  fevents: PropTypes.array.isRequired,
   showNow: PropTypes.bool,
   type: PropTypes.string,
 }
 
 const enhance = controller([
-  'data',
+  'fevents',
   'locale',
   'startingDay',
   'type',

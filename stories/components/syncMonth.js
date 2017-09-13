@@ -23,7 +23,7 @@ const MonthCell = glamorous.div(
 
 export default ({className, style, onClick, ...props}) => (
   <MonthlyCalendar {...props}>
-    {({calendar, start: currentMonth, rowHeight, dateLabel}) => (
+    {({calendar, start: currentMonth, rowHeight}) => (
       <Div display="flex" flexDirection="column" {...{className, style}}>
         <Navigation dateFormat="MMMM">
           {({next, prev, today, currentDate}) => (
@@ -53,7 +53,7 @@ export default ({className, style, onClick, ...props}) => (
                     <Div
                       {...getContainerProps({
                         refKey: 'innerRef',
-                        style: {position: 'absolute', marginTop: rowHeight},
+                        style: {height: 150 - rowHeight, overflow: 'hidden', marginTop: rowHeight},
                       })}
                       top={0}
                       left={0}
@@ -73,7 +73,7 @@ export default ({className, style, onClick, ...props}) => (
                                 left={4}
                                 opacity={getMonth(currentMonth) === getMonth(currentDay) ? 1 : 0.3}
                               >
-                                {dateLabel}
+                                {dateLabel()}
                               </Div>
                               <Div paddingTop={rowHeight} height="100%">
                                 {daily.events.map((props, idx) => <MEvent {...props} />)}

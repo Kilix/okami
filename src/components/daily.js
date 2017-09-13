@@ -4,6 +4,7 @@ import {compose} from 'recompose'
 
 import {asHours} from 'pomeranian-durations'
 
+import setHours from 'date-fns/fp/setHours'
 import startOfDay from 'date-fns/fp/startOfDay'
 import subDays from 'date-fns/fp/subDays'
 import addDays from 'date-fns/fp/addDays'
@@ -15,7 +16,15 @@ import getDay from 'date-fns/getDay'
 import differenceInHours from 'date-fns/differenceInHours'
 
 import controller from '../controller'
-import {debounce, range, placeEvents, computeNow, getTodayEvents, getDayEvents} from '../utils'
+import {
+  debounce,
+  range,
+  placeEvents,
+  computeNow,
+  getTodayEvents,
+  getDayEvents,
+  checkBound,
+} from '../utils'
 
 class DailyCalendar extends React.Component {
   state = {
@@ -56,26 +65,31 @@ class DailyCalendar extends React.Component {
   resize = debounce(() => this.forceUpdate(), 100, false)
 
   _computeEvents = day => {
-    const {startHour, endHour, data, rowHeight} = this.props
-    let events = getTodayEvents(startHour, endHour, day, data)
-    events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
-
+    const {startHour, endHour, events, nodes, rowHeight} = this.props
+    const ee = events.reduce(
+      (acc, e, i) =>
+        checkBound(day, {
+          start: setHours(asHours(startHour), day),
+          end: setHours(asHours(endHour), day),
+        })(e)
+          ? [...acc, i]
+          : acc,
+      []
+    )
     if (this.column) {
       const wrapper = this.column.getBoundingClientRect()
-      return placeEvents(events, wrapper, rowHeight, startHour, endHour)
+      return placeEvents(ee, nodes, events, wrapper, rowHeight, startHour, endHour)
     } else {
-      return events.map(e => ({key: e.id, event: e}))
+      return ee.map(e => ({key: e, event: events[e]}))
     }
   }
   _simpleCompute = () => {
-    const {startHour, endHour, data, matrix, rowHeight} = this.props
+    const {startHour, endHour, events, matrix, rowHeight} = this.props
     const {currentDay} = this.state
     const d = getDay(currentDay)
     const o = matrix[d] * rowHeight
-    let events = getTodayEvents(startHour, endHour, currentDay, data)
-
-    events.sort((a, b) => (isAfter(a.start, b.start) ? -1 : 1))
-    events = events.sort((a, b) => {
+    let ee = getTodayEvents(startHour, endHour, currentDay, events)
+    ee = ee.sort((a, b) => {
       const anbDays = a.end ? Math.floor(differenceInHours(a.end, a.start) / 24) + 1 : 1
       const bnbDays = b.end ? Math.floor(differenceInHours(b.end, b.start) / 24) + 1 : 1
       if (anbDays > bnbDays) return -1
@@ -83,7 +97,7 @@ class DailyCalendar extends React.Component {
       else return 0
     })
 
-    return events.map(e => {
+    return ee.map(e => {
       return {
         key: e.id,
         style: {
@@ -102,10 +116,10 @@ class DailyCalendar extends React.Component {
     return computeNow(wrapper, startHour, endHour)
   }
   _computeDayEvents = () => {
-    const {data, rowHeight} = this.props
+    const {fevents, rowHeight} = this.props
     const {currentDay} = this.state
     this.setState(() => ({
-      dayEvents: getDayEvents(currentDay, data).map(e => {
+      dayEvents: getDayEvents(currentDay, fevents).map(e => {
         return {
           key: e.id,
           event: e,
@@ -193,13 +207,17 @@ DailyCalendar.PropTypes = {
   endHour: PropTypes.string,
   rowHeight: PropTypes.number,
   start: PropTypes.instanceOf(Date),
-  data: PropTypes.object.isRequired,
+  events: PropTypes.array.isRequired,
+  fevents: PropTypes.array.isRequired,
+  nodes: PropTypes.object.isRequired,
   locale: PropTypes.object,
   showNow: PropTypes.bool,
 }
 
 const enhance = controller([
-  'data',
+  'events',
+  'fevents',
+  'nodes',
   'locale',
   'dateFormat',
   'hourFormat',

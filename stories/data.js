@@ -143,7 +143,7 @@ export default [
   },
   {
     id: 15,
-    allDay: false,
+    allDay: true,
     start: startOfHour(setHours(19, today)),
     end: startOfHour(setHours(12, tomorrow)),
     title: 'test chavauche',

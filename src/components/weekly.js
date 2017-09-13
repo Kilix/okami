@@ -90,7 +90,7 @@ class WeeklyCalendar extends React.Component {
       ? endOfWeek(startWeek, {weekStartsOn: startingDay})
       : addDays(4, startWeek)
     let events = getWeekEvents(startingDay, showWeekend, startWeek, fevents)
-    const matrix = [[0, 0, 0, 0, 0, 0, 0]]
+    const matrix = []
     events.sort((a, b) => {
       if (isSameDay(a.start, b.start)) {
         const AnbDays = a.end ? getDayOfYear(a.end) - getDayOfYear(a.start) + 1 : 1

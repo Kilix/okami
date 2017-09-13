@@ -35,6 +35,7 @@ export default ({className, style, ...props}) => (
         </Navigation>
         <Container>
           <HoursLabels
+            style={{marginTop: rowHeight}}
             renderChild={props => <HourLabel style={{height: rowHeight}} {...props} />}
           />
           <CalendarContainer style={{flexDirection: 'column'}}>

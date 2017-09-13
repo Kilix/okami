@@ -62,7 +62,7 @@ class WeeklyCalendar extends React.Component {
       prevWeek: this._prevWeek,
       gotoToday: this._gotoToday,
       dateLabel: this._dateLabel,
-      offset: weekEvents.max + 1,
+      offset: weekEvents.max,
       matrix: weekEvents.matrix,
       showWeekend,
       startWeek,

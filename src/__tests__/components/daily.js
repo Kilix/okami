@@ -5,63 +5,77 @@ import frLocale from 'date-fns/locale/fr'
 import format from 'date-fns/format'
 
 import DailyCalendar from '../../components/daily'
-const createDate = (y, m, d, h = 0, mm = 0, s = 0) => new Date(Date.UTC(y, m, d, h, mm, s))
-
-const events = [
-  {
-    allDay: false,
-    start: createDate(2017, 9, 7, 3, 0, 0),
-    end: createDate(2017, 9, 7, 14, 0, 0),
-  },
-  {
-    allDay: false,
-    start: createDate(2017, 9, 7, 5, 0, 0),
-    end: createDate(2017, 9, 7, 7, 0, 0),
-  },
-  {
-    allDay: false,
-    start: createDate(2017, 9, 7, 12, 30, 0),
-    end: createDate(2017, 9, 7, 13, 30, 0),
-  },
-  {
-    allDay: false,
-    start: createDate(2017, 9, 7, 13, 0, 0),
-    end: createDate(2017, 9, 7, 14, 30, 0),
-  },
-  {
-    allDay: false,
-    start: createDate(2017, 9, 7, 16, 30, 0),
-    end: createDate(2017, 9, 7, 18, 0, 0),
-  },
-  {
-    allDay: false,
-    start: createDate(2017, 9, 7, 17, 0, 0),
-    end: createDate(2017, 9, 7, 18, 30, 0),
-  },
-  {
-    allDay: false,
-    start: createDate(2017, 9, 7, 17, 0, 0),
-    end: createDate(2017, 9, 7, 17, 30, 0),
-  },
-]
-const fevents = [
-  {
-    allDay: true,
-    start: createDate(2017, 9, 7, 17, 0, 0),
-    end: createDate(2017, 9, 8, 17, 30, 0),
-  },
-]
-const nodes = {
-  0: {level: 0, children: [1, 2, 3], depth: 3},
-  1: {level: 1, children: [], depth: 3},
-  2: {level: 1, children: [3], depth: 3},
-  3: {level: 2, children: [], depth: 3},
-  4: {level: 0, children: [5, 6], depth: 2},
-  5: {level: 1, children: [], depth: 2},
-  6: {level: 1, children: [], depth: 2},
-}
 
 describe('DailyCalendar', () => {
+  const constantDate = new Date('2017-06-13T04:41:20')
+  const RealDate = Date
+
+  function mockDate(isoDate) {
+    global.Date = class extends RealDate {
+      constructor() {
+        super()
+
+        return constantDate
+      }
+    }
+  }
+  afterEach(() => {
+    global.Date = RealDate
+  })
+  const events = [
+    {
+      allDay: false,
+      start: new Date(2017, 9, 7, 3, 0, 0),
+      end: new Date(2017, 9, 7, 14, 0, 0),
+    },
+    {
+      allDay: false,
+      start: new Date(2017, 9, 7, 5, 0, 0),
+      end: new Date(2017, 9, 7, 7, 0, 0),
+    },
+    {
+      allDay: false,
+      start: new Date(2017, 9, 7, 12, 30, 0),
+      end: new Date(2017, 9, 7, 13, 30, 0),
+    },
+    {
+      allDay: false,
+      start: new Date(2017, 9, 7, 13, 0, 0),
+      end: new Date(2017, 9, 7, 14, 30, 0),
+    },
+    {
+      allDay: false,
+      start: new Date(2017, 9, 7, 16, 30, 0),
+      end: new Date(2017, 9, 7, 18, 0, 0),
+    },
+    {
+      allDay: false,
+      start: new Date(2017, 9, 7, 17, 0, 0),
+      end: new Date(2017, 9, 7, 18, 30, 0),
+    },
+    {
+      allDay: false,
+      start: new Date(2017, 9, 7, 17, 0, 0),
+      end: new Date(2017, 9, 7, 17, 30, 0),
+    },
+  ]
+  const fevents = [
+    {
+      allDay: true,
+      start: new Date(2017, 9, 7, 17, 0, 0),
+      end: new Date(2017, 9, 8, 17, 30, 0),
+    },
+  ]
+  const nodes = {
+    0: {level: 0, children: [1, 2, 3], depth: 3},
+    1: {level: 1, children: [], depth: 3},
+    2: {level: 1, children: [3], depth: 3},
+    3: {level: 2, children: [], depth: 3},
+    4: {level: 0, children: [5, 6], depth: 2},
+    5: {level: 1, children: [], depth: 2},
+    6: {level: 1, children: [], depth: 2},
+  }
+
   const ctx = {
     events,
     fevents,
@@ -77,7 +91,7 @@ describe('DailyCalendar', () => {
   }
   test('render', () => {
     const tree = mount(
-      <DailyCalendar start={createDate(2017, 9, 9, 0, 0, 0, 0)}>
+      <DailyCalendar start={new Date(2017, 9, 9, 0, 0, 0, 0)}>
         {({getColumnProps}) => <div {...getColumnProps()} />}
       </DailyCalendar>,
       {
@@ -88,7 +102,7 @@ describe('DailyCalendar', () => {
   })
   test('next Day', () => {
     const tree = mount(
-      <DailyCalendar start={createDate(2017, 9, 9, 0, 0, 0, 0)}>
+      <DailyCalendar start={new Date(2017, 9, 9, 0, 0, 0, 0)}>
         {({nextDay, dateLabel}) => <span onClick={nextDay}>{dateLabel('DD')}</span>}
       </DailyCalendar>,
       {
@@ -101,7 +115,7 @@ describe('DailyCalendar', () => {
   })
   test('prev Day', () => {
     const tree = mount(
-      <DailyCalendar start={createDate(2017, 9, 9, 0, 0, 0, 0)}>
+      <DailyCalendar start={new Date(2017, 9, 9, 0, 0, 0, 0)}>
         {({prevDay, dateLabel}) => <span onClick={prevDay}>{dateLabel('DD')}</span>}
       </DailyCalendar>,
       {
@@ -114,7 +128,7 @@ describe('DailyCalendar', () => {
   })
   test('gotoToday Day', () => {
     const tree = mount(
-      <DailyCalendar start={createDate(2017, 9, 9, 0, 0, 0, 0)}>
+      <DailyCalendar start={new Date(2017, 9, 9, 0, 0, 0, 0)}>
         {({gotoToday, prevDay, dateLabel}) => (
           <div>
             <button onClick={gotoToday}>Hlo</button>

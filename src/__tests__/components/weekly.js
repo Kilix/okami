@@ -10,71 +10,85 @@ import WeeklyCalendar from '../../components/weekly'
 import data from '../../../stories/data'
 import {parseData} from '../../utils'
 
-const createDate = (y, m, d, h = 0, mm = 0, s = 0) => new Date(Date.UTC(y, m, d, h, mm, s))
-
-const events = [
-  {
-    id: 1,
-    allDay: false,
-    start: createDate(2017, 9, 7, 3, 0, 0),
-    end: createDate(2017, 9, 7, 14, 0, 0),
-  },
-  {
-    id: 2,
-    allDay: false,
-    start: createDate(2017, 9, 7, 5, 0, 0),
-    end: createDate(2017, 9, 7, 7, 0, 0),
-  },
-  {
-    id: 3,
-    allDay: false,
-    start: createDate(2017, 9, 7, 12, 30, 0),
-    end: createDate(2017, 9, 7, 13, 30, 0),
-  },
-  {
-    id: 4,
-    allDay: false,
-    start: createDate(2017, 9, 7, 13, 0, 0),
-    end: createDate(2017, 9, 7, 14, 30, 0),
-  },
-  {
-    id: 5,
-    allDay: false,
-    start: createDate(2017, 9, 7, 16, 30, 0),
-    end: createDate(2017, 9, 7, 18, 0, 0),
-  },
-  {
-    id: 6,
-    allDay: false,
-    start: createDate(2017, 9, 7, 17, 0, 0),
-    end: createDate(2017, 9, 7, 18, 30, 0),
-  },
-  {
-    id: 7,
-    allDay: false,
-    start: createDate(2017, 9, 7, 17, 0, 0),
-    end: createDate(2017, 9, 7, 17, 30, 0),
-  },
-]
-const fevents = [
-  {
-    id: 0,
-    allDay: true,
-    start: createDate(2017, 9, 7, 17, 0, 0),
-    end: createDate(2017, 9, 12, 17, 30, 0),
-  },
-]
-const nodes = {
-  0: {level: 0, children: [1, 2, 3], depth: 3},
-  1: {level: 1, children: [], depth: 3},
-  2: {level: 1, children: [3], depth: 3},
-  3: {level: 2, children: [], depth: 3},
-  4: {level: 0, children: [5, 6], depth: 2},
-  5: {level: 1, children: [], depth: 2},
-  6: {level: 1, children: [], depth: 2},
-}
-
 describe('WeeklyCalendar', () => {
+  const constantDate = new Date('2017-06-13T04:41:20')
+  const RealDate = Date
+
+  function mockDate(isoDate) {
+    global.Date = class extends RealDate {
+      constructor() {
+        super()
+
+        return constantDate
+      }
+    }
+  }
+  afterEach(() => {
+    global.Date = RealDate
+  })
+
+  const events = [
+    {
+      id: 1,
+      allDay: false,
+      start: new Date(2017, 9, 7, 3, 0, 0),
+      end: new Date(2017, 9, 7, 14, 0, 0),
+    },
+    {
+      id: 2,
+      allDay: false,
+      start: new Date(2017, 9, 7, 5, 0, 0),
+      end: new Date(2017, 9, 7, 7, 0, 0),
+    },
+    {
+      id: 3,
+      allDay: false,
+      start: new Date(2017, 9, 7, 12, 30, 0),
+      end: new Date(2017, 9, 7, 13, 30, 0),
+    },
+    {
+      id: 4,
+      allDay: false,
+      start: new Date(2017, 9, 7, 13, 0, 0),
+      end: new Date(2017, 9, 7, 14, 30, 0),
+    },
+    {
+      id: 5,
+      allDay: false,
+      start: new Date(2017, 9, 7, 16, 30, 0),
+      end: new Date(2017, 9, 7, 18, 0, 0),
+    },
+    {
+      id: 6,
+      allDay: false,
+      start: new Date(2017, 9, 7, 17, 0, 0),
+      end: new Date(2017, 9, 7, 18, 30, 0),
+    },
+    {
+      id: 7,
+      allDay: false,
+      start: new Date(2017, 9, 7, 17, 0, 0),
+      end: new Date(2017, 9, 7, 17, 30, 0),
+    },
+  ]
+  const fevents = [
+    {
+      id: 0,
+      allDay: true,
+      start: new Date(2017, 9, 7, 17, 0, 0),
+      end: new Date(2017, 9, 12, 17, 30, 0),
+    },
+  ]
+  const nodes = {
+    0: {level: 0, children: [1, 2, 3], depth: 3},
+    1: {level: 1, children: [], depth: 3},
+    2: {level: 1, children: [3], depth: 3},
+    3: {level: 2, children: [], depth: 3},
+    4: {level: 0, children: [5, 6], depth: 2},
+    5: {level: 1, children: [], depth: 2},
+    6: {level: 1, children: [], depth: 2},
+  }
+
   const ctx = {
     ...parseData(data),
     matrix: [],
@@ -91,7 +105,7 @@ describe('WeeklyCalendar', () => {
   }
   test('render', () => {
     const tree = mount(
-      <WeeklyCalendar start={createDate(2017, 9, 10, 17, 0, 0)}>
+      <WeeklyCalendar start={new Date(2017, 9, 10, 17, 0, 0)}>
         {({calendar: weekly, weekEvents, getContainerProps, dateLabel}) => (
           <div>
             <span>{dateLabel()}</span>
@@ -114,7 +128,7 @@ describe('WeeklyCalendar', () => {
   })
   test('next Week', () => {
     const tree = mount(
-      <WeeklyCalendar start={createDate(2017, 9, 9, 0, 0, 0, 0)}>
+      <WeeklyCalendar start={new Date(2017, 9, 9, 0, 0, 0, 0)}>
         {({nextWeek, dateLabel}) => <span onClick={nextWeek}>{dateLabel('WW')}</span>}
       </WeeklyCalendar>,
       {
@@ -127,7 +141,7 @@ describe('WeeklyCalendar', () => {
   })
   test('prev Month', () => {
     const tree = mount(
-      <WeeklyCalendar start={createDate(2017, 9, 9, 0, 0, 0, 0)}>
+      <WeeklyCalendar start={new Date(2017, 9, 9, 0, 0, 0, 0)}>
         {({prevWeek, dateLabel}) => <span onClick={prevWeek}>{dateLabel('WW')}</span>}
       </WeeklyCalendar>,
       {
@@ -140,7 +154,7 @@ describe('WeeklyCalendar', () => {
   })
   test('gotoToday Week', () => {
     const tree = mount(
-      <WeeklyCalendar start={createDate(2017, 9, 9, 0, 0, 0, 0)}>
+      <WeeklyCalendar start={new Date(2017, 9, 9, 0, 0, 0, 0)}>
         {({gotoToday, prevWeek, dateLabel}) => (
           <div>
             <button onClick={gotoToday}>Hlo</button>

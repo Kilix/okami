@@ -1,8 +1,5 @@
 import {asHours} from 'pomeranian-durations'
 import setHours from 'date-fns/fp/setHours'
-import getDate from 'date-fns/fp/getDate'
-import getMonth from 'date-fns/fp/getMonth'
-import getYear from 'date-fns/fp/getYear'
 import getHours from 'date-fns/fp/getHours'
 import getMinutes from 'date-fns/fp/getMinutes'
 import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping'
@@ -16,10 +13,6 @@ import startOfDay from 'date-fns/fp/startOfDay'
 import endOfDay from 'date-fns/fp/endOfDay'
 import addDays from 'date-fns/fp/addDays'
 import getDayOfYear from 'date-fns/getDayOfYear'
-
-export function shiftLeft(n, arr) {
-  return arr.slice(n, arr.length).concat(arr.slice(0, n))
-}
 
 export function flatten(list) {
   var value, jlen, j
@@ -67,24 +60,20 @@ export function range(start, stop, step) {
   }
   step = step || 1
 
-  var length = Math.max(Math.ceil((stop - start) / step), 0)
-  var range = Array(length)
+  const length = Math.max(Math.ceil((stop - start) / step), 0)
+  const range = Array(length)
 
-  for (var idx = 0; idx < length; idx++, start += step) {
+  for (let idx = 0; idx < length; idx++, start += step) {
     range[idx] = start
   }
   return range
 }
 
-export function around(number) {
-  var value = (number * 2).toFixed() / 2
-  return value
-}
+export const around = number => (number * 2).toFixed() / 2
 
 export function placeEvents(ee, nodes, events, rowHeight, startHour, endHour) {
   const sh = asHours(startHour)
   const eh = asHours(endHour)
-  console.log(eh)
   return ee.map(i => {
     const {start, end} = events[i]
     const {level, depth, children} = nodes[i]
@@ -109,8 +98,7 @@ export function placeEvents(ee, nodes, events, rowHeight, startHour, endHour) {
   })
 }
 
-export function computeNow(wrapper, startHour, endHour) {
-  const now = new Date()
+export function computeNow(wrapper, startHour, endHour, now) {
   const diffDayMin = around((asHours(endHour) - asHours(startHour)) * 60)
   const diffMin = around((getHours(now) - asHours(startHour)) * 60) + getMinutes(now)
   const top = around(diffMin * wrapper.height / diffDayMin)
@@ -125,6 +113,7 @@ export function computeNow(wrapper, startHour, endHour) {
 export const checkBound = (day, int) => event =>
   (isWithinInterval(int, event.start) && isSameDay(event.end, day)) ||
   (isWithinInterval(int, event.end) && isSameDay(event.start, day))
+
 export const checkIn = int => event =>
   areIntervalsOverlapping(event, int) && !isSameDay(event.start, event.end)
 
@@ -138,11 +127,11 @@ export function getTodayEvents(startHour, endHour, day, data) {
 export function getWeekEvents(startingDay, showWeekend, startWeek, data) {
   const int = {
     start: startWeek,
-    end: showWeekend ? endOfWeek(startWeek, {startOfDay: startingDay}) : addDays(4, startWeek),
+    end: showWeekend ? endOfWeek(startWeek, {weekStartsOn: startingDay}) : addDays(4, startWeek),
   }
   return [
-    ...data.filter(e => e.allDay && isWithinInterval(int, e.allDay)),
-    ...data.filter(e => e.allDay && typeof e.allDay === 'boolean').filter(checkIn(int)),
+    ...data.filter(e => typeof e.allDay !== 'boolean' && isWithinInterval(int, e.allDay)),
+    ...data.filter(e => typeof e.allDay === 'boolean' && checkIn(int)(e)),
   ]
 }
 
@@ -152,8 +141,8 @@ export function getDayEvents(day, data) {
     end: endOfDay(day),
   }
   return [
-    ...data.filter(e => typeof e.allDay !== 'boolean').filter(isWithinInterval(int)),
-    ...data.filter(e => typeof e.allDay === 'boolean').filter(checkIn(int)),
+    ...data.filter(e => typeof e.allDay !== 'boolean' && isWithinInterval(int, e.allDay)),
+    ...data.filter(e => typeof e.allDay === 'boolean' && checkIn(int)(e)),
   ]
 }
 
@@ -221,4 +210,21 @@ export function constructTree(data) {
     assign(m, nodes[n].children)
   })
   return nodes
+}
+
+export function parseData(data) {
+  let events = data.filter(e => typeof e.allDay === 'boolean' && e.allDay === false)
+  events.sort((a, b) => {
+    if (getHours(a.start) === getHours(b.start)) {
+      return getHours(b.end) - getHours(b.start) - (getHours(a.end) - getHours(a.start))
+    }
+    return isAfter(a.start, b.start) ? -1 : 1
+  })
+
+  const fevents = data.filter(e => e.allDay)
+  return {
+    events,
+    fevents,
+    nodes: constructTree(events),
+  }
 }

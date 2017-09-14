@@ -1,0 +1,2100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WeeklyCalendar render 1`] = `
+<BD
+  start={2017-10-10T15:00:00.000Z}
+>
+  <WeeklyCalendar
+    endHour="PT22H"
+    fevents={
+      Array [
+        Object {
+          "accepted": true,
+          "allDay": 2017-09-14T22:00:00.000Z,
+          "email": "email@gmail.com",
+          "id": 10,
+          "title": "Bid",
+        },
+        Object {
+          "accepted": null,
+          "allDay": 2017-09-13T22:00:00.000Z,
+          "email": "email@gmail.com",
+          "id": 12,
+          "title": "formation JS",
+        },
+        Object {
+          "accepted": null,
+          "allDay": 2017-09-13T22:00:00.000Z,
+          "email": "email@gmail.com",
+          "id": 13,
+          "title": "formation Java",
+        },
+        Object {
+          "accepted": null,
+          "allDay": true,
+          "email": "email@gmail.com",
+          "end": 2017-09-17T18:00:00.000Z,
+          "id": 14,
+          "start": 2017-09-14T12:00:00.000Z,
+          "title": "formation Docker",
+        },
+        Object {
+          "accepted": null,
+          "allDay": true,
+          "email": "email@gmail.com",
+          "end": 2017-09-15T10:00:00.000Z,
+          "id": 15,
+          "start": 2017-09-14T17:00:00.000Z,
+          "title": "test chavauche",
+        },
+      ]
+    }
+    locale={
+      Object {
+        "formatDistance": [Function],
+        "formatLong": [Function],
+        "formatRelative": [Function],
+        "formatters": Object {
+          "Do MMM": [Function],
+          "Do MMMM": [Function],
+        },
+        "formattingTokensRegExp": /\\(\\\\\\[\\[\\^\\\\\\[\\]\\*\\\\\\]\\)\\|\\(\\\\\\\\\\)\\?\\(x\\|ss\\|s\\|mm\\|m\\|hh\\|h\\|do\\|dddd\\|ddd\\|dd\\|d\\|aa\\|a\\|ZZ\\|Z\\|YYYY\\|YY\\|X\\|Wo\\|WW\\|W\\|SSS\\|SS\\|S\\|Qo\\|Q\\|Mo\\|MMMM\\|MMM\\|MM\\|M\\|HH\\|H\\|GGGG\\|GG\\|E\\|Do MMMM\\|Do MMM\\|Do\\|DDDo\\|DDDD\\|DDD\\|DD\\|D\\|A\\|\\.\\)/g,
+        "localize": Object {
+          "month": [Function],
+          "months": [Function],
+          "ordinalNumber": [Function],
+          "timeOfDay": [Function],
+          "timesOfDay": [Function],
+          "weekday": [Function],
+          "weekdays": [Function],
+        },
+        "match": Object {
+          "month": [Function],
+          "months": [Function],
+          "ordinalNumber": [Function],
+          "ordinalNumbers": [Function],
+          "timeOfDay": [Function],
+          "timesOfDay": [Function],
+          "weekday": [Function],
+          "weekdays": [Function],
+        },
+        "options": Object {
+          "firstWeekContainsDate": 4,
+          "weekStartsOn": 1,
+        },
+      }
+    }
+    rowHeight={30}
+    showNow={false}
+    showWeekend={true}
+    start={2017-10-10T15:00:00.000Z}
+    startHour="PT06H"
+    startingDay={1}
+    toggleWeekend={[Function]}
+    type="weekly"
+  >
+    <div>
+      <span>
+        09 - 16 oct. 2017
+      </span>
+      <div
+        style={
+          Object {
+            "height": 0,
+            "position": "relative",
+            "width": "100%",
+          }
+        }
+      />
+      <BD
+        dateFormat="DD"
+        start={2017-10-08T22:00:00.000Z}
+      >
+        <DailyCalendar
+          dateFormat="DD"
+          endHour="PT22H"
+          events={
+            Array [
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#AFED23",
+                "email": "email@gmail.com",
+                "end": 2017-09-14T09:00:00.000Z,
+                "id": 4,
+                "start": 2017-09-14T07:00:00.000Z,
+                "title": "CM Java",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#AFED23",
+                "email": "email@gmail.com",
+                "end": 2017-09-14T11:00:00.000Z,
+                "id": 3,
+                "start": 2017-09-14T08:00:00.000Z,
+                "title": "CM Feel Good",
+              },
+              Object {
+                "accepted": false,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-14T18:00:00.000Z,
+                "id": 11,
+                "start": 2017-09-14T12:00:00.000Z,
+                "title": "Gouter",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#1234AE",
+                "email": "email@gmail.com",
+                "end": 2017-09-15T03:00:00.000Z,
+                "id": 0,
+                "start": 2017-09-14T23:30:00.000Z,
+                "title": "Before",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T09:00:00.000Z,
+                "id": 9,
+                "start": 2017-09-15T07:00:00.000Z,
+                "title": "Test 5",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#AFED23",
+                "email": "email@gmail.com",
+                "end": 2017-09-15T11:00:00.000Z,
+                "id": 2,
+                "start": 2017-09-15T08:30:00.000Z,
+                "title": "CM JS",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T18:00:00.000Z,
+                "id": 8,
+                "start": 2017-09-15T11:00:00.000Z,
+                "title": "Test 4",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T14:00:00.000Z,
+                "id": 5,
+                "start": 2017-09-15T12:00:00.000Z,
+                "title": "Test",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T13:00:00.000Z,
+                "id": 6,
+                "start": 2017-09-15T12:00:00.000Z,
+                "title": "Test 2",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T17:00:00.000Z,
+                "id": 7,
+                "start": 2017-09-15T15:00:00.000Z,
+                "title": "Test 3",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#1234AE",
+                "email": "email@gmail.com",
+                "end": 2017-09-15T21:00:00.000Z,
+                "id": 1,
+                "start": 2017-09-15T18:00:00.000Z,
+                "title": "After",
+              },
+            ]
+          }
+          fevents={
+            Array [
+              Object {
+                "accepted": true,
+                "allDay": 2017-09-14T22:00:00.000Z,
+                "email": "email@gmail.com",
+                "id": 10,
+                "title": "Bid",
+              },
+              Object {
+                "accepted": null,
+                "allDay": 2017-09-13T22:00:00.000Z,
+                "email": "email@gmail.com",
+                "id": 12,
+                "title": "formation JS",
+              },
+              Object {
+                "accepted": null,
+                "allDay": 2017-09-13T22:00:00.000Z,
+                "email": "email@gmail.com",
+                "id": 13,
+                "title": "formation Java",
+              },
+              Object {
+                "accepted": null,
+                "allDay": true,
+                "email": "email@gmail.com",
+                "end": 2017-09-17T18:00:00.000Z,
+                "id": 14,
+                "start": 2017-09-14T12:00:00.000Z,
+                "title": "formation Docker",
+              },
+              Object {
+                "accepted": null,
+                "allDay": true,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T10:00:00.000Z,
+                "id": 15,
+                "start": 2017-09-14T17:00:00.000Z,
+                "title": "test chavauche",
+              },
+            ]
+          }
+          hourFormat="HH"
+          locale={
+            Object {
+              "formatDistance": [Function],
+              "formatLong": [Function],
+              "formatRelative": [Function],
+              "formatters": Object {
+                "Do MMM": [Function],
+                "Do MMMM": [Function],
+              },
+              "formattingTokensRegExp": /\\(\\\\\\[\\[\\^\\\\\\[\\]\\*\\\\\\]\\)\\|\\(\\\\\\\\\\)\\?\\(x\\|ss\\|s\\|mm\\|m\\|hh\\|h\\|do\\|dddd\\|ddd\\|dd\\|d\\|aa\\|a\\|ZZ\\|Z\\|YYYY\\|YY\\|X\\|Wo\\|WW\\|W\\|SSS\\|SS\\|S\\|Qo\\|Q\\|Mo\\|MMMM\\|MMM\\|MM\\|M\\|HH\\|H\\|GGGG\\|GG\\|E\\|Do MMMM\\|Do MMM\\|Do\\|DDDo\\|DDDD\\|DDD\\|DD\\|D\\|A\\|\\.\\)/g,
+              "localize": Object {
+                "month": [Function],
+                "months": [Function],
+                "ordinalNumber": [Function],
+                "timeOfDay": [Function],
+                "timesOfDay": [Function],
+                "weekday": [Function],
+                "weekdays": [Function],
+              },
+              "match": Object {
+                "month": [Function],
+                "months": [Function],
+                "ordinalNumber": [Function],
+                "ordinalNumbers": [Function],
+                "timeOfDay": [Function],
+                "timesOfDay": [Function],
+                "weekday": [Function],
+                "weekdays": [Function],
+              },
+              "options": Object {
+                "firstWeekContainsDate": 4,
+                "weekStartsOn": 1,
+              },
+            }
+          }
+          matrix={
+            Array [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+            ]
+          }
+          nodes={
+            Object {
+              "0": Object {
+                "children": Array [
+                  1,
+                ],
+                "depth": 2,
+                "level": 0,
+              },
+              "1": Object {
+                "children": Array [],
+                "depth": 2,
+                "level": 1,
+              },
+              "10": Object {
+                "children": Array [],
+                "depth": 1,
+                "level": 0,
+              },
+              "2": Object {
+                "children": Array [],
+                "depth": 1,
+                "level": 0,
+              },
+              "3": Object {
+                "children": Array [],
+                "depth": 1,
+                "level": 0,
+              },
+              "4": Object {
+                "children": Array [
+                  5,
+                ],
+                "depth": 2,
+                "level": 0,
+              },
+              "5": Object {
+                "children": Array [],
+                "depth": 2,
+                "level": 1,
+              },
+              "6": Object {
+                "children": Array [
+                  7,
+                  8,
+                  9,
+                ],
+                "depth": 3,
+                "level": 0,
+              },
+              "7": Object {
+                "children": Array [
+                  8,
+                ],
+                "depth": 3,
+                "level": 1,
+              },
+              "8": Object {
+                "children": Array [],
+                "depth": 3,
+                "level": 2,
+              },
+              "9": Object {
+                "children": Array [],
+                "depth": 3,
+                "level": 1,
+              },
+            }
+          }
+          offset={0}
+          rowHeight={30}
+          showNow={false}
+          start={2017-10-08T22:00:00.000Z}
+          startHour="PT06H"
+          type="weekly"
+        >
+          <div />
+        </DailyCalendar>
+      </BD>
+      <BD
+        dateFormat="DD"
+        start={2017-10-09T22:00:00.000Z}
+      >
+        <DailyCalendar
+          dateFormat="DD"
+          endHour="PT22H"
+          events={
+            Array [
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#AFED23",
+                "email": "email@gmail.com",
+                "end": 2017-09-14T09:00:00.000Z,
+                "id": 4,
+                "start": 2017-09-14T07:00:00.000Z,
+                "title": "CM Java",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#AFED23",
+                "email": "email@gmail.com",
+                "end": 2017-09-14T11:00:00.000Z,
+                "id": 3,
+                "start": 2017-09-14T08:00:00.000Z,
+                "title": "CM Feel Good",
+              },
+              Object {
+                "accepted": false,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-14T18:00:00.000Z,
+                "id": 11,
+                "start": 2017-09-14T12:00:00.000Z,
+                "title": "Gouter",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#1234AE",
+                "email": "email@gmail.com",
+                "end": 2017-09-15T03:00:00.000Z,
+                "id": 0,
+                "start": 2017-09-14T23:30:00.000Z,
+                "title": "Before",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T09:00:00.000Z,
+                "id": 9,
+                "start": 2017-09-15T07:00:00.000Z,
+                "title": "Test 5",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#AFED23",
+                "email": "email@gmail.com",
+                "end": 2017-09-15T11:00:00.000Z,
+                "id": 2,
+                "start": 2017-09-15T08:30:00.000Z,
+                "title": "CM JS",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T18:00:00.000Z,
+                "id": 8,
+                "start": 2017-09-15T11:00:00.000Z,
+                "title": "Test 4",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T14:00:00.000Z,
+                "id": 5,
+                "start": 2017-09-15T12:00:00.000Z,
+                "title": "Test",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T13:00:00.000Z,
+                "id": 6,
+                "start": 2017-09-15T12:00:00.000Z,
+                "title": "Test 2",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T17:00:00.000Z,
+                "id": 7,
+                "start": 2017-09-15T15:00:00.000Z,
+                "title": "Test 3",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#1234AE",
+                "email": "email@gmail.com",
+                "end": 2017-09-15T21:00:00.000Z,
+                "id": 1,
+                "start": 2017-09-15T18:00:00.000Z,
+                "title": "After",
+              },
+            ]
+          }
+          fevents={
+            Array [
+              Object {
+                "accepted": true,
+                "allDay": 2017-09-14T22:00:00.000Z,
+                "email": "email@gmail.com",
+                "id": 10,
+                "title": "Bid",
+              },
+              Object {
+                "accepted": null,
+                "allDay": 2017-09-13T22:00:00.000Z,
+                "email": "email@gmail.com",
+                "id": 12,
+                "title": "formation JS",
+              },
+              Object {
+                "accepted": null,
+                "allDay": 2017-09-13T22:00:00.000Z,
+                "email": "email@gmail.com",
+                "id": 13,
+                "title": "formation Java",
+              },
+              Object {
+                "accepted": null,
+                "allDay": true,
+                "email": "email@gmail.com",
+                "end": 2017-09-17T18:00:00.000Z,
+                "id": 14,
+                "start": 2017-09-14T12:00:00.000Z,
+                "title": "formation Docker",
+              },
+              Object {
+                "accepted": null,
+                "allDay": true,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T10:00:00.000Z,
+                "id": 15,
+                "start": 2017-09-14T17:00:00.000Z,
+                "title": "test chavauche",
+              },
+            ]
+          }
+          hourFormat="HH"
+          locale={
+            Object {
+              "formatDistance": [Function],
+              "formatLong": [Function],
+              "formatRelative": [Function],
+              "formatters": Object {
+                "Do MMM": [Function],
+                "Do MMMM": [Function],
+              },
+              "formattingTokensRegExp": /\\(\\\\\\[\\[\\^\\\\\\[\\]\\*\\\\\\]\\)\\|\\(\\\\\\\\\\)\\?\\(x\\|ss\\|s\\|mm\\|m\\|hh\\|h\\|do\\|dddd\\|ddd\\|dd\\|d\\|aa\\|a\\|ZZ\\|Z\\|YYYY\\|YY\\|X\\|Wo\\|WW\\|W\\|SSS\\|SS\\|S\\|Qo\\|Q\\|Mo\\|MMMM\\|MMM\\|MM\\|M\\|HH\\|H\\|GGGG\\|GG\\|E\\|Do MMMM\\|Do MMM\\|Do\\|DDDo\\|DDDD\\|DDD\\|DD\\|D\\|A\\|\\.\\)/g,
+              "localize": Object {
+                "month": [Function],
+                "months": [Function],
+                "ordinalNumber": [Function],
+                "timeOfDay": [Function],
+                "timesOfDay": [Function],
+                "weekday": [Function],
+                "weekdays": [Function],
+              },
+              "match": Object {
+                "month": [Function],
+                "months": [Function],
+                "ordinalNumber": [Function],
+                "ordinalNumbers": [Function],
+                "timeOfDay": [Function],
+                "timesOfDay": [Function],
+                "weekday": [Function],
+                "weekdays": [Function],
+              },
+              "options": Object {
+                "firstWeekContainsDate": 4,
+                "weekStartsOn": 1,
+              },
+            }
+          }
+          matrix={
+            Array [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+            ]
+          }
+          nodes={
+            Object {
+              "0": Object {
+                "children": Array [
+                  1,
+                ],
+                "depth": 2,
+                "level": 0,
+              },
+              "1": Object {
+                "children": Array [],
+                "depth": 2,
+                "level": 1,
+              },
+              "10": Object {
+                "children": Array [],
+                "depth": 1,
+                "level": 0,
+              },
+              "2": Object {
+                "children": Array [],
+                "depth": 1,
+                "level": 0,
+              },
+              "3": Object {
+                "children": Array [],
+                "depth": 1,
+                "level": 0,
+              },
+              "4": Object {
+                "children": Array [
+                  5,
+                ],
+                "depth": 2,
+                "level": 0,
+              },
+              "5": Object {
+                "children": Array [],
+                "depth": 2,
+                "level": 1,
+              },
+              "6": Object {
+                "children": Array [
+                  7,
+                  8,
+                  9,
+                ],
+                "depth": 3,
+                "level": 0,
+              },
+              "7": Object {
+                "children": Array [
+                  8,
+                ],
+                "depth": 3,
+                "level": 1,
+              },
+              "8": Object {
+                "children": Array [],
+                "depth": 3,
+                "level": 2,
+              },
+              "9": Object {
+                "children": Array [],
+                "depth": 3,
+                "level": 1,
+              },
+            }
+          }
+          offset={0}
+          rowHeight={30}
+          showNow={false}
+          start={2017-10-09T22:00:00.000Z}
+          startHour="PT06H"
+          type="weekly"
+        >
+          <div />
+        </DailyCalendar>
+      </BD>
+      <BD
+        dateFormat="DD"
+        start={2017-10-10T22:00:00.000Z}
+      >
+        <DailyCalendar
+          dateFormat="DD"
+          endHour="PT22H"
+          events={
+            Array [
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#AFED23",
+                "email": "email@gmail.com",
+                "end": 2017-09-14T09:00:00.000Z,
+                "id": 4,
+                "start": 2017-09-14T07:00:00.000Z,
+                "title": "CM Java",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#AFED23",
+                "email": "email@gmail.com",
+                "end": 2017-09-14T11:00:00.000Z,
+                "id": 3,
+                "start": 2017-09-14T08:00:00.000Z,
+                "title": "CM Feel Good",
+              },
+              Object {
+                "accepted": false,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-14T18:00:00.000Z,
+                "id": 11,
+                "start": 2017-09-14T12:00:00.000Z,
+                "title": "Gouter",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#1234AE",
+                "email": "email@gmail.com",
+                "end": 2017-09-15T03:00:00.000Z,
+                "id": 0,
+                "start": 2017-09-14T23:30:00.000Z,
+                "title": "Before",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T09:00:00.000Z,
+                "id": 9,
+                "start": 2017-09-15T07:00:00.000Z,
+                "title": "Test 5",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#AFED23",
+                "email": "email@gmail.com",
+                "end": 2017-09-15T11:00:00.000Z,
+                "id": 2,
+                "start": 2017-09-15T08:30:00.000Z,
+                "title": "CM JS",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T18:00:00.000Z,
+                "id": 8,
+                "start": 2017-09-15T11:00:00.000Z,
+                "title": "Test 4",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T14:00:00.000Z,
+                "id": 5,
+                "start": 2017-09-15T12:00:00.000Z,
+                "title": "Test",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T13:00:00.000Z,
+                "id": 6,
+                "start": 2017-09-15T12:00:00.000Z,
+                "title": "Test 2",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T17:00:00.000Z,
+                "id": 7,
+                "start": 2017-09-15T15:00:00.000Z,
+                "title": "Test 3",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#1234AE",
+                "email": "email@gmail.com",
+                "end": 2017-09-15T21:00:00.000Z,
+                "id": 1,
+                "start": 2017-09-15T18:00:00.000Z,
+                "title": "After",
+              },
+            ]
+          }
+          fevents={
+            Array [
+              Object {
+                "accepted": true,
+                "allDay": 2017-09-14T22:00:00.000Z,
+                "email": "email@gmail.com",
+                "id": 10,
+                "title": "Bid",
+              },
+              Object {
+                "accepted": null,
+                "allDay": 2017-09-13T22:00:00.000Z,
+                "email": "email@gmail.com",
+                "id": 12,
+                "title": "formation JS",
+              },
+              Object {
+                "accepted": null,
+                "allDay": 2017-09-13T22:00:00.000Z,
+                "email": "email@gmail.com",
+                "id": 13,
+                "title": "formation Java",
+              },
+              Object {
+                "accepted": null,
+                "allDay": true,
+                "email": "email@gmail.com",
+                "end": 2017-09-17T18:00:00.000Z,
+                "id": 14,
+                "start": 2017-09-14T12:00:00.000Z,
+                "title": "formation Docker",
+              },
+              Object {
+                "accepted": null,
+                "allDay": true,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T10:00:00.000Z,
+                "id": 15,
+                "start": 2017-09-14T17:00:00.000Z,
+                "title": "test chavauche",
+              },
+            ]
+          }
+          hourFormat="HH"
+          locale={
+            Object {
+              "formatDistance": [Function],
+              "formatLong": [Function],
+              "formatRelative": [Function],
+              "formatters": Object {
+                "Do MMM": [Function],
+                "Do MMMM": [Function],
+              },
+              "formattingTokensRegExp": /\\(\\\\\\[\\[\\^\\\\\\[\\]\\*\\\\\\]\\)\\|\\(\\\\\\\\\\)\\?\\(x\\|ss\\|s\\|mm\\|m\\|hh\\|h\\|do\\|dddd\\|ddd\\|dd\\|d\\|aa\\|a\\|ZZ\\|Z\\|YYYY\\|YY\\|X\\|Wo\\|WW\\|W\\|SSS\\|SS\\|S\\|Qo\\|Q\\|Mo\\|MMMM\\|MMM\\|MM\\|M\\|HH\\|H\\|GGGG\\|GG\\|E\\|Do MMMM\\|Do MMM\\|Do\\|DDDo\\|DDDD\\|DDD\\|DD\\|D\\|A\\|\\.\\)/g,
+              "localize": Object {
+                "month": [Function],
+                "months": [Function],
+                "ordinalNumber": [Function],
+                "timeOfDay": [Function],
+                "timesOfDay": [Function],
+                "weekday": [Function],
+                "weekdays": [Function],
+              },
+              "match": Object {
+                "month": [Function],
+                "months": [Function],
+                "ordinalNumber": [Function],
+                "ordinalNumbers": [Function],
+                "timeOfDay": [Function],
+                "timesOfDay": [Function],
+                "weekday": [Function],
+                "weekdays": [Function],
+              },
+              "options": Object {
+                "firstWeekContainsDate": 4,
+                "weekStartsOn": 1,
+              },
+            }
+          }
+          matrix={
+            Array [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+            ]
+          }
+          nodes={
+            Object {
+              "0": Object {
+                "children": Array [
+                  1,
+                ],
+                "depth": 2,
+                "level": 0,
+              },
+              "1": Object {
+                "children": Array [],
+                "depth": 2,
+                "level": 1,
+              },
+              "10": Object {
+                "children": Array [],
+                "depth": 1,
+                "level": 0,
+              },
+              "2": Object {
+                "children": Array [],
+                "depth": 1,
+                "level": 0,
+              },
+              "3": Object {
+                "children": Array [],
+                "depth": 1,
+                "level": 0,
+              },
+              "4": Object {
+                "children": Array [
+                  5,
+                ],
+                "depth": 2,
+                "level": 0,
+              },
+              "5": Object {
+                "children": Array [],
+                "depth": 2,
+                "level": 1,
+              },
+              "6": Object {
+                "children": Array [
+                  7,
+                  8,
+                  9,
+                ],
+                "depth": 3,
+                "level": 0,
+              },
+              "7": Object {
+                "children": Array [
+                  8,
+                ],
+                "depth": 3,
+                "level": 1,
+              },
+              "8": Object {
+                "children": Array [],
+                "depth": 3,
+                "level": 2,
+              },
+              "9": Object {
+                "children": Array [],
+                "depth": 3,
+                "level": 1,
+              },
+            }
+          }
+          offset={0}
+          rowHeight={30}
+          showNow={false}
+          start={2017-10-10T22:00:00.000Z}
+          startHour="PT06H"
+          type="weekly"
+        >
+          <div />
+        </DailyCalendar>
+      </BD>
+      <BD
+        dateFormat="DD"
+        start={2017-10-11T22:00:00.000Z}
+      >
+        <DailyCalendar
+          dateFormat="DD"
+          endHour="PT22H"
+          events={
+            Array [
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#AFED23",
+                "email": "email@gmail.com",
+                "end": 2017-09-14T09:00:00.000Z,
+                "id": 4,
+                "start": 2017-09-14T07:00:00.000Z,
+                "title": "CM Java",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#AFED23",
+                "email": "email@gmail.com",
+                "end": 2017-09-14T11:00:00.000Z,
+                "id": 3,
+                "start": 2017-09-14T08:00:00.000Z,
+                "title": "CM Feel Good",
+              },
+              Object {
+                "accepted": false,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-14T18:00:00.000Z,
+                "id": 11,
+                "start": 2017-09-14T12:00:00.000Z,
+                "title": "Gouter",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#1234AE",
+                "email": "email@gmail.com",
+                "end": 2017-09-15T03:00:00.000Z,
+                "id": 0,
+                "start": 2017-09-14T23:30:00.000Z,
+                "title": "Before",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T09:00:00.000Z,
+                "id": 9,
+                "start": 2017-09-15T07:00:00.000Z,
+                "title": "Test 5",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#AFED23",
+                "email": "email@gmail.com",
+                "end": 2017-09-15T11:00:00.000Z,
+                "id": 2,
+                "start": 2017-09-15T08:30:00.000Z,
+                "title": "CM JS",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T18:00:00.000Z,
+                "id": 8,
+                "start": 2017-09-15T11:00:00.000Z,
+                "title": "Test 4",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T14:00:00.000Z,
+                "id": 5,
+                "start": 2017-09-15T12:00:00.000Z,
+                "title": "Test",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T13:00:00.000Z,
+                "id": 6,
+                "start": 2017-09-15T12:00:00.000Z,
+                "title": "Test 2",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T17:00:00.000Z,
+                "id": 7,
+                "start": 2017-09-15T15:00:00.000Z,
+                "title": "Test 3",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#1234AE",
+                "email": "email@gmail.com",
+                "end": 2017-09-15T21:00:00.000Z,
+                "id": 1,
+                "start": 2017-09-15T18:00:00.000Z,
+                "title": "After",
+              },
+            ]
+          }
+          fevents={
+            Array [
+              Object {
+                "accepted": true,
+                "allDay": 2017-09-14T22:00:00.000Z,
+                "email": "email@gmail.com",
+                "id": 10,
+                "title": "Bid",
+              },
+              Object {
+                "accepted": null,
+                "allDay": 2017-09-13T22:00:00.000Z,
+                "email": "email@gmail.com",
+                "id": 12,
+                "title": "formation JS",
+              },
+              Object {
+                "accepted": null,
+                "allDay": 2017-09-13T22:00:00.000Z,
+                "email": "email@gmail.com",
+                "id": 13,
+                "title": "formation Java",
+              },
+              Object {
+                "accepted": null,
+                "allDay": true,
+                "email": "email@gmail.com",
+                "end": 2017-09-17T18:00:00.000Z,
+                "id": 14,
+                "start": 2017-09-14T12:00:00.000Z,
+                "title": "formation Docker",
+              },
+              Object {
+                "accepted": null,
+                "allDay": true,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T10:00:00.000Z,
+                "id": 15,
+                "start": 2017-09-14T17:00:00.000Z,
+                "title": "test chavauche",
+              },
+            ]
+          }
+          hourFormat="HH"
+          locale={
+            Object {
+              "formatDistance": [Function],
+              "formatLong": [Function],
+              "formatRelative": [Function],
+              "formatters": Object {
+                "Do MMM": [Function],
+                "Do MMMM": [Function],
+              },
+              "formattingTokensRegExp": /\\(\\\\\\[\\[\\^\\\\\\[\\]\\*\\\\\\]\\)\\|\\(\\\\\\\\\\)\\?\\(x\\|ss\\|s\\|mm\\|m\\|hh\\|h\\|do\\|dddd\\|ddd\\|dd\\|d\\|aa\\|a\\|ZZ\\|Z\\|YYYY\\|YY\\|X\\|Wo\\|WW\\|W\\|SSS\\|SS\\|S\\|Qo\\|Q\\|Mo\\|MMMM\\|MMM\\|MM\\|M\\|HH\\|H\\|GGGG\\|GG\\|E\\|Do MMMM\\|Do MMM\\|Do\\|DDDo\\|DDDD\\|DDD\\|DD\\|D\\|A\\|\\.\\)/g,
+              "localize": Object {
+                "month": [Function],
+                "months": [Function],
+                "ordinalNumber": [Function],
+                "timeOfDay": [Function],
+                "timesOfDay": [Function],
+                "weekday": [Function],
+                "weekdays": [Function],
+              },
+              "match": Object {
+                "month": [Function],
+                "months": [Function],
+                "ordinalNumber": [Function],
+                "ordinalNumbers": [Function],
+                "timeOfDay": [Function],
+                "timesOfDay": [Function],
+                "weekday": [Function],
+                "weekdays": [Function],
+              },
+              "options": Object {
+                "firstWeekContainsDate": 4,
+                "weekStartsOn": 1,
+              },
+            }
+          }
+          matrix={
+            Array [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+            ]
+          }
+          nodes={
+            Object {
+              "0": Object {
+                "children": Array [
+                  1,
+                ],
+                "depth": 2,
+                "level": 0,
+              },
+              "1": Object {
+                "children": Array [],
+                "depth": 2,
+                "level": 1,
+              },
+              "10": Object {
+                "children": Array [],
+                "depth": 1,
+                "level": 0,
+              },
+              "2": Object {
+                "children": Array [],
+                "depth": 1,
+                "level": 0,
+              },
+              "3": Object {
+                "children": Array [],
+                "depth": 1,
+                "level": 0,
+              },
+              "4": Object {
+                "children": Array [
+                  5,
+                ],
+                "depth": 2,
+                "level": 0,
+              },
+              "5": Object {
+                "children": Array [],
+                "depth": 2,
+                "level": 1,
+              },
+              "6": Object {
+                "children": Array [
+                  7,
+                  8,
+                  9,
+                ],
+                "depth": 3,
+                "level": 0,
+              },
+              "7": Object {
+                "children": Array [
+                  8,
+                ],
+                "depth": 3,
+                "level": 1,
+              },
+              "8": Object {
+                "children": Array [],
+                "depth": 3,
+                "level": 2,
+              },
+              "9": Object {
+                "children": Array [],
+                "depth": 3,
+                "level": 1,
+              },
+            }
+          }
+          offset={0}
+          rowHeight={30}
+          showNow={false}
+          start={2017-10-11T22:00:00.000Z}
+          startHour="PT06H"
+          type="weekly"
+        >
+          <div />
+        </DailyCalendar>
+      </BD>
+      <BD
+        dateFormat="DD"
+        start={2017-10-12T22:00:00.000Z}
+      >
+        <DailyCalendar
+          dateFormat="DD"
+          endHour="PT22H"
+          events={
+            Array [
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#AFED23",
+                "email": "email@gmail.com",
+                "end": 2017-09-14T09:00:00.000Z,
+                "id": 4,
+                "start": 2017-09-14T07:00:00.000Z,
+                "title": "CM Java",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#AFED23",
+                "email": "email@gmail.com",
+                "end": 2017-09-14T11:00:00.000Z,
+                "id": 3,
+                "start": 2017-09-14T08:00:00.000Z,
+                "title": "CM Feel Good",
+              },
+              Object {
+                "accepted": false,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-14T18:00:00.000Z,
+                "id": 11,
+                "start": 2017-09-14T12:00:00.000Z,
+                "title": "Gouter",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#1234AE",
+                "email": "email@gmail.com",
+                "end": 2017-09-15T03:00:00.000Z,
+                "id": 0,
+                "start": 2017-09-14T23:30:00.000Z,
+                "title": "Before",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T09:00:00.000Z,
+                "id": 9,
+                "start": 2017-09-15T07:00:00.000Z,
+                "title": "Test 5",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#AFED23",
+                "email": "email@gmail.com",
+                "end": 2017-09-15T11:00:00.000Z,
+                "id": 2,
+                "start": 2017-09-15T08:30:00.000Z,
+                "title": "CM JS",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T18:00:00.000Z,
+                "id": 8,
+                "start": 2017-09-15T11:00:00.000Z,
+                "title": "Test 4",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T14:00:00.000Z,
+                "id": 5,
+                "start": 2017-09-15T12:00:00.000Z,
+                "title": "Test",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T13:00:00.000Z,
+                "id": 6,
+                "start": 2017-09-15T12:00:00.000Z,
+                "title": "Test 2",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T17:00:00.000Z,
+                "id": 7,
+                "start": 2017-09-15T15:00:00.000Z,
+                "title": "Test 3",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#1234AE",
+                "email": "email@gmail.com",
+                "end": 2017-09-15T21:00:00.000Z,
+                "id": 1,
+                "start": 2017-09-15T18:00:00.000Z,
+                "title": "After",
+              },
+            ]
+          }
+          fevents={
+            Array [
+              Object {
+                "accepted": true,
+                "allDay": 2017-09-14T22:00:00.000Z,
+                "email": "email@gmail.com",
+                "id": 10,
+                "title": "Bid",
+              },
+              Object {
+                "accepted": null,
+                "allDay": 2017-09-13T22:00:00.000Z,
+                "email": "email@gmail.com",
+                "id": 12,
+                "title": "formation JS",
+              },
+              Object {
+                "accepted": null,
+                "allDay": 2017-09-13T22:00:00.000Z,
+                "email": "email@gmail.com",
+                "id": 13,
+                "title": "formation Java",
+              },
+              Object {
+                "accepted": null,
+                "allDay": true,
+                "email": "email@gmail.com",
+                "end": 2017-09-17T18:00:00.000Z,
+                "id": 14,
+                "start": 2017-09-14T12:00:00.000Z,
+                "title": "formation Docker",
+              },
+              Object {
+                "accepted": null,
+                "allDay": true,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T10:00:00.000Z,
+                "id": 15,
+                "start": 2017-09-14T17:00:00.000Z,
+                "title": "test chavauche",
+              },
+            ]
+          }
+          hourFormat="HH"
+          locale={
+            Object {
+              "formatDistance": [Function],
+              "formatLong": [Function],
+              "formatRelative": [Function],
+              "formatters": Object {
+                "Do MMM": [Function],
+                "Do MMMM": [Function],
+              },
+              "formattingTokensRegExp": /\\(\\\\\\[\\[\\^\\\\\\[\\]\\*\\\\\\]\\)\\|\\(\\\\\\\\\\)\\?\\(x\\|ss\\|s\\|mm\\|m\\|hh\\|h\\|do\\|dddd\\|ddd\\|dd\\|d\\|aa\\|a\\|ZZ\\|Z\\|YYYY\\|YY\\|X\\|Wo\\|WW\\|W\\|SSS\\|SS\\|S\\|Qo\\|Q\\|Mo\\|MMMM\\|MMM\\|MM\\|M\\|HH\\|H\\|GGGG\\|GG\\|E\\|Do MMMM\\|Do MMM\\|Do\\|DDDo\\|DDDD\\|DDD\\|DD\\|D\\|A\\|\\.\\)/g,
+              "localize": Object {
+                "month": [Function],
+                "months": [Function],
+                "ordinalNumber": [Function],
+                "timeOfDay": [Function],
+                "timesOfDay": [Function],
+                "weekday": [Function],
+                "weekdays": [Function],
+              },
+              "match": Object {
+                "month": [Function],
+                "months": [Function],
+                "ordinalNumber": [Function],
+                "ordinalNumbers": [Function],
+                "timeOfDay": [Function],
+                "timesOfDay": [Function],
+                "weekday": [Function],
+                "weekdays": [Function],
+              },
+              "options": Object {
+                "firstWeekContainsDate": 4,
+                "weekStartsOn": 1,
+              },
+            }
+          }
+          matrix={
+            Array [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+            ]
+          }
+          nodes={
+            Object {
+              "0": Object {
+                "children": Array [
+                  1,
+                ],
+                "depth": 2,
+                "level": 0,
+              },
+              "1": Object {
+                "children": Array [],
+                "depth": 2,
+                "level": 1,
+              },
+              "10": Object {
+                "children": Array [],
+                "depth": 1,
+                "level": 0,
+              },
+              "2": Object {
+                "children": Array [],
+                "depth": 1,
+                "level": 0,
+              },
+              "3": Object {
+                "children": Array [],
+                "depth": 1,
+                "level": 0,
+              },
+              "4": Object {
+                "children": Array [
+                  5,
+                ],
+                "depth": 2,
+                "level": 0,
+              },
+              "5": Object {
+                "children": Array [],
+                "depth": 2,
+                "level": 1,
+              },
+              "6": Object {
+                "children": Array [
+                  7,
+                  8,
+                  9,
+                ],
+                "depth": 3,
+                "level": 0,
+              },
+              "7": Object {
+                "children": Array [
+                  8,
+                ],
+                "depth": 3,
+                "level": 1,
+              },
+              "8": Object {
+                "children": Array [],
+                "depth": 3,
+                "level": 2,
+              },
+              "9": Object {
+                "children": Array [],
+                "depth": 3,
+                "level": 1,
+              },
+            }
+          }
+          offset={0}
+          rowHeight={30}
+          showNow={false}
+          start={2017-10-12T22:00:00.000Z}
+          startHour="PT06H"
+          type="weekly"
+        >
+          <div />
+        </DailyCalendar>
+      </BD>
+      <BD
+        dateFormat="DD"
+        start={2017-10-13T22:00:00.000Z}
+      >
+        <DailyCalendar
+          dateFormat="DD"
+          endHour="PT22H"
+          events={
+            Array [
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#AFED23",
+                "email": "email@gmail.com",
+                "end": 2017-09-14T09:00:00.000Z,
+                "id": 4,
+                "start": 2017-09-14T07:00:00.000Z,
+                "title": "CM Java",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#AFED23",
+                "email": "email@gmail.com",
+                "end": 2017-09-14T11:00:00.000Z,
+                "id": 3,
+                "start": 2017-09-14T08:00:00.000Z,
+                "title": "CM Feel Good",
+              },
+              Object {
+                "accepted": false,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-14T18:00:00.000Z,
+                "id": 11,
+                "start": 2017-09-14T12:00:00.000Z,
+                "title": "Gouter",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#1234AE",
+                "email": "email@gmail.com",
+                "end": 2017-09-15T03:00:00.000Z,
+                "id": 0,
+                "start": 2017-09-14T23:30:00.000Z,
+                "title": "Before",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T09:00:00.000Z,
+                "id": 9,
+                "start": 2017-09-15T07:00:00.000Z,
+                "title": "Test 5",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#AFED23",
+                "email": "email@gmail.com",
+                "end": 2017-09-15T11:00:00.000Z,
+                "id": 2,
+                "start": 2017-09-15T08:30:00.000Z,
+                "title": "CM JS",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T18:00:00.000Z,
+                "id": 8,
+                "start": 2017-09-15T11:00:00.000Z,
+                "title": "Test 4",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T14:00:00.000Z,
+                "id": 5,
+                "start": 2017-09-15T12:00:00.000Z,
+                "title": "Test",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T13:00:00.000Z,
+                "id": 6,
+                "start": 2017-09-15T12:00:00.000Z,
+                "title": "Test 2",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T17:00:00.000Z,
+                "id": 7,
+                "start": 2017-09-15T15:00:00.000Z,
+                "title": "Test 3",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#1234AE",
+                "email": "email@gmail.com",
+                "end": 2017-09-15T21:00:00.000Z,
+                "id": 1,
+                "start": 2017-09-15T18:00:00.000Z,
+                "title": "After",
+              },
+            ]
+          }
+          fevents={
+            Array [
+              Object {
+                "accepted": true,
+                "allDay": 2017-09-14T22:00:00.000Z,
+                "email": "email@gmail.com",
+                "id": 10,
+                "title": "Bid",
+              },
+              Object {
+                "accepted": null,
+                "allDay": 2017-09-13T22:00:00.000Z,
+                "email": "email@gmail.com",
+                "id": 12,
+                "title": "formation JS",
+              },
+              Object {
+                "accepted": null,
+                "allDay": 2017-09-13T22:00:00.000Z,
+                "email": "email@gmail.com",
+                "id": 13,
+                "title": "formation Java",
+              },
+              Object {
+                "accepted": null,
+                "allDay": true,
+                "email": "email@gmail.com",
+                "end": 2017-09-17T18:00:00.000Z,
+                "id": 14,
+                "start": 2017-09-14T12:00:00.000Z,
+                "title": "formation Docker",
+              },
+              Object {
+                "accepted": null,
+                "allDay": true,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T10:00:00.000Z,
+                "id": 15,
+                "start": 2017-09-14T17:00:00.000Z,
+                "title": "test chavauche",
+              },
+            ]
+          }
+          hourFormat="HH"
+          locale={
+            Object {
+              "formatDistance": [Function],
+              "formatLong": [Function],
+              "formatRelative": [Function],
+              "formatters": Object {
+                "Do MMM": [Function],
+                "Do MMMM": [Function],
+              },
+              "formattingTokensRegExp": /\\(\\\\\\[\\[\\^\\\\\\[\\]\\*\\\\\\]\\)\\|\\(\\\\\\\\\\)\\?\\(x\\|ss\\|s\\|mm\\|m\\|hh\\|h\\|do\\|dddd\\|ddd\\|dd\\|d\\|aa\\|a\\|ZZ\\|Z\\|YYYY\\|YY\\|X\\|Wo\\|WW\\|W\\|SSS\\|SS\\|S\\|Qo\\|Q\\|Mo\\|MMMM\\|MMM\\|MM\\|M\\|HH\\|H\\|GGGG\\|GG\\|E\\|Do MMMM\\|Do MMM\\|Do\\|DDDo\\|DDDD\\|DDD\\|DD\\|D\\|A\\|\\.\\)/g,
+              "localize": Object {
+                "month": [Function],
+                "months": [Function],
+                "ordinalNumber": [Function],
+                "timeOfDay": [Function],
+                "timesOfDay": [Function],
+                "weekday": [Function],
+                "weekdays": [Function],
+              },
+              "match": Object {
+                "month": [Function],
+                "months": [Function],
+                "ordinalNumber": [Function],
+                "ordinalNumbers": [Function],
+                "timeOfDay": [Function],
+                "timesOfDay": [Function],
+                "weekday": [Function],
+                "weekdays": [Function],
+              },
+              "options": Object {
+                "firstWeekContainsDate": 4,
+                "weekStartsOn": 1,
+              },
+            }
+          }
+          matrix={
+            Array [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+            ]
+          }
+          nodes={
+            Object {
+              "0": Object {
+                "children": Array [
+                  1,
+                ],
+                "depth": 2,
+                "level": 0,
+              },
+              "1": Object {
+                "children": Array [],
+                "depth": 2,
+                "level": 1,
+              },
+              "10": Object {
+                "children": Array [],
+                "depth": 1,
+                "level": 0,
+              },
+              "2": Object {
+                "children": Array [],
+                "depth": 1,
+                "level": 0,
+              },
+              "3": Object {
+                "children": Array [],
+                "depth": 1,
+                "level": 0,
+              },
+              "4": Object {
+                "children": Array [
+                  5,
+                ],
+                "depth": 2,
+                "level": 0,
+              },
+              "5": Object {
+                "children": Array [],
+                "depth": 2,
+                "level": 1,
+              },
+              "6": Object {
+                "children": Array [
+                  7,
+                  8,
+                  9,
+                ],
+                "depth": 3,
+                "level": 0,
+              },
+              "7": Object {
+                "children": Array [
+                  8,
+                ],
+                "depth": 3,
+                "level": 1,
+              },
+              "8": Object {
+                "children": Array [],
+                "depth": 3,
+                "level": 2,
+              },
+              "9": Object {
+                "children": Array [],
+                "depth": 3,
+                "level": 1,
+              },
+            }
+          }
+          offset={0}
+          rowHeight={30}
+          showNow={false}
+          start={2017-10-13T22:00:00.000Z}
+          startHour="PT06H"
+          type="weekly"
+        >
+          <div />
+        </DailyCalendar>
+      </BD>
+      <BD
+        dateFormat="DD"
+        start={2017-10-14T22:00:00.000Z}
+      >
+        <DailyCalendar
+          dateFormat="DD"
+          endHour="PT22H"
+          events={
+            Array [
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#AFED23",
+                "email": "email@gmail.com",
+                "end": 2017-09-14T09:00:00.000Z,
+                "id": 4,
+                "start": 2017-09-14T07:00:00.000Z,
+                "title": "CM Java",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#AFED23",
+                "email": "email@gmail.com",
+                "end": 2017-09-14T11:00:00.000Z,
+                "id": 3,
+                "start": 2017-09-14T08:00:00.000Z,
+                "title": "CM Feel Good",
+              },
+              Object {
+                "accepted": false,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-14T18:00:00.000Z,
+                "id": 11,
+                "start": 2017-09-14T12:00:00.000Z,
+                "title": "Gouter",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#1234AE",
+                "email": "email@gmail.com",
+                "end": 2017-09-15T03:00:00.000Z,
+                "id": 0,
+                "start": 2017-09-14T23:30:00.000Z,
+                "title": "Before",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T09:00:00.000Z,
+                "id": 9,
+                "start": 2017-09-15T07:00:00.000Z,
+                "title": "Test 5",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#AFED23",
+                "email": "email@gmail.com",
+                "end": 2017-09-15T11:00:00.000Z,
+                "id": 2,
+                "start": 2017-09-15T08:30:00.000Z,
+                "title": "CM JS",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T18:00:00.000Z,
+                "id": 8,
+                "start": 2017-09-15T11:00:00.000Z,
+                "title": "Test 4",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T14:00:00.000Z,
+                "id": 5,
+                "start": 2017-09-15T12:00:00.000Z,
+                "title": "Test",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T13:00:00.000Z,
+                "id": 6,
+                "start": 2017-09-15T12:00:00.000Z,
+                "title": "Test 2",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T17:00:00.000Z,
+                "id": 7,
+                "start": 2017-09-15T15:00:00.000Z,
+                "title": "Test 3",
+              },
+              Object {
+                "accepted": true,
+                "allDay": false,
+                "color": "#1234AE",
+                "email": "email@gmail.com",
+                "end": 2017-09-15T21:00:00.000Z,
+                "id": 1,
+                "start": 2017-09-15T18:00:00.000Z,
+                "title": "After",
+              },
+            ]
+          }
+          fevents={
+            Array [
+              Object {
+                "accepted": true,
+                "allDay": 2017-09-14T22:00:00.000Z,
+                "email": "email@gmail.com",
+                "id": 10,
+                "title": "Bid",
+              },
+              Object {
+                "accepted": null,
+                "allDay": 2017-09-13T22:00:00.000Z,
+                "email": "email@gmail.com",
+                "id": 12,
+                "title": "formation JS",
+              },
+              Object {
+                "accepted": null,
+                "allDay": 2017-09-13T22:00:00.000Z,
+                "email": "email@gmail.com",
+                "id": 13,
+                "title": "formation Java",
+              },
+              Object {
+                "accepted": null,
+                "allDay": true,
+                "email": "email@gmail.com",
+                "end": 2017-09-17T18:00:00.000Z,
+                "id": 14,
+                "start": 2017-09-14T12:00:00.000Z,
+                "title": "formation Docker",
+              },
+              Object {
+                "accepted": null,
+                "allDay": true,
+                "email": "email@gmail.com",
+                "end": 2017-09-15T10:00:00.000Z,
+                "id": 15,
+                "start": 2017-09-14T17:00:00.000Z,
+                "title": "test chavauche",
+              },
+            ]
+          }
+          hourFormat="HH"
+          locale={
+            Object {
+              "formatDistance": [Function],
+              "formatLong": [Function],
+              "formatRelative": [Function],
+              "formatters": Object {
+                "Do MMM": [Function],
+                "Do MMMM": [Function],
+              },
+              "formattingTokensRegExp": /\\(\\\\\\[\\[\\^\\\\\\[\\]\\*\\\\\\]\\)\\|\\(\\\\\\\\\\)\\?\\(x\\|ss\\|s\\|mm\\|m\\|hh\\|h\\|do\\|dddd\\|ddd\\|dd\\|d\\|aa\\|a\\|ZZ\\|Z\\|YYYY\\|YY\\|X\\|Wo\\|WW\\|W\\|SSS\\|SS\\|S\\|Qo\\|Q\\|Mo\\|MMMM\\|MMM\\|MM\\|M\\|HH\\|H\\|GGGG\\|GG\\|E\\|Do MMMM\\|Do MMM\\|Do\\|DDDo\\|DDDD\\|DDD\\|DD\\|D\\|A\\|\\.\\)/g,
+              "localize": Object {
+                "month": [Function],
+                "months": [Function],
+                "ordinalNumber": [Function],
+                "timeOfDay": [Function],
+                "timesOfDay": [Function],
+                "weekday": [Function],
+                "weekdays": [Function],
+              },
+              "match": Object {
+                "month": [Function],
+                "months": [Function],
+                "ordinalNumber": [Function],
+                "ordinalNumbers": [Function],
+                "timeOfDay": [Function],
+                "timesOfDay": [Function],
+                "weekday": [Function],
+                "weekdays": [Function],
+              },
+              "options": Object {
+                "firstWeekContainsDate": 4,
+                "weekStartsOn": 1,
+              },
+            }
+          }
+          matrix={
+            Array [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+            ]
+          }
+          nodes={
+            Object {
+              "0": Object {
+                "children": Array [
+                  1,
+                ],
+                "depth": 2,
+                "level": 0,
+              },
+              "1": Object {
+                "children": Array [],
+                "depth": 2,
+                "level": 1,
+              },
+              "10": Object {
+                "children": Array [],
+                "depth": 1,
+                "level": 0,
+              },
+              "2": Object {
+                "children": Array [],
+                "depth": 1,
+                "level": 0,
+              },
+              "3": Object {
+                "children": Array [],
+                "depth": 1,
+                "level": 0,
+              },
+              "4": Object {
+                "children": Array [
+                  5,
+                ],
+                "depth": 2,
+                "level": 0,
+              },
+              "5": Object {
+                "children": Array [],
+                "depth": 2,
+                "level": 1,
+              },
+              "6": Object {
+                "children": Array [
+                  7,
+                  8,
+                  9,
+                ],
+                "depth": 3,
+                "level": 0,
+              },
+              "7": Object {
+                "children": Array [
+                  8,
+                ],
+                "depth": 3,
+                "level": 1,
+              },
+              "8": Object {
+                "children": Array [],
+                "depth": 3,
+                "level": 2,
+              },
+              "9": Object {
+                "children": Array [],
+                "depth": 3,
+                "level": 1,
+              },
+            }
+          }
+          offset={0}
+          rowHeight={30}
+          showNow={false}
+          start={2017-10-14T22:00:00.000Z}
+          startHour="PT06H"
+          type="weekly"
+        >
+          <div />
+        </DailyCalendar>
+      </BD>
+    </div>
+  </WeeklyCalendar>
+</BD>
+`;

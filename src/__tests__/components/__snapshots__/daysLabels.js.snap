@@ -1,0 +1,350 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DaysLabels function as a Child 1`] = `
+<BD>
+  <N
+    dateFormat="DD"
+    locale={
+      Object {
+        "formatDistance": [Function],
+        "formatLong": [Function],
+        "formatRelative": [Function],
+        "formatters": Object {
+          "Do MMM": [Function],
+          "Do MMMM": [Function],
+        },
+        "formattingTokensRegExp": /\\(\\\\\\[\\[\\^\\\\\\[\\]\\*\\\\\\]\\)\\|\\(\\\\\\\\\\)\\?\\(x\\|ss\\|s\\|mm\\|m\\|hh\\|h\\|do\\|dddd\\|ddd\\|dd\\|d\\|aa\\|a\\|ZZ\\|Z\\|YYYY\\|YY\\|X\\|Wo\\|WW\\|W\\|SSS\\|SS\\|S\\|Qo\\|Q\\|Mo\\|MMMM\\|MMM\\|MM\\|M\\|HH\\|H\\|GGGG\\|GG\\|E\\|Do MMMM\\|Do MMM\\|Do\\|DDDo\\|DDDD\\|DDD\\|DD\\|D\\|A\\|\\.\\)/g,
+        "localize": Object {
+          "month": [Function],
+          "months": [Function],
+          "ordinalNumber": [Function],
+          "timeOfDay": [Function],
+          "timesOfDay": [Function],
+          "weekday": [Function],
+          "weekdays": [Function],
+        },
+        "match": Object {
+          "month": [Function],
+          "months": [Function],
+          "ordinalNumber": [Function],
+          "ordinalNumbers": [Function],
+          "timeOfDay": [Function],
+          "timesOfDay": [Function],
+          "weekday": [Function],
+          "weekdays": [Function],
+        },
+        "options": Object {
+          "firstWeekContainsDate": 4,
+          "weekStartsOn": 1,
+        },
+      }
+    }
+    rowHeight={30}
+    showWeekend={true}
+    startWeek={2017-10-09T22:00:00.000Z}
+  >
+    <div>
+      <span>
+        10
+      </span>
+      <span>
+        11
+      </span>
+      <span>
+        12
+      </span>
+      <span>
+        13
+      </span>
+      <span>
+        14
+      </span>
+      <span>
+        15
+      </span>
+      <span>
+        16
+      </span>
+    </div>
+  </N>
+</BD>
+`;
+
+exports[`DaysLabels render 1`] = `
+<BD>
+  <N
+    dateFormat="DD"
+    locale={
+      Object {
+        "formatDistance": [Function],
+        "formatLong": [Function],
+        "formatRelative": [Function],
+        "formatters": Object {
+          "Do MMM": [Function],
+          "Do MMMM": [Function],
+        },
+        "formattingTokensRegExp": /\\(\\\\\\[\\[\\^\\\\\\[\\]\\*\\\\\\]\\)\\|\\(\\\\\\\\\\)\\?\\(x\\|ss\\|s\\|mm\\|m\\|hh\\|h\\|do\\|dddd\\|ddd\\|dd\\|d\\|aa\\|a\\|ZZ\\|Z\\|YYYY\\|YY\\|X\\|Wo\\|WW\\|W\\|SSS\\|SS\\|S\\|Qo\\|Q\\|Mo\\|MMMM\\|MMM\\|MM\\|M\\|HH\\|H\\|GGGG\\|GG\\|E\\|Do MMMM\\|Do MMM\\|Do\\|DDDo\\|DDDD\\|DDD\\|DD\\|D\\|A\\|\\.\\)/g,
+        "localize": Object {
+          "month": [Function],
+          "months": [Function],
+          "ordinalNumber": [Function],
+          "timeOfDay": [Function],
+          "timesOfDay": [Function],
+          "weekday": [Function],
+          "weekdays": [Function],
+        },
+        "match": Object {
+          "month": [Function],
+          "months": [Function],
+          "ordinalNumber": [Function],
+          "ordinalNumbers": [Function],
+          "timeOfDay": [Function],
+          "timesOfDay": [Function],
+          "weekday": [Function],
+          "weekdays": [Function],
+        },
+        "options": Object {
+          "firstWeekContainsDate": 4,
+          "weekStartsOn": 1,
+        },
+      }
+    }
+    rowHeight={30}
+    showWeekend={true}
+    startWeek={2017-10-09T22:00:00.000Z}
+  >
+    <div>
+      <div
+        style={
+          Object {
+            "height": 30,
+          }
+        }
+      >
+        10
+      </div>
+      <div
+        style={
+          Object {
+            "height": 30,
+          }
+        }
+      >
+        11
+      </div>
+      <div
+        style={
+          Object {
+            "height": 30,
+          }
+        }
+      >
+        12
+      </div>
+      <div
+        style={
+          Object {
+            "height": 30,
+          }
+        }
+      >
+        13
+      </div>
+      <div
+        style={
+          Object {
+            "height": 30,
+          }
+        }
+      >
+        14
+      </div>
+      <div
+        style={
+          Object {
+            "height": 30,
+          }
+        }
+      >
+        15
+      </div>
+      <div
+        style={
+          Object {
+            "height": 30,
+          }
+        }
+      >
+        16
+      </div>
+    </div>
+  </N>
+</BD>
+`;
+
+exports[`DaysLabels render Child 1`] = `
+<BD
+  renderChild={[Function]}
+>
+  <N
+    dateFormat="DD"
+    locale={
+      Object {
+        "formatDistance": [Function],
+        "formatLong": [Function],
+        "formatRelative": [Function],
+        "formatters": Object {
+          "Do MMM": [Function],
+          "Do MMMM": [Function],
+        },
+        "formattingTokensRegExp": /\\(\\\\\\[\\[\\^\\\\\\[\\]\\*\\\\\\]\\)\\|\\(\\\\\\\\\\)\\?\\(x\\|ss\\|s\\|mm\\|m\\|hh\\|h\\|do\\|dddd\\|ddd\\|dd\\|d\\|aa\\|a\\|ZZ\\|Z\\|YYYY\\|YY\\|X\\|Wo\\|WW\\|W\\|SSS\\|SS\\|S\\|Qo\\|Q\\|Mo\\|MMMM\\|MMM\\|MM\\|M\\|HH\\|H\\|GGGG\\|GG\\|E\\|Do MMMM\\|Do MMM\\|Do\\|DDDo\\|DDDD\\|DDD\\|DD\\|D\\|A\\|\\.\\)/g,
+        "localize": Object {
+          "month": [Function],
+          "months": [Function],
+          "ordinalNumber": [Function],
+          "timeOfDay": [Function],
+          "timesOfDay": [Function],
+          "weekday": [Function],
+          "weekdays": [Function],
+        },
+        "match": Object {
+          "month": [Function],
+          "months": [Function],
+          "ordinalNumber": [Function],
+          "ordinalNumbers": [Function],
+          "timeOfDay": [Function],
+          "timesOfDay": [Function],
+          "weekday": [Function],
+          "weekdays": [Function],
+        },
+        "options": Object {
+          "firstWeekContainsDate": 4,
+          "weekStartsOn": 1,
+        },
+      }
+    }
+    renderChild={[Function]}
+    rowHeight={30}
+    showWeekend={true}
+    startWeek={2017-10-09T22:00:00.000Z}
+  >
+    <div>
+      <span>
+        10
+      </span>
+      <span>
+        11
+      </span>
+      <span>
+        12
+      </span>
+      <span>
+        13
+      </span>
+      <span>
+        14
+      </span>
+      <span>
+        15
+      </span>
+      <span>
+        16
+      </span>
+    </div>
+  </N>
+</BD>
+`;
+
+exports[`DaysLabels render with no weekend 1`] = `
+<BD>
+  <N
+    dateFormat="DD"
+    locale={
+      Object {
+        "formatDistance": [Function],
+        "formatLong": [Function],
+        "formatRelative": [Function],
+        "formatters": Object {
+          "Do MMM": [Function],
+          "Do MMMM": [Function],
+        },
+        "formattingTokensRegExp": /\\(\\\\\\[\\[\\^\\\\\\[\\]\\*\\\\\\]\\)\\|\\(\\\\\\\\\\)\\?\\(x\\|ss\\|s\\|mm\\|m\\|hh\\|h\\|do\\|dddd\\|ddd\\|dd\\|d\\|aa\\|a\\|ZZ\\|Z\\|YYYY\\|YY\\|X\\|Wo\\|WW\\|W\\|SSS\\|SS\\|S\\|Qo\\|Q\\|Mo\\|MMMM\\|MMM\\|MM\\|M\\|HH\\|H\\|GGGG\\|GG\\|E\\|Do MMMM\\|Do MMM\\|Do\\|DDDo\\|DDDD\\|DDD\\|DD\\|D\\|A\\|\\.\\)/g,
+        "localize": Object {
+          "month": [Function],
+          "months": [Function],
+          "ordinalNumber": [Function],
+          "timeOfDay": [Function],
+          "timesOfDay": [Function],
+          "weekday": [Function],
+          "weekdays": [Function],
+        },
+        "match": Object {
+          "month": [Function],
+          "months": [Function],
+          "ordinalNumber": [Function],
+          "ordinalNumbers": [Function],
+          "timeOfDay": [Function],
+          "timesOfDay": [Function],
+          "weekday": [Function],
+          "weekdays": [Function],
+        },
+        "options": Object {
+          "firstWeekContainsDate": 4,
+          "weekStartsOn": 1,
+        },
+      }
+    }
+    rowHeight={30}
+    showWeekend={false}
+    startWeek={2017-10-09T22:00:00.000Z}
+  >
+    <div>
+      <div
+        style={
+          Object {
+            "height": 30,
+          }
+        }
+      >
+        10
+      </div>
+      <div
+        style={
+          Object {
+            "height": 30,
+          }
+        }
+      >
+        11
+      </div>
+      <div
+        style={
+          Object {
+            "height": 30,
+          }
+        }
+      >
+        12
+      </div>
+      <div
+        style={
+          Object {
+            "height": 30,
+          }
+        }
+      >
+        13
+      </div>
+      <div
+        style={
+          Object {
+            "height": 30,
+          }
+        }
+      >
+        14
+      </div>
+    </div>
+  </N>
+</BD>
+`;

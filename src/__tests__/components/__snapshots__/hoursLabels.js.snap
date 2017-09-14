@@ -1,0 +1,1527 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HoursLabels daily function as a Child 1`] = `
+<BD>
+  <HoursLabels
+    type="daily"
+  >
+    <BD
+      type="daily"
+    >
+      <Labels
+        currentDay={2017-10-09T22:00:00.000Z}
+        endHour="PT22H"
+        hourFormat="HH"
+        locale={
+          Object {
+            "formatDistance": [Function],
+            "formatLong": [Function],
+            "formatRelative": [Function],
+            "formatters": Object {
+              "Do MMM": [Function],
+              "Do MMMM": [Function],
+            },
+            "formattingTokensRegExp": /\\(\\\\\\[\\[\\^\\\\\\[\\]\\*\\\\\\]\\)\\|\\(\\\\\\\\\\)\\?\\(x\\|ss\\|s\\|mm\\|m\\|hh\\|h\\|do\\|dddd\\|ddd\\|dd\\|d\\|aa\\|a\\|ZZ\\|Z\\|YYYY\\|YY\\|X\\|Wo\\|WW\\|W\\|SSS\\|SS\\|S\\|Qo\\|Q\\|Mo\\|MMMM\\|MMM\\|MM\\|M\\|HH\\|H\\|GGGG\\|GG\\|E\\|Do MMMM\\|Do MMM\\|Do\\|DDDo\\|DDDD\\|DDD\\|DD\\|D\\|A\\|\\.\\)/g,
+            "localize": Object {
+              "month": [Function],
+              "months": [Function],
+              "ordinalNumber": [Function],
+              "timeOfDay": [Function],
+              "timesOfDay": [Function],
+              "weekday": [Function],
+              "weekdays": [Function],
+            },
+            "match": Object {
+              "month": [Function],
+              "months": [Function],
+              "ordinalNumber": [Function],
+              "ordinalNumbers": [Function],
+              "timeOfDay": [Function],
+              "timesOfDay": [Function],
+              "weekday": [Function],
+              "weekdays": [Function],
+            },
+            "options": Object {
+              "firstWeekContainsDate": 4,
+              "weekStartsOn": 1,
+            },
+          }
+        }
+        offset={0}
+        rowHeight={30}
+        startHour="PT06H"
+        type="daily"
+      >
+        <div>
+          <span>
+            06
+          </span>
+          <span>
+            07
+          </span>
+          <span>
+            08
+          </span>
+          <span>
+            09
+          </span>
+          <span>
+            10
+          </span>
+          <span>
+            11
+          </span>
+          <span>
+            12
+          </span>
+          <span>
+            13
+          </span>
+          <span>
+            14
+          </span>
+          <span>
+            15
+          </span>
+          <span>
+            16
+          </span>
+          <span>
+            17
+          </span>
+          <span>
+            18
+          </span>
+          <span>
+            19
+          </span>
+          <span>
+            20
+          </span>
+          <span>
+            21
+          </span>
+        </div>
+      </Labels>
+    </BD>
+  </HoursLabels>
+</BD>
+`;
+
+exports[`HoursLabels daily render 1`] = `
+<BD>
+  <HoursLabels
+    type="daily"
+  >
+    <BD
+      type="daily"
+    >
+      <Labels
+        currentDay={2017-10-09T22:00:00.000Z}
+        endHour="PT22H"
+        hourFormat="HH"
+        locale={
+          Object {
+            "formatDistance": [Function],
+            "formatLong": [Function],
+            "formatRelative": [Function],
+            "formatters": Object {
+              "Do MMM": [Function],
+              "Do MMMM": [Function],
+            },
+            "formattingTokensRegExp": /\\(\\\\\\[\\[\\^\\\\\\[\\]\\*\\\\\\]\\)\\|\\(\\\\\\\\\\)\\?\\(x\\|ss\\|s\\|mm\\|m\\|hh\\|h\\|do\\|dddd\\|ddd\\|dd\\|d\\|aa\\|a\\|ZZ\\|Z\\|YYYY\\|YY\\|X\\|Wo\\|WW\\|W\\|SSS\\|SS\\|S\\|Qo\\|Q\\|Mo\\|MMMM\\|MMM\\|MM\\|M\\|HH\\|H\\|GGGG\\|GG\\|E\\|Do MMMM\\|Do MMM\\|Do\\|DDDo\\|DDDD\\|DDD\\|DD\\|D\\|A\\|\\.\\)/g,
+            "localize": Object {
+              "month": [Function],
+              "months": [Function],
+              "ordinalNumber": [Function],
+              "timeOfDay": [Function],
+              "timesOfDay": [Function],
+              "weekday": [Function],
+              "weekdays": [Function],
+            },
+            "match": Object {
+              "month": [Function],
+              "months": [Function],
+              "ordinalNumber": [Function],
+              "ordinalNumbers": [Function],
+              "timeOfDay": [Function],
+              "timesOfDay": [Function],
+              "weekday": [Function],
+              "weekdays": [Function],
+            },
+            "options": Object {
+              "firstWeekContainsDate": 4,
+              "weekStartsOn": 1,
+            },
+          }
+        }
+        offset={0}
+        rowHeight={30}
+        startHour="PT06H"
+        type="daily"
+      >
+        <div
+          style={
+            Object {
+              "paddingTop": 0,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            06
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            07
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            08
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            09
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            10
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            11
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            12
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            13
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            14
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            15
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            16
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            17
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            18
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            19
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            20
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            21
+          </div>
+        </div>
+      </Labels>
+    </BD>
+  </HoursLabels>
+</BD>
+`;
+
+exports[`HoursLabels daily render Child 1`] = `
+<BD
+  renderChild={[Function]}
+>
+  <HoursLabels
+    renderChild={[Function]}
+    type="daily"
+  >
+    <BD
+      renderChild={[Function]}
+      type="daily"
+    >
+      <Labels
+        currentDay={2017-10-09T22:00:00.000Z}
+        endHour="PT22H"
+        hourFormat="HH"
+        locale={
+          Object {
+            "formatDistance": [Function],
+            "formatLong": [Function],
+            "formatRelative": [Function],
+            "formatters": Object {
+              "Do MMM": [Function],
+              "Do MMMM": [Function],
+            },
+            "formattingTokensRegExp": /\\(\\\\\\[\\[\\^\\\\\\[\\]\\*\\\\\\]\\)\\|\\(\\\\\\\\\\)\\?\\(x\\|ss\\|s\\|mm\\|m\\|hh\\|h\\|do\\|dddd\\|ddd\\|dd\\|d\\|aa\\|a\\|ZZ\\|Z\\|YYYY\\|YY\\|X\\|Wo\\|WW\\|W\\|SSS\\|SS\\|S\\|Qo\\|Q\\|Mo\\|MMMM\\|MMM\\|MM\\|M\\|HH\\|H\\|GGGG\\|GG\\|E\\|Do MMMM\\|Do MMM\\|Do\\|DDDo\\|DDDD\\|DDD\\|DD\\|D\\|A\\|\\.\\)/g,
+            "localize": Object {
+              "month": [Function],
+              "months": [Function],
+              "ordinalNumber": [Function],
+              "timeOfDay": [Function],
+              "timesOfDay": [Function],
+              "weekday": [Function],
+              "weekdays": [Function],
+            },
+            "match": Object {
+              "month": [Function],
+              "months": [Function],
+              "ordinalNumber": [Function],
+              "ordinalNumbers": [Function],
+              "timeOfDay": [Function],
+              "timesOfDay": [Function],
+              "weekday": [Function],
+              "weekdays": [Function],
+            },
+            "options": Object {
+              "firstWeekContainsDate": 4,
+              "weekStartsOn": 1,
+            },
+          }
+        }
+        offset={0}
+        renderChild={[Function]}
+        rowHeight={30}
+        startHour="PT06H"
+        type="daily"
+      >
+        <div
+          style={
+            Object {
+              "paddingTop": 0,
+            }
+          }
+        >
+          <span>
+            06
+          </span>
+          <span>
+            07
+          </span>
+          <span>
+            08
+          </span>
+          <span>
+            09
+          </span>
+          <span>
+            10
+          </span>
+          <span>
+            11
+          </span>
+          <span>
+            12
+          </span>
+          <span>
+            13
+          </span>
+          <span>
+            14
+          </span>
+          <span>
+            15
+          </span>
+          <span>
+            16
+          </span>
+          <span>
+            17
+          </span>
+          <span>
+            18
+          </span>
+          <span>
+            19
+          </span>
+          <span>
+            20
+          </span>
+          <span>
+            21
+          </span>
+        </div>
+      </Labels>
+    </BD>
+  </HoursLabels>
+</BD>
+`;
+
+exports[`HoursLabels daily render with no weekend 1`] = `
+<BD>
+  <HoursLabels
+    type="daily"
+  >
+    <BD
+      type="daily"
+    >
+      <Labels
+        currentDay={2017-10-09T22:00:00.000Z}
+        endHour="PT22H"
+        hourFormat="HH"
+        locale={
+          Object {
+            "formatDistance": [Function],
+            "formatLong": [Function],
+            "formatRelative": [Function],
+            "formatters": Object {
+              "Do MMM": [Function],
+              "Do MMMM": [Function],
+            },
+            "formattingTokensRegExp": /\\(\\\\\\[\\[\\^\\\\\\[\\]\\*\\\\\\]\\)\\|\\(\\\\\\\\\\)\\?\\(x\\|ss\\|s\\|mm\\|m\\|hh\\|h\\|do\\|dddd\\|ddd\\|dd\\|d\\|aa\\|a\\|ZZ\\|Z\\|YYYY\\|YY\\|X\\|Wo\\|WW\\|W\\|SSS\\|SS\\|S\\|Qo\\|Q\\|Mo\\|MMMM\\|MMM\\|MM\\|M\\|HH\\|H\\|GGGG\\|GG\\|E\\|Do MMMM\\|Do MMM\\|Do\\|DDDo\\|DDDD\\|DDD\\|DD\\|D\\|A\\|\\.\\)/g,
+            "localize": Object {
+              "month": [Function],
+              "months": [Function],
+              "ordinalNumber": [Function],
+              "timeOfDay": [Function],
+              "timesOfDay": [Function],
+              "weekday": [Function],
+              "weekdays": [Function],
+            },
+            "match": Object {
+              "month": [Function],
+              "months": [Function],
+              "ordinalNumber": [Function],
+              "ordinalNumbers": [Function],
+              "timeOfDay": [Function],
+              "timesOfDay": [Function],
+              "weekday": [Function],
+              "weekdays": [Function],
+            },
+            "options": Object {
+              "firstWeekContainsDate": 4,
+              "weekStartsOn": 1,
+            },
+          }
+        }
+        offset={0}
+        rowHeight={30}
+        startHour="PT06H"
+        type="daily"
+      >
+        <div
+          style={
+            Object {
+              "paddingTop": 0,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            06
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            07
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            08
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            09
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            10
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            11
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            12
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            13
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            14
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            15
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            16
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            17
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            18
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            19
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            20
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            21
+          </div>
+        </div>
+      </Labels>
+    </BD>
+  </HoursLabels>
+</BD>
+`;
+
+exports[`HoursLabels weekly function as a Child 1`] = `
+<BD>
+  <HoursLabels
+    type="weekly"
+  >
+    <BD
+      type="weekly"
+    >
+      <Labels
+        endHour="PT22H"
+        hourFormat="HH"
+        locale={
+          Object {
+            "formatDistance": [Function],
+            "formatLong": [Function],
+            "formatRelative": [Function],
+            "formatters": Object {
+              "Do MMM": [Function],
+              "Do MMMM": [Function],
+            },
+            "formattingTokensRegExp": /\\(\\\\\\[\\[\\^\\\\\\[\\]\\*\\\\\\]\\)\\|\\(\\\\\\\\\\)\\?\\(x\\|ss\\|s\\|mm\\|m\\|hh\\|h\\|do\\|dddd\\|ddd\\|dd\\|d\\|aa\\|a\\|ZZ\\|Z\\|YYYY\\|YY\\|X\\|Wo\\|WW\\|W\\|SSS\\|SS\\|S\\|Qo\\|Q\\|Mo\\|MMMM\\|MMM\\|MM\\|M\\|HH\\|H\\|GGGG\\|GG\\|E\\|Do MMMM\\|Do MMM\\|Do\\|DDDo\\|DDDD\\|DDD\\|DD\\|D\\|A\\|\\.\\)/g,
+            "localize": Object {
+              "month": [Function],
+              "months": [Function],
+              "ordinalNumber": [Function],
+              "timeOfDay": [Function],
+              "timesOfDay": [Function],
+              "weekday": [Function],
+              "weekdays": [Function],
+            },
+            "match": Object {
+              "month": [Function],
+              "months": [Function],
+              "ordinalNumber": [Function],
+              "ordinalNumbers": [Function],
+              "timeOfDay": [Function],
+              "timesOfDay": [Function],
+              "weekday": [Function],
+              "weekdays": [Function],
+            },
+            "options": Object {
+              "firstWeekContainsDate": 4,
+              "weekStartsOn": 1,
+            },
+          }
+        }
+        offset={1}
+        rowHeight={30}
+        startHour="PT06H"
+        startWeek={2017-10-09T22:00:00.000Z}
+        type="weekly"
+      >
+        <div>
+          <span>
+            06
+          </span>
+          <span>
+            07
+          </span>
+          <span>
+            08
+          </span>
+          <span>
+            09
+          </span>
+          <span>
+            10
+          </span>
+          <span>
+            11
+          </span>
+          <span>
+            12
+          </span>
+          <span>
+            13
+          </span>
+          <span>
+            14
+          </span>
+          <span>
+            15
+          </span>
+          <span>
+            16
+          </span>
+          <span>
+            17
+          </span>
+          <span>
+            18
+          </span>
+          <span>
+            19
+          </span>
+          <span>
+            20
+          </span>
+          <span>
+            21
+          </span>
+        </div>
+      </Labels>
+    </BD>
+  </HoursLabels>
+</BD>
+`;
+
+exports[`HoursLabels weekly render 1`] = `
+<BD>
+  <HoursLabels
+    type="weekly"
+  >
+    <BD
+      type="weekly"
+    >
+      <Labels
+        endHour="PT22H"
+        hourFormat="HH"
+        locale={
+          Object {
+            "formatDistance": [Function],
+            "formatLong": [Function],
+            "formatRelative": [Function],
+            "formatters": Object {
+              "Do MMM": [Function],
+              "Do MMMM": [Function],
+            },
+            "formattingTokensRegExp": /\\(\\\\\\[\\[\\^\\\\\\[\\]\\*\\\\\\]\\)\\|\\(\\\\\\\\\\)\\?\\(x\\|ss\\|s\\|mm\\|m\\|hh\\|h\\|do\\|dddd\\|ddd\\|dd\\|d\\|aa\\|a\\|ZZ\\|Z\\|YYYY\\|YY\\|X\\|Wo\\|WW\\|W\\|SSS\\|SS\\|S\\|Qo\\|Q\\|Mo\\|MMMM\\|MMM\\|MM\\|M\\|HH\\|H\\|GGGG\\|GG\\|E\\|Do MMMM\\|Do MMM\\|Do\\|DDDo\\|DDDD\\|DDD\\|DD\\|D\\|A\\|\\.\\)/g,
+            "localize": Object {
+              "month": [Function],
+              "months": [Function],
+              "ordinalNumber": [Function],
+              "timeOfDay": [Function],
+              "timesOfDay": [Function],
+              "weekday": [Function],
+              "weekdays": [Function],
+            },
+            "match": Object {
+              "month": [Function],
+              "months": [Function],
+              "ordinalNumber": [Function],
+              "ordinalNumbers": [Function],
+              "timeOfDay": [Function],
+              "timesOfDay": [Function],
+              "weekday": [Function],
+              "weekdays": [Function],
+            },
+            "options": Object {
+              "firstWeekContainsDate": 4,
+              "weekStartsOn": 1,
+            },
+          }
+        }
+        offset={1}
+        rowHeight={30}
+        startHour="PT06H"
+        startWeek={2017-10-09T22:00:00.000Z}
+        type="weekly"
+      >
+        <div
+          style={
+            Object {
+              "paddingTop": 30,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            06
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            07
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            08
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            09
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            10
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            11
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            12
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            13
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            14
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            15
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            16
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            17
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            18
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            19
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            20
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            21
+          </div>
+        </div>
+      </Labels>
+    </BD>
+  </HoursLabels>
+</BD>
+`;
+
+exports[`HoursLabels weekly render Child 1`] = `
+<BD
+  renderChild={[Function]}
+>
+  <HoursLabels
+    renderChild={[Function]}
+    type="weekly"
+  >
+    <BD
+      renderChild={[Function]}
+      type="weekly"
+    >
+      <Labels
+        endHour="PT22H"
+        hourFormat="HH"
+        locale={
+          Object {
+            "formatDistance": [Function],
+            "formatLong": [Function],
+            "formatRelative": [Function],
+            "formatters": Object {
+              "Do MMM": [Function],
+              "Do MMMM": [Function],
+            },
+            "formattingTokensRegExp": /\\(\\\\\\[\\[\\^\\\\\\[\\]\\*\\\\\\]\\)\\|\\(\\\\\\\\\\)\\?\\(x\\|ss\\|s\\|mm\\|m\\|hh\\|h\\|do\\|dddd\\|ddd\\|dd\\|d\\|aa\\|a\\|ZZ\\|Z\\|YYYY\\|YY\\|X\\|Wo\\|WW\\|W\\|SSS\\|SS\\|S\\|Qo\\|Q\\|Mo\\|MMMM\\|MMM\\|MM\\|M\\|HH\\|H\\|GGGG\\|GG\\|E\\|Do MMMM\\|Do MMM\\|Do\\|DDDo\\|DDDD\\|DDD\\|DD\\|D\\|A\\|\\.\\)/g,
+            "localize": Object {
+              "month": [Function],
+              "months": [Function],
+              "ordinalNumber": [Function],
+              "timeOfDay": [Function],
+              "timesOfDay": [Function],
+              "weekday": [Function],
+              "weekdays": [Function],
+            },
+            "match": Object {
+              "month": [Function],
+              "months": [Function],
+              "ordinalNumber": [Function],
+              "ordinalNumbers": [Function],
+              "timeOfDay": [Function],
+              "timesOfDay": [Function],
+              "weekday": [Function],
+              "weekdays": [Function],
+            },
+            "options": Object {
+              "firstWeekContainsDate": 4,
+              "weekStartsOn": 1,
+            },
+          }
+        }
+        offset={1}
+        renderChild={[Function]}
+        rowHeight={30}
+        startHour="PT06H"
+        startWeek={2017-10-09T22:00:00.000Z}
+        type="weekly"
+      >
+        <div
+          style={
+            Object {
+              "paddingTop": 30,
+            }
+          }
+        >
+          <span>
+            06
+          </span>
+          <span>
+            07
+          </span>
+          <span>
+            08
+          </span>
+          <span>
+            09
+          </span>
+          <span>
+            10
+          </span>
+          <span>
+            11
+          </span>
+          <span>
+            12
+          </span>
+          <span>
+            13
+          </span>
+          <span>
+            14
+          </span>
+          <span>
+            15
+          </span>
+          <span>
+            16
+          </span>
+          <span>
+            17
+          </span>
+          <span>
+            18
+          </span>
+          <span>
+            19
+          </span>
+          <span>
+            20
+          </span>
+          <span>
+            21
+          </span>
+        </div>
+      </Labels>
+    </BD>
+  </HoursLabels>
+</BD>
+`;
+
+exports[`HoursLabels weekly render with no weekend 1`] = `
+<BD>
+  <HoursLabels
+    type="weekly"
+  >
+    <BD
+      type="weekly"
+    >
+      <Labels
+        endHour="PT22H"
+        hourFormat="HH"
+        locale={
+          Object {
+            "formatDistance": [Function],
+            "formatLong": [Function],
+            "formatRelative": [Function],
+            "formatters": Object {
+              "Do MMM": [Function],
+              "Do MMMM": [Function],
+            },
+            "formattingTokensRegExp": /\\(\\\\\\[\\[\\^\\\\\\[\\]\\*\\\\\\]\\)\\|\\(\\\\\\\\\\)\\?\\(x\\|ss\\|s\\|mm\\|m\\|hh\\|h\\|do\\|dddd\\|ddd\\|dd\\|d\\|aa\\|a\\|ZZ\\|Z\\|YYYY\\|YY\\|X\\|Wo\\|WW\\|W\\|SSS\\|SS\\|S\\|Qo\\|Q\\|Mo\\|MMMM\\|MMM\\|MM\\|M\\|HH\\|H\\|GGGG\\|GG\\|E\\|Do MMMM\\|Do MMM\\|Do\\|DDDo\\|DDDD\\|DDD\\|DD\\|D\\|A\\|\\.\\)/g,
+            "localize": Object {
+              "month": [Function],
+              "months": [Function],
+              "ordinalNumber": [Function],
+              "timeOfDay": [Function],
+              "timesOfDay": [Function],
+              "weekday": [Function],
+              "weekdays": [Function],
+            },
+            "match": Object {
+              "month": [Function],
+              "months": [Function],
+              "ordinalNumber": [Function],
+              "ordinalNumbers": [Function],
+              "timeOfDay": [Function],
+              "timesOfDay": [Function],
+              "weekday": [Function],
+              "weekdays": [Function],
+            },
+            "options": Object {
+              "firstWeekContainsDate": 4,
+              "weekStartsOn": 1,
+            },
+          }
+        }
+        offset={1}
+        rowHeight={30}
+        startHour="PT06H"
+        startWeek={2017-10-09T22:00:00.000Z}
+        type="weekly"
+      >
+        <div
+          style={
+            Object {
+              "paddingTop": 30,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            06
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            07
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            08
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            09
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            10
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            11
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            12
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            13
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            14
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            15
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            16
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            17
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            18
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            19
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            20
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            21
+          </div>
+        </div>
+      </Labels>
+    </BD>
+  </HoursLabels>
+</BD>
+`;
+
+exports[`HoursLabels weekly render with style 1`] = `
+<BD
+  style={
+    Object {
+      "color": "orange",
+    }
+  }
+>
+  <HoursLabels
+    style={
+      Object {
+        "color": "orange",
+      }
+    }
+    type="weekly"
+  >
+    <BD
+      style={
+        Object {
+          "color": "orange",
+        }
+      }
+      type="weekly"
+    >
+      <Labels
+        endHour="PT22H"
+        hourFormat="HH"
+        locale={
+          Object {
+            "formatDistance": [Function],
+            "formatLong": [Function],
+            "formatRelative": [Function],
+            "formatters": Object {
+              "Do MMM": [Function],
+              "Do MMMM": [Function],
+            },
+            "formattingTokensRegExp": /\\(\\\\\\[\\[\\^\\\\\\[\\]\\*\\\\\\]\\)\\|\\(\\\\\\\\\\)\\?\\(x\\|ss\\|s\\|mm\\|m\\|hh\\|h\\|do\\|dddd\\|ddd\\|dd\\|d\\|aa\\|a\\|ZZ\\|Z\\|YYYY\\|YY\\|X\\|Wo\\|WW\\|W\\|SSS\\|SS\\|S\\|Qo\\|Q\\|Mo\\|MMMM\\|MMM\\|MM\\|M\\|HH\\|H\\|GGGG\\|GG\\|E\\|Do MMMM\\|Do MMM\\|Do\\|DDDo\\|DDDD\\|DDD\\|DD\\|D\\|A\\|\\.\\)/g,
+            "localize": Object {
+              "month": [Function],
+              "months": [Function],
+              "ordinalNumber": [Function],
+              "timeOfDay": [Function],
+              "timesOfDay": [Function],
+              "weekday": [Function],
+              "weekdays": [Function],
+            },
+            "match": Object {
+              "month": [Function],
+              "months": [Function],
+              "ordinalNumber": [Function],
+              "ordinalNumbers": [Function],
+              "timeOfDay": [Function],
+              "timesOfDay": [Function],
+              "weekday": [Function],
+              "weekdays": [Function],
+            },
+            "options": Object {
+              "firstWeekContainsDate": 4,
+              "weekStartsOn": 1,
+            },
+          }
+        }
+        offset={1}
+        rowHeight={30}
+        startHour="PT06H"
+        startWeek={2017-10-09T22:00:00.000Z}
+        style={
+          Object {
+            "color": "orange",
+          }
+        }
+        type="weekly"
+      >
+        <div
+          style={
+            Object {
+              "color": "orange",
+              "paddingTop": 30,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            06
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            07
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            08
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            09
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            10
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            11
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            12
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            13
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            14
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            15
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            16
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            17
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            18
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            19
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            20
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            21
+          </div>
+        </div>
+      </Labels>
+    </BD>
+  </HoursLabels>
+</BD>
+`;

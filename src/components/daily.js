@@ -32,8 +32,12 @@ class DailyCalendar extends React.Component {
     dayEvents: [],
   }
   componentWillMount = () => this.setState(() => ({currentDay: startOfDay(this.props.start)}))
-  componentWillReceiveProps(props) {
-    this.setState(() => ({currentDay: startOfDay(props.start)}), () => this._computeDayEvents())
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.start !== this.props.nextProps)
+      this.setState(
+        () => ({currentDay: startOfDay(nextProps.start)}),
+        () => this._computeDayEvents()
+      )
   }
   componentDidMount() {
     this._computeDayEvents()
@@ -108,7 +112,7 @@ class DailyCalendar extends React.Component {
     if (!this.column) return {display: 'none'}
     const {startHour, endHour, rowHeight} = this.props
     const wrapper = this.column.getBoundingClientRect()
-    return computeNow(wrapper, startHour, endHour)
+    return computeNow(wrapper, startHour, endHour, Date.now())
   }
   _computeDayEvents = () => {
     const {fevents, rowHeight} = this.props
@@ -157,7 +161,7 @@ class DailyCalendar extends React.Component {
       prevDay: this._prevDay,
       gotoToday: this._gotoToday,
       dateLabel: this._dateLabel,
-      getColumnProps: ({refKey = 'ref'}) => ({
+      getColumnProps: ({refKey} = {refKey: 'ref'}) => ({
         [refKey]: r => {
           if (typeof this.column === 'undefined') {
             this.column = r

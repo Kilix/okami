@@ -5,7 +5,7 @@ import enLocale from 'date-fns/locale/en-US'
 import getHours from 'date-fns/fp/getHours'
 import isAfter from 'date-fns/fp/isAfter'
 
-import {constructTree} from './utils'
+import {parseData} from './utils'
 
 const days = {
   sunday: 0,
@@ -15,23 +15,6 @@ const days = {
   thursday: 4,
   friday: 5,
   saturday: 6,
-}
-
-function parseData(data) {
-  let events = data.filter(e => typeof e.allDay === 'boolean' && e.allDay === false)
-  events.sort((a, b) => {
-    if (getHours(a.start) === getHours(b.start)) {
-      return getHours(b.end) - getHours(b.start) - (getHours(a.end) - getHours(a.start))
-    }
-    return isAfter(a.start, b.start) ? -1 : 1
-  })
-
-  const fevents = data.filter(e => e.allDay)
-  return {
-    events,
-    fevents,
-    nodes: constructTree(events),
-  }
 }
 
 class Calendar extends Component {

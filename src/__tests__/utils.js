@@ -16,6 +16,8 @@ import {
   parseData,
 } from '../utils.js'
 
+const createDate = (y, m, d, h = 0, mm = 0, s = 0) => new Date(Date.UTC(y, m, d, h, mm, s))
+
 test('flatten', () => {
   const start = [1, [2, 3], [4]]
   const exptected = [1, 2, 3, 4]
@@ -55,38 +57,38 @@ test('debounce', done => {
 })
 
 describe('checkBound', () => {
-  const day = new Date(2017, 9, 13, 0, 0, 0)
-  const int = {start: new Date(2017, 9, 12, 12, 0, 0), end: new Date(2017, 9, 14, 22, 0, 0)}
+  const day = createDate(2017, 9, 13, 0, 0, 0)
+  const int = {start: createDate(2017, 9, 12, 12, 0, 0), end: createDate(2017, 9, 14, 22, 0, 0)}
   test('should be true', () => {
-    const d = {start: new Date(2017, 9, 13, 11, 23, 0), end: new Date(2017, 9, 13, 12, 23, 0)}
+    const d = {start: createDate(2017, 9, 13, 11, 23, 0), end: createDate(2017, 9, 13, 12, 23, 0)}
     expect(checkBound(day, int)(d)).toEqual(true)
   })
   test('should be false', () => {
-    const d = {start: new Date(2017, 9, 15, 11, 23, 0), end: new Date(2017, 9, 16, 12, 23, 0)}
+    const d = {start: createDate(2017, 9, 15, 11, 23, 0), end: createDate(2017, 9, 16, 12, 23, 0)}
     expect(checkBound(day, int)(d)).toEqual(false)
   })
   test('should be false too ', () => {
-    const d = {start: new Date(2017, 9, 14, 23, 23, 0), end: new Date(2017, 9, 15, 12, 23, 0)}
+    const d = {start: createDate(2017, 9, 14, 23, 23, 0), end: createDate(2017, 9, 15, 12, 23, 0)}
     expect(checkBound(day, int)(d)).toEqual(false)
   })
 })
 
 describe('checkIn', () => {
-  const int = {start: new Date(2017, 9, 12, 12, 0, 0), end: new Date(2017, 9, 14, 22, 0, 0)}
+  const int = {start: createDate(2017, 9, 12, 12, 0, 0), end: createDate(2017, 9, 14, 22, 0, 0)}
   test('should be true', () => {
-    const d = {start: new Date(2017, 9, 13, 11, 23, 0), end: new Date(2017, 9, 14, 12, 23, 0)}
+    const d = {start: createDate(2017, 9, 13, 11, 23, 0), end: createDate(2017, 9, 14, 12, 23, 0)}
     expect(checkIn(int)(d)).toEqual(true)
   })
   test('should be false', () => {
-    const d = {start: new Date(2017, 9, 13, 11, 23, 0), end: new Date(2017, 9, 13, 12, 23, 0)}
+    const d = {start: createDate(2017, 9, 13, 11, 23, 0), end: createDate(2017, 9, 13, 12, 23, 0)}
     expect(checkIn(int)(d)).toEqual(false)
   })
   test('should be false', () => {
-    const d = {start: new Date(2017, 9, 15, 11, 23, 0), end: new Date(2017, 9, 16, 12, 23, 0)}
+    const d = {start: createDate(2017, 9, 15, 11, 23, 0), end: createDate(2017, 9, 16, 12, 23, 0)}
     expect(checkIn(int)(d)).toEqual(false)
   })
   test('should be false too ', () => {
-    const d = {start: new Date(2017, 9, 14, 23, 23, 0), end: new Date(2017, 9, 15, 12, 23, 0)}
+    const d = {start: createDate(2017, 9, 14, 23, 23, 0), end: createDate(2017, 9, 15, 12, 23, 0)}
     expect(checkIn(int)(d)).toEqual(false)
   })
 })
@@ -95,24 +97,24 @@ describe('getTodayEvents', () => {
   test('return one event', () => {
     const startHour = 'PT06H'
     const endHour = 'PT23H'
-    const day = new Date(2017, 9, 15, 0, 0, 0)
+    const day = createDate(2017, 9, 15, 0, 0, 0)
     const data = [
-      {start: new Date(2017, 9, 15, 11, 23, 0), end: new Date(2017, 9, 15, 12, 23, 0)},
-      {start: new Date(2017, 9, 16, 11, 23, 0), end: new Date(2017, 9, 6, 12, 23, 0)},
+      {start: createDate(2017, 9, 15, 11, 23, 0), end: createDate(2017, 9, 15, 12, 23, 0)},
+      {start: createDate(2017, 9, 16, 11, 23, 0), end: createDate(2017, 9, 6, 12, 23, 0)},
     ]
 
     const expected = [
-      {start: new Date(2017, 9, 15, 11, 23, 0), end: new Date(2017, 9, 15, 12, 23, 0)},
+      {start: createDate(2017, 9, 15, 11, 23, 0), end: createDate(2017, 9, 15, 12, 23, 0)},
     ]
     expect(getTodayEvents(startHour, endHour, day, data)).toEqual(expected)
   })
   test('return no event', () => {
     const startHour = 'PT06H'
     const endHour = 'PT23H'
-    const day = new Date(2017, 9, 14, 0, 0, 0)
+    const day = createDate(2017, 9, 14, 0, 0, 0)
     const data = [
-      {start: new Date(2017, 9, 15, 11, 23, 0), end: new Date(2017, 9, 15, 12, 23, 0)},
-      {start: new Date(2017, 9, 16, 11, 23, 0), end: new Date(2017, 9, 6, 12, 23, 0)},
+      {start: createDate(2017, 9, 15, 11, 23, 0), end: createDate(2017, 9, 15, 12, 23, 0)},
+      {start: createDate(2017, 9, 16, 11, 23, 0), end: createDate(2017, 9, 6, 12, 23, 0)},
     ]
 
     const expected = []
@@ -122,27 +124,27 @@ describe('getTodayEvents', () => {
 
 describe('getWeekEvents', () => {
   test('return two events', () => {
-    const startWeek = new Date(2017, 9, 9, 0, 0, 0, 0)
+    const startWeek = createDate(2017, 9, 9, 0, 0, 0, 0)
     const data = [
       {
         allDay: true,
-        start: new Date(2017, 9, 7, 11, 23, 0),
-        end: new Date(2017, 9, 8, 12, 23, 0),
+        start: createDate(2017, 9, 7, 11, 23, 0),
+        end: createDate(2017, 9, 8, 12, 23, 0),
       },
-      {allDay: new Date(2017, 9, 13, 11, 23, 0)},
+      {allDay: createDate(2017, 9, 13, 11, 23, 0)},
       {
         allDay: true,
-        start: new Date(2017, 9, 10, 11, 23, 0),
-        end: new Date(2017, 9, 17, 12, 23, 0),
+        start: createDate(2017, 9, 10, 11, 23, 0),
+        end: createDate(2017, 9, 17, 12, 23, 0),
       },
     ]
     const res = getWeekEvents(1, true, startWeek, data)
     const expected = [
-      {allDay: new Date(2017, 9, 13, 11, 23, 0)},
+      {allDay: createDate(2017, 9, 13, 11, 23, 0)},
       {
         allDay: true,
-        start: new Date(2017, 9, 10, 11, 23, 0),
-        end: new Date(2017, 9, 17, 12, 23, 0),
+        start: createDate(2017, 9, 10, 11, 23, 0),
+        end: createDate(2017, 9, 17, 12, 23, 0),
       },
     ]
     expect(res).toEqual(expected)
@@ -151,28 +153,28 @@ describe('getWeekEvents', () => {
 
 describe('getDayEvents', () => {
   test('return two events', () => {
-    const day = new Date(2017, 9, 9, 0, 0, 0, 0)
+    const day = createDate(2017, 9, 9, 0, 0, 0, 0)
     const data = [
       {
         allDay: true,
-        start: new Date(2017, 9, 7, 11, 23, 0),
-        end: new Date(2017, 9, 10, 12, 23, 0),
+        start: createDate(2017, 9, 7, 11, 23, 0),
+        end: createDate(2017, 9, 10, 12, 23, 0),
       },
-      {allDay: new Date(2017, 9, 9, 5, 0, 0, 0)},
-      {allDay: new Date(2017, 9, 13, 11, 23, 0)},
+      {allDay: createDate(2017, 9, 9, 5, 0, 0, 0)},
+      {allDay: createDate(2017, 9, 13, 11, 23, 0)},
       {
         allDay: true,
-        start: new Date(2017, 9, 10, 11, 23, 0),
-        end: new Date(2017, 9, 17, 12, 23, 0),
+        start: createDate(2017, 9, 10, 11, 23, 0),
+        end: createDate(2017, 9, 17, 12, 23, 0),
       },
     ]
     const res = getDayEvents(day, data)
     const expected = [
-      {allDay: new Date(2017, 9, 9, 5, 0, 0, 0)},
+      {allDay: createDate(2017, 9, 9, 5, 0, 0, 0)},
       {
         allDay: true,
-        start: new Date(2017, 9, 7, 11, 23, 0),
-        end: new Date(2017, 9, 10, 12, 23, 0),
+        start: createDate(2017, 9, 7, 11, 23, 0),
+        end: createDate(2017, 9, 10, 12, 23, 0),
       },
     ]
     expect(res).toEqual(expected)
@@ -180,7 +182,7 @@ describe('getDayEvents', () => {
 })
 
 test('computeNow', () => {
-  const now = new Date(2017, 9, 9, 12, 23, 0, 0)
+  const now = createDate(2017, 9, 9, 12, 23, 0, 0)
   const wrapper = {
     top: 0,
     left: 0,
@@ -193,7 +195,7 @@ test('computeNow', () => {
   const expected = {
     position: 'absolute',
     left: 0,
-    top: 40,
+    top: 52.5,
     width: '100%',
   }
   expect(res).toEqual(expected)
@@ -213,28 +215,28 @@ test('placeEvents', () => {
   const events = [
     {
       allDay: false,
-      start: new Date(2017, 9, 7, 3, 0, 0),
-      end: new Date(2017, 9, 7, 14, 0, 0),
+      start: createDate(2017, 9, 7, 3, 0, 0),
+      end: createDate(2017, 9, 7, 14, 0, 0),
     },
     {
       allDay: false,
-      start: new Date(2017, 9, 7, 12, 30, 0),
-      end: new Date(2017, 9, 7, 13, 30, 0),
+      start: createDate(2017, 9, 7, 12, 30, 0),
+      end: createDate(2017, 9, 7, 13, 30, 0),
     },
     {
       allDay: false,
-      start: new Date(2017, 9, 7, 16, 30, 0),
-      end: new Date(2017, 9, 7, 18, 0, 0),
+      start: createDate(2017, 9, 7, 16, 30, 0),
+      end: createDate(2017, 9, 7, 18, 0, 0),
     },
     {
       allDay: false,
-      start: new Date(2017, 9, 7, 17, 0, 0),
-      end: new Date(2017, 9, 7, 18, 30, 0),
+      start: createDate(2017, 9, 7, 17, 0, 0),
+      end: createDate(2017, 9, 7, 18, 30, 0),
     },
     {
       allDay: false,
-      start: new Date(2017, 9, 7, 17, 0, 0),
-      end: new Date(2017, 9, 7, 17, 30, 0),
+      start: createDate(2017, 9, 7, 17, 0, 0),
+      end: createDate(2017, 9, 7, 17, 30, 0),
     },
   ]
   const res = placeEvents(ee, nodes, events, 30, startHour, endHour)
@@ -243,27 +245,27 @@ test('placeEvents', () => {
       key: 0,
       event: {
         allDay: false,
-        start: new Date(2017, 9, 7, 3, 0, 0),
-        end: new Date(2017, 9, 7, 14, 0, 0),
+        start: createDate(2017, 9, 7, 3, 0, 0),
+        end: createDate(2017, 9, 7, 14, 0, 0),
       },
       style: {
         position: 'absolute',
         top: 0,
         left: '0%',
         width: '85%',
-        height: 240,
+        height: 300,
       },
     },
     {
       key: 2,
       event: {
         allDay: false,
-        start: new Date(2017, 9, 7, 16, 30, 0),
-        end: new Date(2017, 9, 7, 18, 0, 0),
+        start: createDate(2017, 9, 7, 16, 30, 0),
+        end: createDate(2017, 9, 7, 18, 0, 0),
       },
       style: {
         position: 'absolute',
-        top: 315,
+        top: 375,
         left: '0%',
         width: '85%',
         height: 45,
@@ -277,38 +279,38 @@ test('constructTree', () => {
   const events = [
     {
       allDay: false,
-      start: new Date(2017, 9, 7, 3, 0, 0),
-      end: new Date(2017, 9, 7, 14, 0, 0),
+      start: createDate(2017, 9, 7, 3, 0, 0),
+      end: createDate(2017, 9, 7, 14, 0, 0),
     },
     {
       allDay: false,
-      start: new Date(2017, 9, 7, 5, 0, 0),
-      end: new Date(2017, 9, 7, 7, 0, 0),
+      start: createDate(2017, 9, 7, 5, 0, 0),
+      end: createDate(2017, 9, 7, 7, 0, 0),
     },
     {
       allDay: false,
-      start: new Date(2017, 9, 7, 12, 30, 0),
-      end: new Date(2017, 9, 7, 13, 30, 0),
+      start: createDate(2017, 9, 7, 12, 30, 0),
+      end: createDate(2017, 9, 7, 13, 30, 0),
     },
     {
       allDay: false,
-      start: new Date(2017, 9, 7, 13, 0, 0),
-      end: new Date(2017, 9, 7, 14, 30, 0),
+      start: createDate(2017, 9, 7, 13, 0, 0),
+      end: createDate(2017, 9, 7, 14, 30, 0),
     },
     {
       allDay: false,
-      start: new Date(2017, 9, 7, 16, 30, 0),
-      end: new Date(2017, 9, 7, 18, 0, 0),
+      start: createDate(2017, 9, 7, 16, 30, 0),
+      end: createDate(2017, 9, 7, 18, 0, 0),
     },
     {
       allDay: false,
-      start: new Date(2017, 9, 7, 17, 0, 0),
-      end: new Date(2017, 9, 7, 18, 30, 0),
+      start: createDate(2017, 9, 7, 17, 0, 0),
+      end: createDate(2017, 9, 7, 18, 30, 0),
     },
     {
       allDay: false,
-      start: new Date(2017, 9, 7, 17, 0, 0),
-      end: new Date(2017, 9, 7, 17, 30, 0),
+      start: createDate(2017, 9, 7, 17, 0, 0),
+      end: createDate(2017, 9, 7, 17, 30, 0),
     },
   ]
   const nodes = {
@@ -327,45 +329,45 @@ test('parseData', () => {
   const events = [
     {
       allDay: false,
-      start: new Date(2017, 9, 7, 3, 0, 0),
-      end: new Date(2017, 9, 7, 14, 0, 0),
+      start: createDate(2017, 9, 7, 3, 0, 0),
+      end: createDate(2017, 9, 7, 14, 0, 0),
     },
     {
       allDay: false,
-      start: new Date(2017, 9, 7, 5, 0, 0),
-      end: new Date(2017, 9, 7, 7, 0, 0),
+      start: createDate(2017, 9, 7, 5, 0, 0),
+      end: createDate(2017, 9, 7, 7, 0, 0),
     },
     {
       allDay: false,
-      start: new Date(2017, 9, 7, 12, 30, 0),
-      end: new Date(2017, 9, 7, 13, 30, 0),
+      start: createDate(2017, 9, 7, 12, 30, 0),
+      end: createDate(2017, 9, 7, 13, 30, 0),
     },
     {
       allDay: false,
-      start: new Date(2017, 9, 7, 13, 0, 0),
-      end: new Date(2017, 9, 7, 14, 30, 0),
+      start: createDate(2017, 9, 7, 13, 0, 0),
+      end: createDate(2017, 9, 7, 14, 30, 0),
     },
     {
       allDay: false,
-      start: new Date(2017, 9, 7, 16, 30, 0),
-      end: new Date(2017, 9, 7, 18, 0, 0),
+      start: createDate(2017, 9, 7, 16, 30, 0),
+      end: createDate(2017, 9, 7, 18, 0, 0),
     },
     {
       allDay: false,
-      start: new Date(2017, 9, 7, 17, 0, 0),
-      end: new Date(2017, 9, 7, 18, 30, 0),
+      start: createDate(2017, 9, 7, 17, 0, 0),
+      end: createDate(2017, 9, 7, 18, 30, 0),
     },
     {
       allDay: false,
-      start: new Date(2017, 9, 7, 17, 0, 0),
-      end: new Date(2017, 9, 7, 17, 30, 0),
+      start: createDate(2017, 9, 7, 17, 0, 0),
+      end: createDate(2017, 9, 7, 17, 30, 0),
     },
   ]
   const fevents = [
     {
       allDay: true,
-      start: new Date(2017, 9, 7, 17, 0, 0),
-      end: new Date(2017, 9, 8, 17, 30, 0),
+      start: createDate(2017, 9, 7, 17, 0, 0),
+      end: createDate(2017, 9, 8, 17, 30, 0),
     },
   ]
   const nodes = {

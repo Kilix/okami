@@ -5,13 +5,15 @@ import frLocale from 'date-fns/locale/fr'
 
 import DaysLabels from '../../components/daysLabels'
 
+const createDate = (y, m, d, h = 0, mm = 0, s = 0) => new Date(Date.UTC(y, m, d, h, mm, s))
+
 describe('DaysLabels', () => {
   const ctx = {
     locale: frLocale,
     dateFormat: 'DD',
     showWeekend: true,
     rowHeight: 30,
-    startWeek: new Date(2017, 9, 10, 0, 0, 0, 0),
+    startWeek: createDate(2017, 9, 10, 0, 0, 0, 0),
   }
   test('render', () => {
     const tree = mount(<DaysLabels />, {context: ctx})

@@ -9,7 +9,7 @@ exports[`HoursLabels daily function as a Child 1`] = `
       type="daily"
     >
       <Labels
-        currentDay={2017-10-09T22:00:00.000Z}
+        currentDay={2017-10-10T00:00:00.000Z}
         endHour="PT22H"
         hourFormat="HH"
         locale={
@@ -54,12 +54,6 @@ exports[`HoursLabels daily function as a Child 1`] = `
       >
         <div>
           <span>
-            06
-          </span>
-          <span>
-            07
-          </span>
-          <span>
             08
           </span>
           <span>
@@ -101,6 +95,12 @@ exports[`HoursLabels daily function as a Child 1`] = `
           <span>
             21
           </span>
+          <span>
+            22
+          </span>
+          <span>
+            23
+          </span>
         </div>
       </Labels>
     </BD>
@@ -117,7 +117,7 @@ exports[`HoursLabels daily render 1`] = `
       type="daily"
     >
       <Labels
-        currentDay={2017-10-09T22:00:00.000Z}
+        currentDay={2017-10-10T00:00:00.000Z}
         endHour="PT22H"
         hourFormat="HH"
         locale={
@@ -174,24 +174,6 @@ exports[`HoursLabels daily render 1`] = `
               }
             }
           >
-            06
-          </div>
-          <div
-            style={
-              Object {
-                "height": 30,
-              }
-            }
-          >
-            07
-          </div>
-          <div
-            style={
-              Object {
-                "height": 30,
-              }
-            }
-          >
             08
           </div>
           <div
@@ -311,6 +293,24 @@ exports[`HoursLabels daily render 1`] = `
           >
             21
           </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            22
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            23
+          </div>
         </div>
       </Labels>
     </BD>
@@ -331,7 +331,7 @@ exports[`HoursLabels daily render Child 1`] = `
       type="daily"
     >
       <Labels
-        currentDay={2017-10-09T22:00:00.000Z}
+        currentDay={2017-10-10T00:00:00.000Z}
         endHour="PT22H"
         hourFormat="HH"
         locale={
@@ -383,12 +383,6 @@ exports[`HoursLabels daily render Child 1`] = `
           }
         >
           <span>
-            06
-          </span>
-          <span>
-            07
-          </span>
-          <span>
             08
           </span>
           <span>
@@ -430,6 +424,12 @@ exports[`HoursLabels daily render Child 1`] = `
           <span>
             21
           </span>
+          <span>
+            22
+          </span>
+          <span>
+            23
+          </span>
         </div>
       </Labels>
     </BD>
@@ -446,7 +446,7 @@ exports[`HoursLabels daily render with no weekend 1`] = `
       type="daily"
     >
       <Labels
-        currentDay={2017-10-09T22:00:00.000Z}
+        currentDay={2017-10-10T00:00:00.000Z}
         endHour="PT22H"
         hourFormat="HH"
         locale={
@@ -503,24 +503,6 @@ exports[`HoursLabels daily render with no weekend 1`] = `
               }
             }
           >
-            06
-          </div>
-          <div
-            style={
-              Object {
-                "height": 30,
-              }
-            }
-          >
-            07
-          </div>
-          <div
-            style={
-              Object {
-                "height": 30,
-              }
-            }
-          >
             08
           </div>
           <div
@@ -639,6 +621,24 @@ exports[`HoursLabels daily render with no weekend 1`] = `
             }
           >
             21
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            22
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            23
           </div>
         </div>
       </Labels>
@@ -696,16 +696,10 @@ exports[`HoursLabels weekly function as a Child 1`] = `
         offset={1}
         rowHeight={30}
         startHour="PT06H"
-        startWeek={2017-10-09T22:00:00.000Z}
+        startWeek={2017-10-10T00:00:00.000Z}
         type="weekly"
       >
         <div>
-          <span>
-            06
-          </span>
-          <span>
-            07
-          </span>
           <span>
             08
           </span>
@@ -747,6 +741,12 @@ exports[`HoursLabels weekly function as a Child 1`] = `
           </span>
           <span>
             21
+          </span>
+          <span>
+            22
+          </span>
+          <span>
+            23
           </span>
         </div>
       </Labels>
@@ -804,7 +804,7 @@ exports[`HoursLabels weekly render 1`] = `
         offset={1}
         rowHeight={30}
         startHour="PT06H"
-        startWeek={2017-10-09T22:00:00.000Z}
+        startWeek={2017-10-10T00:00:00.000Z}
         type="weekly"
       >
         <div
@@ -814,24 +814,6 @@ exports[`HoursLabels weekly render 1`] = `
             }
           }
         >
-          <div
-            style={
-              Object {
-                "height": 30,
-              }
-            }
-          >
-            06
-          </div>
-          <div
-            style={
-              Object {
-                "height": 30,
-              }
-            }
-          >
-            07
-          </div>
           <div
             style={
               Object {
@@ -957,6 +939,24 @@ exports[`HoursLabels weekly render 1`] = `
             }
           >
             21
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            22
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            23
           </div>
         </div>
       </Labels>
@@ -1019,7 +1019,7 @@ exports[`HoursLabels weekly render Child 1`] = `
         renderChild={[Function]}
         rowHeight={30}
         startHour="PT06H"
-        startWeek={2017-10-09T22:00:00.000Z}
+        startWeek={2017-10-10T00:00:00.000Z}
         type="weekly"
       >
         <div
@@ -1029,12 +1029,6 @@ exports[`HoursLabels weekly render Child 1`] = `
             }
           }
         >
-          <span>
-            06
-          </span>
-          <span>
-            07
-          </span>
           <span>
             08
           </span>
@@ -1076,6 +1070,12 @@ exports[`HoursLabels weekly render Child 1`] = `
           </span>
           <span>
             21
+          </span>
+          <span>
+            22
+          </span>
+          <span>
+            23
           </span>
         </div>
       </Labels>
@@ -1133,7 +1133,7 @@ exports[`HoursLabels weekly render with no weekend 1`] = `
         offset={1}
         rowHeight={30}
         startHour="PT06H"
-        startWeek={2017-10-09T22:00:00.000Z}
+        startWeek={2017-10-10T00:00:00.000Z}
         type="weekly"
       >
         <div
@@ -1143,24 +1143,6 @@ exports[`HoursLabels weekly render with no weekend 1`] = `
             }
           }
         >
-          <div
-            style={
-              Object {
-                "height": 30,
-              }
-            }
-          >
-            06
-          </div>
-          <div
-            style={
-              Object {
-                "height": 30,
-              }
-            }
-          >
-            07
-          </div>
           <div
             style={
               Object {
@@ -1286,6 +1268,24 @@ exports[`HoursLabels weekly render with no weekend 1`] = `
             }
           >
             21
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            22
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            23
           </div>
         </div>
       </Labels>
@@ -1359,7 +1359,7 @@ exports[`HoursLabels weekly render with style 1`] = `
         offset={1}
         rowHeight={30}
         startHour="PT06H"
-        startWeek={2017-10-09T22:00:00.000Z}
+        startWeek={2017-10-10T00:00:00.000Z}
         style={
           Object {
             "color": "orange",
@@ -1375,24 +1375,6 @@ exports[`HoursLabels weekly render with style 1`] = `
             }
           }
         >
-          <div
-            style={
-              Object {
-                "height": 30,
-              }
-            }
-          >
-            06
-          </div>
-          <div
-            style={
-              Object {
-                "height": 30,
-              }
-            }
-          >
-            07
-          </div>
           <div
             style={
               Object {
@@ -1518,6 +1500,24 @@ exports[`HoursLabels weekly render with style 1`] = `
             }
           >
             21
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            22
+          </div>
+          <div
+            style={
+              Object {
+                "height": 30,
+              }
+            }
+          >
+            23
           </div>
         </div>
       </Labels>

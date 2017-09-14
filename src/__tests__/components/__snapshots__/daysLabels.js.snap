@@ -41,7 +41,7 @@ exports[`DaysLabels function as a Child 1`] = `
     }
     rowHeight={30}
     showWeekend={true}
-    startWeek={2017-10-09T22:00:00.000Z}
+    startWeek={2017-10-10T00:00:00.000Z}
   >
     <div>
       <span>
@@ -111,7 +111,7 @@ exports[`DaysLabels render 1`] = `
     }
     rowHeight={30}
     showWeekend={true}
-    startWeek={2017-10-09T22:00:00.000Z}
+    startWeek={2017-10-10T00:00:00.000Z}
   >
     <div>
       <div
@@ -226,7 +226,7 @@ exports[`DaysLabels render Child 1`] = `
     renderChild={[Function]}
     rowHeight={30}
     showWeekend={true}
-    startWeek={2017-10-09T22:00:00.000Z}
+    startWeek={2017-10-10T00:00:00.000Z}
   >
     <div>
       <span>
@@ -296,7 +296,7 @@ exports[`DaysLabels render with no weekend 1`] = `
     }
     rowHeight={30}
     showWeekend={false}
-    startWeek={2017-10-09T22:00:00.000Z}
+    startWeek={2017-10-10T00:00:00.000Z}
   >
     <div>
       <div

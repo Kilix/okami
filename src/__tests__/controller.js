@@ -2,6 +2,7 @@ import React from 'react'
 import {shallow} from 'enzyme'
 
 import controller from '../controller'
+const createDate = (y, m, d, h = 0, mm = 0, s = 0) => new Date(Date.UTC(y, m, d, h, mm, s))
 
 const defaultContext = {
   locale: {},
@@ -23,8 +24,8 @@ const defaultContext = {
   nextDay: jest.fn(),
   prevDay: jest.fn(),
   dateLabel: jest.fn(),
-  startWeek: new Date(),
-  currentDay: new Date(),
+  startWeek: createDate(),
+  currentDay: createDate(),
   showWeekend: true,
   toggleWeekend: jest.fn(),
   offset: 0,

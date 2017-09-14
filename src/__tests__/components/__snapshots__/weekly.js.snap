@@ -2,7 +2,7 @@
 
 exports[`WeeklyCalendar render 1`] = `
 <BD
-  start={2017-10-10T15:00:00.000Z}
+  start={2017-10-10T17:00:00.000Z}
 >
   <WeeklyCalendar
     endHour="PT22H"
@@ -87,7 +87,7 @@ exports[`WeeklyCalendar render 1`] = `
     rowHeight={30}
     showNow={false}
     showWeekend={true}
-    start={2017-10-10T15:00:00.000Z}
+    start={2017-10-10T17:00:00.000Z}
     startHour="PT06H"
     startingDay={1}
     toggleWeekend={[Function]}

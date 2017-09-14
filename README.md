@@ -1,5 +1,9 @@
 # Okami
 
+[![Build Status][build-badge]][build]
+[![Code Coverage][coverage-badge]][coverage]
+[![version][version-badge]][package]
+[![MIT License][license-badge]][LICENSE]
 
 ## Project status
 We've come a long way, but this project is still in Alpha, lots of development is happening, API might change, beware of the Dragons 🐉.
@@ -431,3 +435,13 @@ If you want to create an event for the all day, you just put the date in `allDay
 # LICENSE
 
  MIT
+
+
+[build-badge]: https://img.shields.io/travis/wcastand/okami.svg?style=flat-square
+[build]: https://travis-ci.org/wcastand/okami
+[coverage-badge]: https://img.shields.io/codecov/c/github/wcastand/okami.svg?style=flat-square
+[coverage]: https://codecov.io/github/wcastand/okami
+[version-badge]: https://img.shields.io/npm/v/okami.svg?style=flat-square
+[package]: https://www.npmjs.com/package/okami
+[license-badge]: https://img.shields.io/npm/l/okami.svg?style=flat-square
+[license]: https://github.com/paypal/okami/blob/master/LICENSE

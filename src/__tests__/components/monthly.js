@@ -82,6 +82,7 @@ describe('MonthlyCalendar', () => {
     endHour: 'PT22H',
     startHour: 'PT06H',
     rowHeight: 30,
+    startingDay: 1,
   }
   test('render', () => {
     const tree = mount(
@@ -108,7 +109,7 @@ describe('MonthlyCalendar', () => {
         context: ctx,
       }
     )
-    expect(tree.html()).toMatchSnapshot()
+    expect(toJson(tree)).toMatchSnapshot()
   })
   test('next Month', () => {
     const tree = mount(

@@ -91,7 +91,7 @@ describe('DailyCalendar', () => {
         context: ctx,
       }
     )
-    expect(toJson(tree)).toMatchSnapshot()
+    expect(tree.html()).toMatchSnapshot()
   })
   test('next Day', () => {
     const tree = mount(

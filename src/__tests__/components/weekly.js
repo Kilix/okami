@@ -116,7 +116,7 @@ describe('WeeklyCalendar', () => {
         context: ctx,
       }
     )
-    expect(toJson(tree)).toMatchSnapshot()
+    expect(tree.html()).toMatchSnapshot()
   })
   test('next Week', () => {
     const tree = mount(

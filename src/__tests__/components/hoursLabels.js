@@ -27,13 +27,13 @@ describe('HoursLabels', () => {
     }
     test('render', () => {
       const tree = mount(<HoursLabels />, {context: ctx})
-      expect(toJson(tree)).toMatchSnapshot()
+      expect(tree.html()).toMatchSnapshot()
     })
     test('render Child', () => {
       const tree = mount(<HoursLabels renderChild={({idx, ...props}) => <span {...props} />} />, {
         context: ctx,
       })
-      expect(toJson(tree)).toMatchSnapshot()
+      expect(tree.html()).toMatchSnapshot()
     })
     test('function as a Child', () => {
       const tree = mount(
@@ -42,11 +42,11 @@ describe('HoursLabels', () => {
         </HoursLabels>,
         {context: ctx}
       )
-      expect(toJson(tree)).toMatchSnapshot()
+      expect(tree.html()).toMatchSnapshot()
     })
     test('render with no weekend', () => {
       const tree = mount(<HoursLabels />, {context: {...ctx, showWeekend: false}})
-      expect(toJson(tree)).toMatchSnapshot()
+      expect(tree.html()).toMatchSnapshot()
     })
   })
   describe('weekly', () => {
@@ -63,17 +63,17 @@ describe('HoursLabels', () => {
     }
     test('render', () => {
       const tree = mount(<HoursLabels />, {context: ctx})
-      expect(toJson(tree)).toMatchSnapshot()
+      expect(tree.html()).toMatchSnapshot()
     })
     test('render with style', () => {
       const tree = mount(<HoursLabels style={{color: 'orange'}} />, {context: ctx})
-      expect(toJson(tree)).toMatchSnapshot()
+      expect(tree.html()).toMatchSnapshot()
     })
     test('render Child', () => {
       const tree = mount(<HoursLabels renderChild={({idx, ...props}) => <span {...props} />} />, {
         context: ctx,
       })
-      expect(toJson(tree)).toMatchSnapshot()
+      expect(tree.html()).toMatchSnapshot()
     })
     test('function as a Child', () => {
       const tree = mount(
@@ -82,11 +82,11 @@ describe('HoursLabels', () => {
         </HoursLabels>,
         {context: ctx}
       )
-      expect(toJson(tree)).toMatchSnapshot()
+      expect(tree.html()).toMatchSnapshot()
     })
     test('render with no weekend', () => {
       const tree = mount(<HoursLabels />, {context: {...ctx, showWeekend: false}})
-      expect(toJson(tree)).toMatchSnapshot()
+      expect(tree.html()).toMatchSnapshot()
     })
   })
 })

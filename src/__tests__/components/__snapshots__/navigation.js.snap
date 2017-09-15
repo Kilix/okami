@@ -1,70 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Navigation daily 1`] = `
-<BD>
-  <Navigation
-    type="daily"
-  >
-    <BD
-      type="daily"
-    >
-      <Nav
-        dateLabel={[Function]}
-        gotoToday={[Function]}
-        nextDay={[Function]}
-        prevDay={[Function]}
-        toggleWeekend={[Function]}
-        type="daily"
-      >
-        <div />
-      </Nav>
-    </BD>
-  </Navigation>
-</BD>
-`;
+exports[`Navigation daily 1`] = `"<div></div>"`;
 
-exports[`Navigation monthly 1`] = `
-<BD>
-  <Navigation
-    type="monthly"
-  >
-    <BD
-      type="monthly"
-    >
-      <Nav
-        dateLabel={[Function]}
-        gotoToday={[Function]}
-        nextMonth={[Function]}
-        prevMonth={[Function]}
-        toggleWeekend={[Function]}
-        type="monthly"
-      >
-        <div />
-      </Nav>
-    </BD>
-  </Navigation>
-</BD>
-`;
+exports[`Navigation monthly 1`] = `"<div></div>"`;
 
-exports[`Navigation weekly 1`] = `
-<BD>
-  <Navigation
-    type="weekly"
-  >
-    <BD
-      type="weekly"
-    >
-      <Nav
-        dateLabel={[Function]}
-        gotoToday={[Function]}
-        nextWeek={[Function]}
-        prevWeek={[Function]}
-        toggleWeekend={[Function]}
-        type="weekly"
-      >
-        <div />
-      </Nav>
-    </BD>
-  </Navigation>
-</BD>
-`;
+exports[`Navigation weekly 1`] = `"<div></div>"`;

@@ -108,7 +108,7 @@ describe('MonthlyCalendar', () => {
         context: ctx,
       }
     )
-    expect(toJson(tree)).toMatchSnapshot()
+    expect(tree.html()).toMatchSnapshot()
   })
   test('next Month', () => {
     const tree = mount(

@@ -23,13 +23,13 @@ describe('DaysLabels', () => {
   }
   test('render', () => {
     const tree = mount(<DaysLabels />, {context: ctx})
-    expect(toJson(tree)).toMatchSnapshot()
+    expect(tree.html()).toMatchSnapshot()
   })
   test('render Child', () => {
     const tree = mount(<DaysLabels renderChild={({idx, ...props}) => <span {...props} />} />, {
       context: ctx,
     })
-    expect(toJson(tree)).toMatchSnapshot()
+    expect(tree.html()).toMatchSnapshot()
   })
   test('function as a Child', () => {
     const tree = mount(
@@ -38,10 +38,10 @@ describe('DaysLabels', () => {
       </DaysLabels>,
       {context: ctx}
     )
-    expect(toJson(tree)).toMatchSnapshot()
+    expect(tree.html()).toMatchSnapshot()
   })
   test('render with no weekend', () => {
     const tree = mount(<DaysLabels />, {context: {...ctx, showWeekend: false}})
-    expect(toJson(tree)).toMatchSnapshot()
+    expect(tree.html()).toMatchSnapshot()
   })
 })

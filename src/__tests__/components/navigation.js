@@ -31,15 +31,15 @@ describe('Navigation', () => {
   }
   test('daily', () => {
     const tree = mount(<Navigation>{() => <div />}</Navigation>, {context: dailyCtx})
-    expect(toJson(tree)).toMatchSnapshot()
+    expect(tree.html()).toMatchSnapshot()
   })
   test('weekly', () => {
     const tree = mount(<Navigation>{() => <div />}</Navigation>, {context: weeklyCtx})
-    expect(toJson(tree)).toMatchSnapshot()
+    expect(tree.html()).toMatchSnapshot()
   })
   test('monthly', () => {
     const tree = mount(<Navigation>{() => <div />}</Navigation>, {context: monthlyCtx})
-    expect(toJson(tree)).toMatchSnapshot()
+    expect(tree.html()).toMatchSnapshot()
   })
 
   test('should pass next day', () => {

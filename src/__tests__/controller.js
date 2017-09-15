@@ -1,24 +1,17 @@
 import React from 'react'
 import {shallow} from 'enzyme'
+import mockdate from 'mockdate'
 
 import controller from '../controller'
 
 describe('controller', () => {
-  const constantDate = new Date('2017-06-13T04:41:20')
-  const RealDate = Date
-
-  function mockDate(isoDate) {
-    global.Date = class extends RealDate {
-      constructor() {
-        super()
-
-        return constantDate
-      }
-    }
-  }
-  afterEach(() => {
-    global.Date = RealDate
+  beforeEach(() => {
+    mockdate.set('3/3/2017', 0)
   })
+  afterEach(() => {
+    mockdate.reset()
+  })
+
   const defaultContext = {
     locale: {},
     startingDay: 0,
@@ -39,8 +32,8 @@ describe('controller', () => {
     nextDay: jest.fn(),
     prevDay: jest.fn(),
     dateLabel: jest.fn(),
-    startWeek: new Date(),
-    currentDay: new Date(),
+    startWeek: Date.now(),
+    currentDay: Date.now(),
     showWeekend: true,
     toggleWeekend: jest.fn(),
     offset: 0,

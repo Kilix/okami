@@ -2,24 +2,16 @@ import React from 'react'
 import {mount} from 'enzyme'
 import toJson from 'enzyme-to-json'
 import frLocale from 'date-fns/locale/fr'
+import mockdate from 'mockdate'
 
 import HoursLabels from '../../components/hoursLabels'
 
 describe('HoursLabels', () => {
-  const constantDate = new Date('2017-06-13T04:41:20')
-  const RealDate = Date
-
-  function mockDate(isoDate) {
-    global.Date = class extends RealDate {
-      constructor() {
-        super()
-
-        return constantDate
-      }
-    }
-  }
+  beforeEach(() => {
+    mockdate.set('3/3/2017', 0)
+  })
   afterEach(() => {
-    global.Date = RealDate
+    mockdate.reset()
   })
 
   describe('daily', () => {

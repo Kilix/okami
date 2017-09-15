@@ -1,4 +1,5 @@
 import startOfWeek from 'date-fns/startOfWeek'
+import mockdate from 'mockdate'
 
 import {
   flatten,
@@ -17,18 +18,11 @@ import {
 } from '../utils.js'
 
 describe('utils', () => {
-  const RealDate = Date
-
-  function mockDate(isoDate) {
-    global.Date = class extends RealDate {
-      constructor() {
-        super()
-        return new RealDate(isoDate)
-      }
-    }
-  }
+  beforeEach(() => {
+    mockdate.set('3/3/2017', 0)
+  })
   afterEach(() => {
-    global.Date = RealDate
+    mockdate.reset()
   })
 
   test('flatten', () => {

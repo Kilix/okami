@@ -2,26 +2,18 @@ import React from 'react'
 import {mount} from 'enzyme'
 import toJson from 'enzyme-to-json'
 import frLocale from 'date-fns/locale/fr'
+import mockdate from 'mockdate'
 
 import DailyCalendar from '../../components/daily'
 import WeeklyCalendar from '../../components/weekly'
 import MonthlyCalendar from '../../components/monthly'
 
 describe('MonthlyCalendar', () => {
-  const constantDate = new Date('2017-06-13T04:41:20')
-  const RealDate = Date
-
-  function mockDate(isoDate) {
-    global.Date = class extends RealDate {
-      constructor() {
-        super()
-
-        return constantDate
-      }
-    }
-  }
+  beforeEach(() => {
+    mockdate.set('3/3/2017', 0)
+  })
   afterEach(() => {
-    global.Date = RealDate
+    mockdate.reset()
   })
 
   const events = [
@@ -127,9 +119,9 @@ describe('MonthlyCalendar', () => {
         context: ctx,
       }
     )
-    expect(tree.find('span').html()).toBe('<span>octobre</span>')
+    expect(tree.find('span').html()).toBe('<span>septembre</span>')
     tree.find('span').simulate('click')
-    expect(tree.find('span').html()).toBe('<span>novembre</span>')
+    expect(tree.find('span').html()).toBe('<span>octobre</span>')
   })
   test('prev Month', () => {
     const tree = mount(
@@ -140,9 +132,9 @@ describe('MonthlyCalendar', () => {
         context: ctx,
       }
     )
-    expect(tree.find('span').html()).toBe('<span>octobre</span>')
-    tree.find('span').simulate('click')
     expect(tree.find('span').html()).toBe('<span>septembre</span>')
+    tree.find('span').simulate('click')
+    expect(tree.find('span').html()).toBe('<span>août</span>')
   })
   test('gotoToday Month', () => {
     const tree = mount(
@@ -158,11 +150,11 @@ describe('MonthlyCalendar', () => {
         context: ctx,
       }
     )
-    expect(tree.find('span').html()).toBe('<span>octobre</span>')
-    tree.find('span').simulate('click')
-    tree.find('span').simulate('click')
-    expect(tree.find('span').html()).toBe('<span>août</span>')
-    tree.find('button').simulate('click')
     expect(tree.find('span').html()).toBe('<span>septembre</span>')
+    tree.find('span').simulate('click')
+    tree.find('span').simulate('click')
+    expect(tree.find('span').html()).toBe('<span>juillet</span>')
+    tree.find('button').simulate('click')
+    expect(tree.find('span').html()).toBe('<span>février</span>')
   })
 })

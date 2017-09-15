@@ -45,6 +45,9 @@ exports[`DaysLabels function as a Child 1`] = `
   >
     <div>
       <span>
+        09
+      </span>
+      <span>
         10
       </span>
       <span>
@@ -61,9 +64,6 @@ exports[`DaysLabels function as a Child 1`] = `
       </span>
       <span>
         15
-      </span>
-      <span>
-        16
       </span>
     </div>
   </N>
@@ -121,6 +121,15 @@ exports[`DaysLabels render 1`] = `
           }
         }
       >
+        09
+      </div>
+      <div
+        style={
+          Object {
+            "height": 30,
+          }
+        }
+      >
         10
       </div>
       <div
@@ -167,15 +176,6 @@ exports[`DaysLabels render 1`] = `
         }
       >
         15
-      </div>
-      <div
-        style={
-          Object {
-            "height": 30,
-          }
-        }
-      >
-        16
       </div>
     </div>
   </N>
@@ -230,6 +230,9 @@ exports[`DaysLabels render Child 1`] = `
   >
     <div>
       <span>
+        09
+      </span>
+      <span>
         10
       </span>
       <span>
@@ -246,9 +249,6 @@ exports[`DaysLabels render Child 1`] = `
       </span>
       <span>
         15
-      </span>
-      <span>
-        16
       </span>
     </div>
   </N>
@@ -306,6 +306,15 @@ exports[`DaysLabels render with no weekend 1`] = `
           }
         }
       >
+        09
+      </div>
+      <div
+        style={
+          Object {
+            "height": 30,
+          }
+        }
+      >
         10
       </div>
       <div
@@ -334,15 +343,6 @@ exports[`DaysLabels render with no weekend 1`] = `
         }
       >
         13
-      </div>
-      <div
-        style={
-          Object {
-            "height": 30,
-          }
-        }
-      >
-        14
       </div>
     </div>
   </N>

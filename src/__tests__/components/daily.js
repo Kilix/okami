@@ -3,25 +3,18 @@ import {mount} from 'enzyme'
 import toJson from 'enzyme-to-json'
 import frLocale from 'date-fns/locale/fr'
 import format from 'date-fns/format'
+import mockdate from 'mockdate'
 
 import DailyCalendar from '../../components/daily'
 
 describe('DailyCalendar', () => {
-  const constantDate = new Date('2017-06-13T04:41:20')
-  const RealDate = Date
-
-  function mockDate(isoDate) {
-    global.Date = class extends RealDate {
-      constructor() {
-        super()
-
-        return constantDate
-      }
-    }
-  }
-  afterEach(() => {
-    global.Date = RealDate
+  beforeEach(() => {
+    mockdate.set('3/3/2017', 0)
   })
+  afterEach(() => {
+    mockdate.reset()
+  })
+
   const events = [
     {
       allDay: false,
@@ -102,33 +95,33 @@ describe('DailyCalendar', () => {
   })
   test('next Day', () => {
     const tree = mount(
-      <DailyCalendar start={new Date(2017, 9, 9, 0, 0, 0, 0)}>
+      <DailyCalendar start={new Date(2017, 9, 9)}>
         {({nextDay, dateLabel}) => <span onClick={nextDay}>{dateLabel('DD')}</span>}
       </DailyCalendar>,
       {
         context: ctx,
       }
     )
-    expect(tree.find('span').html()).toBe('<span>09</span>')
+    expect(tree.find('span').html()).toBe('<span>08</span>')
     tree.find('span').simulate('click')
-    expect(tree.find('span').html()).toBe('<span>10</span>')
+    expect(tree.find('span').html()).toBe('<span>09</span>')
   })
   test('prev Day', () => {
     const tree = mount(
-      <DailyCalendar start={new Date(2017, 9, 9, 0, 0, 0, 0)}>
+      <DailyCalendar start={new Date(2017, 9, 9)}>
         {({prevDay, dateLabel}) => <span onClick={prevDay}>{dateLabel('DD')}</span>}
       </DailyCalendar>,
       {
         context: ctx,
       }
     )
-    expect(tree.find('span').html()).toBe('<span>09</span>')
-    tree.find('span').simulate('click')
     expect(tree.find('span').html()).toBe('<span>08</span>')
+    tree.find('span').simulate('click')
+    expect(tree.find('span').html()).toBe('<span>07</span>')
   })
   test('gotoToday Day', () => {
     const tree = mount(
-      <DailyCalendar start={new Date(2017, 9, 9, 0, 0, 0, 0)}>
+      <DailyCalendar start={new Date(2017, 9, 9)}>
         {({gotoToday, prevDay, dateLabel}) => (
           <div>
             <button onClick={gotoToday}>Hlo</button>
@@ -140,10 +133,10 @@ describe('DailyCalendar', () => {
         context: ctx,
       }
     )
-    expect(tree.find('span').html()).toBe('<span>09</span>')
-    tree.find('span').simulate('click')
     expect(tree.find('span').html()).toBe('<span>08</span>')
+    tree.find('span').simulate('click')
+    expect(tree.find('span').html()).toBe('<span>07</span>')
     tree.find('button').simulate('click')
-    expect(tree.find('span').html()).toBe(`<span>${format(new Date(), 'DD')}</span>`)
+    expect(tree.find('span').html()).toBe(`<span>02</span>`)
   })
 })

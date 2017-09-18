@@ -13,8 +13,8 @@ import {parseData} from '../../utils'
 
 describe('WeeklyCalendar', () => {
   beforeEach(() => {
-    beforeEach(() => {
-      lolex.createClock(new Date(2017, 9, 9))
+    lolex.install({
+      now: new Date(2017, 9, 9),
     })
   })
 
@@ -161,6 +161,6 @@ describe('WeeklyCalendar', () => {
     tree.find('span').simulate('click')
     expect(tree.find('span').html()).toBe('<span>40</span>')
     tree.find('button').simulate('click')
-    expect(tree.find('span').html()).toBe(`<span>38</span>`)
+    expect(tree.find('span').html()).toBe(`<span>41</span>`)
   })
 })

@@ -10,7 +10,9 @@ import MonthlyCalendar from '../../components/monthly'
 
 describe('MonthlyCalendar', () => {
   beforeEach(() => {
-    lolex.createClock(new Date(2017, 9, 9))
+    lolex.install({
+      now: new Date(2017, 9, 9),
+    })
   })
   const events = [
     {
@@ -152,6 +154,6 @@ describe('MonthlyCalendar', () => {
     tree.find('span').simulate('click')
     expect(tree.find('span').html()).toBe('<span>août</span>')
     tree.find('button').simulate('click')
-    expect(tree.find('span').html()).toBe('<span>septembre</span>')
+    expect(tree.find('span').html()).toBe('<span>octobre</span>')
   })
 })

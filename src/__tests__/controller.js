@@ -6,7 +6,9 @@ import controller from '../controller'
 
 describe('controller', () => {
   beforeEach(() => {
-    lolex.createClock(new Date(2017, 9, 9))
+    lolex.install({
+      now: new Date(2017, 9, 9),
+    })
   })
 
   const defaultContext = {

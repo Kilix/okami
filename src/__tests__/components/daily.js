@@ -9,7 +9,9 @@ import DailyCalendar from '../../components/daily'
 
 describe('DailyCalendar', () => {
   beforeEach(() => {
-    lolex.createClock(new Date(2017, 9, 9))
+    lolex.install({
+      now: new Date(2017, 9, 9),
+    })
   })
   const events = [
     {
@@ -133,6 +135,6 @@ describe('DailyCalendar', () => {
     tree.find('span').simulate('click')
     expect(tree.find('span').html()).toBe('<span>08</span>')
     tree.find('button').simulate('click')
-    expect(tree.find('span').html()).toBe(`<span>18</span>`)
+    expect(tree.find('span').html()).toBe(`<span>09</span>`)
   })
 })

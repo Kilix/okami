@@ -8,7 +8,9 @@ import HoursLabels from '../../components/hoursLabels'
 
 describe('HoursLabels', () => {
   beforeEach(() => {
-    lolex.createClock(new Date(2017, 9, 9))
+    lolex.install({
+      now: new Date(2017, 9, 9),
+    })
   })
 
   describe('daily', () => {

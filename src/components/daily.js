@@ -5,7 +5,7 @@ import {compose} from 'recompose'
 import {asHours} from 'pomeranian-durations'
 
 import setHours from 'date-fns/fp/setHours'
-import startOfDay from 'date-fns/fp/startOfDay'
+import startOfDay from 'date-fns/startOfDay'
 import subDays from 'date-fns/fp/subDays'
 import addDays from 'date-fns/fp/addDays'
 import addHours from 'date-fns/fp/addHours'

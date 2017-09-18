@@ -2,18 +2,12 @@ import React from 'react'
 import {mount} from 'enzyme'
 import toJson from 'enzyme-to-json'
 import frLocale from 'date-fns/locale/fr'
-import lolex from 'lolex'
 
 import DailyCalendar from '../../components/daily'
 import WeeklyCalendar from '../../components/weekly'
 import MonthlyCalendar from '../../components/monthly'
 
 describe('MonthlyCalendar', () => {
-  beforeEach(() => {
-    lolex.install({
-      now: new Date(2017, 9, 9),
-    })
-  })
   const events = [
     {
       allDay: false,
@@ -154,6 +148,6 @@ describe('MonthlyCalendar', () => {
     tree.find('span').simulate('click')
     expect(tree.find('span').html()).toBe('<span>août</span>')
     tree.find('button').simulate('click')
-    expect(tree.find('span').html()).toBe('<span>octobre</span>')
+    expect(tree.find('span').html()).toBe(`<span>septembre</span>`)
   })
 })

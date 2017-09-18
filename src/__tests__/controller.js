@@ -1,16 +1,9 @@
 import React from 'react'
 import {shallow} from 'enzyme'
-import lolex from 'lolex'
 
 import controller from '../controller'
 
 describe('controller', () => {
-  beforeEach(() => {
-    lolex.install({
-      now: new Date(2017, 9, 9),
-    })
-  })
-
   const defaultContext = {
     locale: {},
     startingDay: 0,

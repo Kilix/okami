@@ -2,17 +2,10 @@ import React from 'react'
 import {mount} from 'enzyme'
 import toJson from 'enzyme-to-json'
 import frLocale from 'date-fns/locale/fr'
-import lolex from 'lolex'
 
 import DaysLabels from '../../components/daysLabels'
 
 describe('DaysLabels', () => {
-  beforeEach(() => {
-    lolex.install({
-      now: new Date(2017, 9, 9),
-    })
-  })
-
   const ctx = {
     locale: frLocale,
     dateFormat: 'DD',

@@ -3,7 +3,6 @@ import {mount} from 'enzyme'
 import toJson from 'enzyme-to-json'
 import frLocale from 'date-fns/locale/fr'
 import format from 'date-fns/format'
-import lolex from 'lolex'
 
 import DailyCalendar from '../../components/daily'
 import WeeklyCalendar from '../../components/weekly'
@@ -12,12 +11,6 @@ import data from '../../../stories/data'
 import {parseData} from '../../utils'
 
 describe('WeeklyCalendar', () => {
-  beforeEach(() => {
-    lolex.install({
-      now: new Date(2017, 9, 9),
-    })
-  })
-
   const events = [
     {
       id: 1,
@@ -161,6 +154,6 @@ describe('WeeklyCalendar', () => {
     tree.find('span').simulate('click')
     expect(tree.find('span').html()).toBe('<span>40</span>')
     tree.find('button').simulate('click')
-    expect(tree.find('span').html()).toBe(`<span>41</span>`)
+    expect(tree.find('span').html()).toBe(`<span>${format(new Date(), 'WW')}</span>`)
   })
 })

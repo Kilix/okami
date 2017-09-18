@@ -3,16 +3,10 @@ import {mount} from 'enzyme'
 import toJson from 'enzyme-to-json'
 import frLocale from 'date-fns/locale/fr'
 import format from 'date-fns/format'
-import lolex from 'lolex'
 
 import DailyCalendar from '../../components/daily'
 
 describe('DailyCalendar', () => {
-  beforeEach(() => {
-    lolex.install({
-      now: new Date(2017, 9, 9),
-    })
-  })
   const events = [
     {
       allDay: false,
@@ -135,6 +129,6 @@ describe('DailyCalendar', () => {
     tree.find('span').simulate('click')
     expect(tree.find('span').html()).toBe('<span>08</span>')
     tree.find('button').simulate('click')
-    expect(tree.find('span').html()).toBe(`<span>09</span>`)
+    expect(tree.find('span').html()).toBe(`<span>${format(new Date(), 'DD')}</span>`)
   })
 })

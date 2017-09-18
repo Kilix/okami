@@ -3,18 +3,14 @@ import {mount} from 'enzyme'
 import toJson from 'enzyme-to-json'
 import frLocale from 'date-fns/locale/fr'
 import format from 'date-fns/format'
-import mockdate from 'mockdate'
+import lolex from 'lolex'
 
 import DailyCalendar from '../../components/daily'
 
 describe('DailyCalendar', () => {
   beforeEach(() => {
-    mockdate.set('3/3/2017', 0)
+    lolex.createClock(new Date(2017, 9, 9))
   })
-  afterEach(() => {
-    mockdate.reset()
-  })
-
   const events = [
     {
       allDay: false,
@@ -91,7 +87,7 @@ describe('DailyCalendar', () => {
         context: ctx,
       }
     )
-    expect(tree.html()).toMatchSnapshot()
+    expect(toJson(tree)).toMatchSnapshot()
   })
   test('next Day', () => {
     const tree = mount(
@@ -102,9 +98,9 @@ describe('DailyCalendar', () => {
         context: ctx,
       }
     )
-    expect(tree.find('span').html()).toBe('<span>08</span>')
-    tree.find('span').simulate('click')
     expect(tree.find('span').html()).toBe('<span>09</span>')
+    tree.find('span').simulate('click')
+    expect(tree.find('span').html()).toBe('<span>10</span>')
   })
   test('prev Day', () => {
     const tree = mount(
@@ -115,9 +111,9 @@ describe('DailyCalendar', () => {
         context: ctx,
       }
     )
-    expect(tree.find('span').html()).toBe('<span>08</span>')
+    expect(tree.find('span').html()).toBe('<span>09</span>')
     tree.find('span').simulate('click')
-    expect(tree.find('span').html()).toBe('<span>07</span>')
+    expect(tree.find('span').html()).toBe('<span>08</span>')
   })
   test('gotoToday Day', () => {
     const tree = mount(
@@ -133,10 +129,10 @@ describe('DailyCalendar', () => {
         context: ctx,
       }
     )
-    expect(tree.find('span').html()).toBe('<span>08</span>')
+    expect(tree.find('span').html()).toBe('<span>09</span>')
     tree.find('span').simulate('click')
-    expect(tree.find('span').html()).toBe('<span>07</span>')
+    expect(tree.find('span').html()).toBe('<span>08</span>')
     tree.find('button').simulate('click')
-    expect(tree.find('span').html()).toBe(`<span>02</span>`)
+    expect(tree.find('span').html()).toBe(`<span>18</span>`)
   })
 })

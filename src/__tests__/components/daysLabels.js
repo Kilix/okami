@@ -2,16 +2,13 @@ import React from 'react'
 import {mount} from 'enzyme'
 import toJson from 'enzyme-to-json'
 import frLocale from 'date-fns/locale/fr'
-import mockdate from 'mockdate'
+import lolex from 'lolex'
 
 import DaysLabels from '../../components/daysLabels'
 
 describe('DaysLabels', () => {
   beforeEach(() => {
-    mockdate.set('3/3/2017', 0)
-  })
-  afterEach(() => {
-    mockdate.reset()
+    lolex.createClock(new Date(2017, 9, 9))
   })
 
   const ctx = {
@@ -23,13 +20,13 @@ describe('DaysLabels', () => {
   }
   test('render', () => {
     const tree = mount(<DaysLabels />, {context: ctx})
-    expect(tree.html()).toMatchSnapshot()
+    expect(toJson(tree)).toMatchSnapshot()
   })
   test('render Child', () => {
     const tree = mount(<DaysLabels renderChild={({idx, ...props}) => <span {...props} />} />, {
       context: ctx,
     })
-    expect(tree.html()).toMatchSnapshot()
+    expect(toJson(tree)).toMatchSnapshot()
   })
   test('function as a Child', () => {
     const tree = mount(
@@ -38,10 +35,10 @@ describe('DaysLabels', () => {
       </DaysLabels>,
       {context: ctx}
     )
-    expect(tree.html()).toMatchSnapshot()
+    expect(toJson(tree)).toMatchSnapshot()
   })
   test('render with no weekend', () => {
     const tree = mount(<DaysLabels />, {context: {...ctx, showWeekend: false}})
-    expect(tree.html()).toMatchSnapshot()
+    expect(toJson(tree)).toMatchSnapshot()
   })
 })

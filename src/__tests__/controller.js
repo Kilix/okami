@@ -1,15 +1,12 @@
 import React from 'react'
 import {shallow} from 'enzyme'
-import mockdate from 'mockdate'
+import lolex from 'lolex'
 
 import controller from '../controller'
 
 describe('controller', () => {
   beforeEach(() => {
-    mockdate.set('3/3/2017', 0)
-  })
-  afterEach(() => {
-    mockdate.reset()
+    lolex.createClock(new Date(2017, 9, 9))
   })
 
   const defaultContext = {

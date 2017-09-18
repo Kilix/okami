@@ -52,8 +52,16 @@ export default (p = defaultContext) => {
         nextDay: PropTypes.func,
         prevDay: PropTypes.func,
         dateLabel: PropTypes.func,
-        startWeek: PropTypes.instanceOf(Date),
-        currentDay: PropTypes.instanceOf(Date),
+        startWeek: PropTypes.oneOfType([
+          PropTypes.instanceOf(Date),
+          PropTypes.number,
+          PropTypes.string,
+        ]),
+        currentDay: PropTypes.oneOfType([
+          PropTypes.instanceOf(Date),
+          PropTypes.number,
+          PropTypes.string,
+        ]),
         showWeekend: PropTypes.bool,
         offset: PropTypes.number,
         matrix: PropTypes.array,

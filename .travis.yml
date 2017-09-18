@@ -7,8 +7,6 @@ notifications:
   email: false
 node_js:
   - '8'
-before_install:
-  - export TZ=Europe/Paris
 script:
   - npm start build
   - npm start validate

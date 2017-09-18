@@ -8,9 +8,9 @@ const crossEnv = npsUtils.crossEnv
 module.exports = {
   scripts: {
     test: {
-      default: crossEnv('NODE_ENV=test jest --coverage'),
-      update: crossEnv('NODE_ENV=test jest --coverage --updateSnapshot'),
-      watch: crossEnv('NODE_ENV=test jest --watch'),
+      default: crossEnv('NODE_ENV=test TZ=Europe/Paris jest --coverage'),
+      update: crossEnv('NODE_ENV=test TZ=Europe/Paris jest --coverage --updateSnapshot'),
+      watch: crossEnv('NODE_ENV=test TZ=Europe/Paris jest --watch'),
     },
     build: {
       description: 'delete the dist directory and run all builds',

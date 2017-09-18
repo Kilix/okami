@@ -1,4 +1,8 @@
-# Okami
+<h1 align="center">
+  Okami
+  <br>
+</h1>
+<p align="center" style="font-size: 1.2rem;">Primitives React Components to build a Calendar</p>
 
 [![Build Status][build-badge]][build]
 [![Code Coverage][coverage-badge]][coverage]

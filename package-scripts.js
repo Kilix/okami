@@ -33,6 +33,7 @@ module.exports = {
     storybook: {
       description: 'launch storybook in local',
       default: 'start-storybook -p 9001 -c .storybook',
+      build: 'build-storybook -c .storybook -o .out',
       deploy: 'storybook-to-ghpages',
     },
   },

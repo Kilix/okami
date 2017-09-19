@@ -7,9 +7,6 @@ import format from 'date-fns/format'
 import DailyCalendar from '../../components/daily'
 import WeeklyCalendar from '../../components/weekly'
 
-import data from '../../../stories/data'
-import {parseData} from '../../utils'
-
 describe('WeeklyCalendar', () => {
   const events = [
     {
@@ -74,7 +71,9 @@ describe('WeeklyCalendar', () => {
   }
 
   const ctx = {
-    ...parseData(data),
+    events,
+    fevents,
+    nodes,
     matrix: [],
     locale: frLocale,
     startingDay: 1,

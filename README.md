@@ -10,7 +10,7 @@
 [![MIT License][license-badge]][LICENSE]
 
 ## Project status
-We've come a long way, but this project is still in Alpha, lots of development is happening, API might change, beware of the Dragons 🐉.
+Project is still in beta, we need to use it in production in our project to go in v1 but the lib should be pretty stable now. :)
 
 ## Introduction
 It's a set of Primitives React Components to build a Calendar. Handle the logic so you can focus on UI/UX. Similar to [downshift](https://github.com/paypal/downshift) or [selectless](https://github.com/Kilix/selectless).

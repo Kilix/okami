@@ -148,6 +148,6 @@ describe('MonthlyCalendar', () => {
     tree.find('span').simulate('click')
     expect(tree.find('span').html()).toBe('<span>août</span>')
     tree.find('button').simulate('click')
-    expect(tree.find('span').html()).toBe(`<span>septembre</span>`)
+    expect(tree.find('span').html()).toBe(`<span>octobre</span>`)
   })
 })

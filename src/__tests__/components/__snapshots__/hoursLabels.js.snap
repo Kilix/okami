@@ -160,13 +160,7 @@ exports[`HoursLabels daily render 1`] = `
         startHour="PT06H"
         type="daily"
       >
-        <div
-          style={
-            Object {
-              "paddingTop": 0,
-            }
-          }
-        >
+        <div>
           <div
             style={
               Object {
@@ -375,13 +369,7 @@ exports[`HoursLabels daily render Child 1`] = `
         startHour="PT06H"
         type="daily"
       >
-        <div
-          style={
-            Object {
-              "paddingTop": 0,
-            }
-          }
-        >
+        <div>
           <span>
             06
           </span>
@@ -489,13 +477,7 @@ exports[`HoursLabels daily render with no weekend 1`] = `
         startHour="PT06H"
         type="daily"
       >
-        <div
-          style={
-            Object {
-              "paddingTop": 0,
-            }
-          }
-        >
+        <div>
           <div
             style={
               Object {
@@ -807,13 +789,7 @@ exports[`HoursLabels weekly render 1`] = `
         startWeek={2017-10-09T22:00:00.000Z}
         type="weekly"
       >
-        <div
-          style={
-            Object {
-              "paddingTop": 30,
-            }
-          }
-        >
+        <div>
           <div
             style={
               Object {
@@ -1022,13 +998,7 @@ exports[`HoursLabels weekly render Child 1`] = `
         startWeek={2017-10-09T22:00:00.000Z}
         type="weekly"
       >
-        <div
-          style={
-            Object {
-              "paddingTop": 30,
-            }
-          }
-        >
+        <div>
           <span>
             06
           </span>
@@ -1136,13 +1106,7 @@ exports[`HoursLabels weekly render with no weekend 1`] = `
         startWeek={2017-10-09T22:00:00.000Z}
         type="weekly"
       >
-        <div
-          style={
-            Object {
-              "paddingTop": 30,
-            }
-          }
-        >
+        <div>
           <div
             style={
               Object {
@@ -1371,7 +1335,6 @@ exports[`HoursLabels weekly render with style 1`] = `
           style={
             Object {
               "color": "orange",
-              "paddingTop": 30,
             }
           }
         >

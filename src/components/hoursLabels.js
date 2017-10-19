@@ -25,8 +25,6 @@ class Labels extends React.Component {
       ...props
     } = this.props
     const start = type === 'weekly' ? startWeek : currentDay
-    const ss = style ? {...style, paddingTop: offset * rowHeight} : {paddingTop: offset * rowHeight}
-
     const hours = range(asHours(startHour), asHours(endHour))
 
     const formattedHours = hours.map((h, idx) =>
@@ -37,7 +35,7 @@ class Labels extends React.Component {
     }
     if (typeof renderChild !== 'undefined') {
       return (
-        <div {...props} style={ss}>
+        <div {...props} style={style}>
           {formattedHours.map((h, idx) =>
             renderChild({children: h, idx, key: `hour_label_${idx}`})
           )}
@@ -45,7 +43,7 @@ class Labels extends React.Component {
       )
     }
     return (
-      <div {...props} style={ss}>
+      <div {...props} style={style}>
         {formattedHours.map((h, idx) => (
           <div key={`hour_label_${idx}`} style={{height: rowHeight}}>
             {h}

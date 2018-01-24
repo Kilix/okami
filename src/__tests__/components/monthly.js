@@ -2,6 +2,7 @@ import React from 'react'
 import {mount} from 'enzyme'
 import toJson from 'enzyme-to-json'
 import frLocale from 'date-fns/locale/fr'
+import {format} from 'date-fns'
 
 import DailyCalendar from '../../components/daily'
 import WeeklyCalendar from '../../components/weekly'
@@ -130,6 +131,7 @@ describe('MonthlyCalendar', () => {
     expect(tree.find('span').html()).toBe('<span>septembre</span>')
   })
   test('gotoToday Month', () => {
+    const currentMonth = format(new Date(), 'MMMM', {locale: frLocale})
     const tree = mount(
       <MonthlyCalendar start={new Date(2017, 9, 9, 0, 0, 0, 0)}>
         {({gotoToday, prevMonth, dateLabel}) => (
@@ -148,6 +150,6 @@ describe('MonthlyCalendar', () => {
     tree.find('span').simulate('click')
     expect(tree.find('span').html()).toBe('<span>août</span>')
     tree.find('button').simulate('click')
-    expect(tree.find('span').html()).toBe(`<span>octobre</span>`)
+    expect(tree.find('span').html()).toBe(`<span>${currentMonth}</span>`)
   })
 })

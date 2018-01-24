@@ -147,27 +147,30 @@ export function getDayEvents(day, data) {
 }
 
 export function constructTree(data) {
+  // Tag nodes picked in the tree so that they are only used once
+  const pickedNodes = {}
   let nodes = {}
   const findChildren = id => {
     const child = []
+    const currentNode = data[id]
     for (let i = 0; i < data.length; i++) {
-      const c = data[id]
-      const d = data[i]
-      const cl = getHours(c.end) - getHours(c.start)
-      const dl = getHours(d.end) - getHours(d.start)
-
+      const targetNode = data[i]
       if (
-        areIntervalsOverlapping(c, d) &&
-        (isAfter(c.start, d.start) || (isEqual(c.start, d.start) && c.id !== d.id && cl - dl > 0))
+        areIntervalsOverlapping(currentNode, targetNode) &&
+        (isAfter(currentNode.start, targetNode.start) ||
+          (isEqual(currentNode.start, targetNode.start) &&
+            currentNode.id !== targetNode.id &&
+            pickedNodes[i] !== true))
       ) {
+        pickedNodes[i] = true
         child.push(i)
       }
     }
     return child
   }
   const makeNode = (level, id) => {
-    const cc = findChildren(id)
-    cc.map(n => {
+    const children = findChildren(id)
+    children.map(n => {
       if (typeof nodes[n] === 'undefined') {
         nodes[n] = makeNode(level + 1, n)
       } else {
@@ -175,7 +178,7 @@ export function constructTree(data) {
       }
     })
     return {
-      children: cc,
+      children,
       level,
       depth: 1,
     }
@@ -195,6 +198,7 @@ export function constructTree(data) {
       isOverlapping = isOverlapping || areIntervalsOverlapping(data[i], data[tNodes[j]])
     }
     if (isOverlapping === false) {
+      pickedNodes[i] = true
       tNodes.push(i)
     }
   }
@@ -212,6 +216,11 @@ export function constructTree(data) {
   return nodes
 }
 
+/**
+ * Split the items between allDay one and not, and construct the tree of nodes for the daily layout
+ *  algorithm
+ * @param {*Events} data The array of events passed by the user
+ */
 export function parseData(data) {
   let events = data.filter(e => typeof e.allDay === 'boolean' && e.allDay === false)
   events.sort((a, b) => {

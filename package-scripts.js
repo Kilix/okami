@@ -10,7 +10,7 @@ module.exports = {
     test: {
       default: crossEnv('NODE_ENV=test TZ=Europe/Paris jest --coverage'),
       update: crossEnv('NODE_ENV=test TZ=Europe/Paris jest --coverage --updateSnapshot'),
-      watch: crossEnv('NODE_ENV=test TZ=Europe/Paris jest --watch'),
+      watch: crossEnv('NODE_ENV=test TZ=Europe/Paris jest --watch --coverage false'),
     },
     build: {
       description: 'delete the dist directory and run all builds',

@@ -71,10 +71,11 @@ export function range(start, stop, step) {
 
 export const around = number => (number * 2).toFixed() / 2
 
-export function placeEvents(ee, nodes, events, rowHeight, startHour, endHour) {
+// Gives the absolute positioning of the events
+export function placeEvents(renderableIndexes, nodes, events, rowHeight, startHour, endHour) {
   const sh = asHours(startHour)
   const eh = asHours(endHour)
-  return ee.map(i => {
+  return renderableIndexes.map(i => {
     const {start, end} = events[i]
     const {level, depth, children} = nodes[i]
     const ratio = 100 / depth
@@ -110,6 +111,7 @@ export function computeNow(wrapper, startHour, endHour, now) {
   }
 }
 
+// The interval is time based so we also pass the day
 export const checkBound = (day, int) => event =>
   (isWithinInterval(int, event.start) && isSameDay(event.end, day)) ||
   (isWithinInterval(int, event.end) && isSameDay(event.start, day))
@@ -146,6 +148,10 @@ export function getDayEvents(day, data) {
   ]
 }
 
+// Creates the tree used for the daily "stairs" layout algorithm, i.e. specify which nodes are child
+// of which node
+// It also assigns for each node it's level (position on each branch) and depth (length of the
+// branch)
 export function constructTree(data) {
   // Tag nodes picked in the tree so that they are only used once
   const pickedNodes = {}
@@ -183,43 +189,50 @@ export function constructTree(data) {
       depth: 1,
     }
   }
-  const max = TNodes =>
-    TNodes.reduce((acc, n) => {
-      const {level} = nodes[n]
-      const c = max(nodes[n].children)
+  const getMaxDepth = TNodes =>
+    TNodes.reduce((acc, node) => {
+      const {level} = nodes[node]
+      const c = getMaxDepth(nodes[node].children)
       const p = level < c ? c : level
       return acc < p ? p : acc
     }, 0)
 
-  const tNodes = []
+  // Recursively set the children's depth
+  const setChildrenDepth = (max, TNodes) =>
+    TNodes.map(n => {
+      // TODO investigate the need of the ternary, setting depth to max seems correct
+      nodes[n].depth = nodes[n].depth < max ? max : nodes[n].depth
+      setChildrenDepth(max, nodes[n].children)
+    })
+
+  // We first pick the root nodes, i.e. the ones that will be of level 0, that are not children
+  // of any other node, and immediately, its children (and children's children, so they are not
+  // picked
+  const rootNodes = []
   for (let i = 0; i < data.length; i++) {
+    if (pickedNodes[i] === true) continue // bail out if the node has already been picked
+
     let isOverlapping = false
-    for (let j = 0; j < tNodes.length; j++) {
-      isOverlapping = isOverlapping || areIntervalsOverlapping(data[i], data[tNodes[j]])
+    for (let j = 0; j < rootNodes.length; j++) {
+      isOverlapping = isOverlapping || areIntervalsOverlapping(data[i], data[rootNodes[j]])
     }
     if (isOverlapping === false) {
       pickedNodes[i] = true
-      tNodes.push(i)
+
+      rootNodes.push(i)
+      if (typeof nodes[i] === 'undefined') nodes[i] = makeNode(0, i)
+      const maxDepth = getMaxDepth(nodes[i].children) + 1
+      nodes[i].depth = maxDepth
+      setChildrenDepth(maxDepth, nodes[i].children)
     }
   }
-  const assign = (max, TNodes) =>
-    TNodes.map(n => {
-      nodes[n].depth = nodes[n].depth < max ? max : nodes[n].depth
-      assign(max, nodes[n].children)
-    })
-  tNodes.map(n => {
-    if (typeof nodes[n] === 'undefined') nodes[n] = makeNode(0, n)
-    const m = max(nodes[n].children) + 1
-    nodes[n].depth = m
-    assign(m, nodes[n].children)
-  })
   return nodes
 }
 
 /**
- * Split the items between allDay one and not, and construct the tree of nodes for the daily layout
+ * Split the items between allDay one and not, and construct the tree of nodes for the daily "stairs" layout
  *  algorithm
- * @param {*Events} data The array of events passed by the user
+ * @param {Array<Events>} data The array of events passed by the user
  */
 export function parseData(data) {
   let events = data.filter(e => typeof e.allDay === 'boolean' && e.allDay === false)

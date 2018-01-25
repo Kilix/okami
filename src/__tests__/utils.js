@@ -344,6 +344,33 @@ describe('utils', () => {
         1: {level: 1, children: [], depth: 2},
       })
     })
+    test('subsequent children, 2 child of 1, 3 child of 2 but not of 1', () => {
+      const events = [
+        {
+          id: '1',
+          allDay: false,
+          start: '2018-01-26T07:30:00.000Z',
+          end: '2018-01-26T08:30:00.000Z',
+        },
+        {
+          id: '2',
+          allDay: false,
+          start: '2018-01-26T08:00:00.000Z',
+          end: '2018-01-26T11:00:00.000Z',
+        },
+        {
+          id: '3',
+          allDay: false,
+          start: '2018-01-26T09:00:00.000Z',
+          end: '2018-01-26T09:30:00.000Z',
+        },
+      ]
+      expect(constructTree(events)).toEqual({
+        '0': {children: [1], depth: 3, level: 0},
+        '1': {children: [2], depth: 3, level: 1},
+        '2': {children: [], depth: 3, level: 2},
+      })
+    })
   })
 
   test('parseData', () => {

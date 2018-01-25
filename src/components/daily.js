@@ -70,17 +70,15 @@ class DailyCalendar extends React.Component {
 
   _computeEvents = day => {
     const {startHour, endHour, events, nodes, rowHeight} = this.props
-    const ee = events.reduce(
-      (acc, e, i) =>
-        checkBound(day, {
-          start: setHours(asHours(startHour), day),
-          end: setHours(asHours(endHour), day),
-        })(e)
-          ? [...acc, i]
-          : acc,
+    const isRenderableInDay = checkBound(day, {
+      start: setHours(asHours(startHour), day),
+      end: setHours(asHours(endHour), day),
+    })
+    const renderableIndexes = events.reduce(
+      (acc, event, i) => (isRenderableInDay(event) ? [...acc, i] : acc),
       []
     )
-    return placeEvents(ee, nodes, events, rowHeight, startHour, endHour)
+    return placeEvents(renderableIndexes, nodes, events, rowHeight, startHour, endHour)
   }
   _simpleCompute = () => {
     const {startHour, endHour, events, matrix, rowHeight} = this.props

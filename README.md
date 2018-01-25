@@ -441,10 +441,10 @@ If you want to create an event for the all day, you just put the date in `allDay
  MIT
 
 
-[build-badge]: https://img.shields.io/travis/kilix/okami.svg?style=flat-square
-[build]: https://travis-ci.org/kilix/okami
-[coverage-badge]: https://img.shields.io/codecov/c/github/kilix/okami.svg?style=flat-square
-[coverage]: https://codecov.io/github/kilix/okami
+[build-badge]: https://img.shields.io/travis/Kilix/okami.svg?style=flat-square
+[build]: https://travis-ci.org/Kilix/okami
+[coverage-badge]: https://img.shields.io/codecov/c/github/Kilix/okami.svg?style=flat-square
+[coverage]: https://codecov.io/github/Kilix/okami
 [version-badge]: https://img.shields.io/npm/v/okami.svg?style=flat-square
 [package]: https://www.npmjs.com/package/okami
 [license-badge]: https://img.shields.io/npm/l/okami.svg?style=flat-square

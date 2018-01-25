@@ -18,8 +18,8 @@ import {
   NowLine,
 } from '../dummy'
 
-export default ({className, style, ...props}) => (
-  <WeeklyCalendar startHour="PT3H" endHour="PT22H" {...props}>
+export default ({className, style, start, ...props}) => (
+  <WeeklyCalendar startHour="PT3H" endHour="PT22H" start={start || new Date(2017, 8, 6)} {...props}>
     {({calendar, weekEvents, rowHeight, dateLabel, getContainerProps}) => (
       <Div display="flex" flexDirection="column" {...{className, style}}>
         <Navigation>

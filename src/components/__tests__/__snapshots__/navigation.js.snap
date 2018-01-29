@@ -9,11 +9,19 @@ exports[`Navigation daily 1`] = `
       type="daily"
     >
       <Nav
-        dateLabel={[Function]}
-        gotoToday={[Function]}
-        nextDay={[Function]}
-        prevDay={[Function]}
-        toggleWeekend={[Function]}
+        dateLabel={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                undefined,
+              ],
+            ],
+          }
+        }
+        gotoToday={[MockFunction]}
+        nextDay={[MockFunction]}
+        prevDay={[MockFunction]}
+        toggleWeekend={[MockFunction]}
         type="daily"
       >
         <div />
@@ -32,11 +40,19 @@ exports[`Navigation monthly 1`] = `
       type="monthly"
     >
       <Nav
-        dateLabel={[Function]}
-        gotoToday={[Function]}
-        nextMonth={[Function]}
-        prevMonth={[Function]}
-        toggleWeekend={[Function]}
+        dateLabel={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                undefined,
+              ],
+            ],
+          }
+        }
+        gotoToday={[MockFunction]}
+        nextMonth={[MockFunction]}
+        prevMonth={[MockFunction]}
+        toggleWeekend={[MockFunction]}
         type="monthly"
       >
         <div />
@@ -55,11 +71,19 @@ exports[`Navigation weekly 1`] = `
       type="weekly"
     >
       <Nav
-        dateLabel={[Function]}
-        gotoToday={[Function]}
-        nextWeek={[Function]}
-        prevWeek={[Function]}
-        toggleWeekend={[Function]}
+        dateLabel={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                undefined,
+              ],
+            ],
+          }
+        }
+        gotoToday={[MockFunction]}
+        nextWeek={[MockFunction]}
+        prevWeek={[MockFunction]}
+        toggleWeekend={[MockFunction]}
         type="weekly"
       >
         <div />

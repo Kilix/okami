@@ -1,15 +1,14 @@
 sudo: false
 language: node_js
-cache:
-  directories:
-    - node_modules
+cache: yarn
 notifications:
   email: false
 node_js:
   - '8'
 script:
-  - npm start build
-  - npm start validate
+  - yarn prepare
+  - yarn validate
+  - yarn bundlesize
 after_success:
   - npx codecov
 branches:

@@ -53,52 +53,84 @@ exports[`HoursLabels daily function as a Child 1`] = `
         type="daily"
       >
         <div>
-          <span>
+          <span
+            key="0"
+          >
             06
           </span>
-          <span>
+          <span
+            key="1"
+          >
             07
           </span>
-          <span>
+          <span
+            key="2"
+          >
             08
           </span>
-          <span>
+          <span
+            key="3"
+          >
             09
           </span>
-          <span>
+          <span
+            key="4"
+          >
             10
           </span>
-          <span>
+          <span
+            key="5"
+          >
             11
           </span>
-          <span>
+          <span
+            key="6"
+          >
             12
           </span>
-          <span>
+          <span
+            key="7"
+          >
             13
           </span>
-          <span>
+          <span
+            key="8"
+          >
             14
           </span>
-          <span>
+          <span
+            key="9"
+          >
             15
           </span>
-          <span>
+          <span
+            key="10"
+          >
             16
           </span>
-          <span>
+          <span
+            key="11"
+          >
             17
           </span>
-          <span>
+          <span
+            key="12"
+          >
             18
           </span>
-          <span>
+          <span
+            key="13"
+          >
             19
           </span>
-          <span>
+          <span
+            key="14"
+          >
             20
           </span>
-          <span>
+          <span
+            key="15"
+          >
             21
           </span>
         </div>
@@ -162,6 +194,7 @@ exports[`HoursLabels daily render 1`] = `
       >
         <div>
           <div
+            key="hour_label_0"
             style={
               Object {
                 "height": 30,
@@ -171,6 +204,7 @@ exports[`HoursLabels daily render 1`] = `
             06
           </div>
           <div
+            key="hour_label_1"
             style={
               Object {
                 "height": 30,
@@ -180,6 +214,7 @@ exports[`HoursLabels daily render 1`] = `
             07
           </div>
           <div
+            key="hour_label_2"
             style={
               Object {
                 "height": 30,
@@ -189,6 +224,7 @@ exports[`HoursLabels daily render 1`] = `
             08
           </div>
           <div
+            key="hour_label_3"
             style={
               Object {
                 "height": 30,
@@ -198,6 +234,7 @@ exports[`HoursLabels daily render 1`] = `
             09
           </div>
           <div
+            key="hour_label_4"
             style={
               Object {
                 "height": 30,
@@ -207,6 +244,7 @@ exports[`HoursLabels daily render 1`] = `
             10
           </div>
           <div
+            key="hour_label_5"
             style={
               Object {
                 "height": 30,
@@ -216,6 +254,7 @@ exports[`HoursLabels daily render 1`] = `
             11
           </div>
           <div
+            key="hour_label_6"
             style={
               Object {
                 "height": 30,
@@ -225,6 +264,7 @@ exports[`HoursLabels daily render 1`] = `
             12
           </div>
           <div
+            key="hour_label_7"
             style={
               Object {
                 "height": 30,
@@ -234,6 +274,7 @@ exports[`HoursLabels daily render 1`] = `
             13
           </div>
           <div
+            key="hour_label_8"
             style={
               Object {
                 "height": 30,
@@ -243,6 +284,7 @@ exports[`HoursLabels daily render 1`] = `
             14
           </div>
           <div
+            key="hour_label_9"
             style={
               Object {
                 "height": 30,
@@ -252,6 +294,7 @@ exports[`HoursLabels daily render 1`] = `
             15
           </div>
           <div
+            key="hour_label_10"
             style={
               Object {
                 "height": 30,
@@ -261,6 +304,7 @@ exports[`HoursLabels daily render 1`] = `
             16
           </div>
           <div
+            key="hour_label_11"
             style={
               Object {
                 "height": 30,
@@ -270,6 +314,7 @@ exports[`HoursLabels daily render 1`] = `
             17
           </div>
           <div
+            key="hour_label_12"
             style={
               Object {
                 "height": 30,
@@ -279,6 +324,7 @@ exports[`HoursLabels daily render 1`] = `
             18
           </div>
           <div
+            key="hour_label_13"
             style={
               Object {
                 "height": 30,
@@ -288,6 +334,7 @@ exports[`HoursLabels daily render 1`] = `
             19
           </div>
           <div
+            key="hour_label_14"
             style={
               Object {
                 "height": 30,
@@ -297,6 +344,7 @@ exports[`HoursLabels daily render 1`] = `
             20
           </div>
           <div
+            key="hour_label_15"
             style={
               Object {
                 "height": 30,
@@ -370,52 +418,84 @@ exports[`HoursLabels daily render Child 1`] = `
         type="daily"
       >
         <div>
-          <span>
+          <span
+            key="hour_label_0"
+          >
             06
           </span>
-          <span>
+          <span
+            key="hour_label_1"
+          >
             07
           </span>
-          <span>
+          <span
+            key="hour_label_2"
+          >
             08
           </span>
-          <span>
+          <span
+            key="hour_label_3"
+          >
             09
           </span>
-          <span>
+          <span
+            key="hour_label_4"
+          >
             10
           </span>
-          <span>
+          <span
+            key="hour_label_5"
+          >
             11
           </span>
-          <span>
+          <span
+            key="hour_label_6"
+          >
             12
           </span>
-          <span>
+          <span
+            key="hour_label_7"
+          >
             13
           </span>
-          <span>
+          <span
+            key="hour_label_8"
+          >
             14
           </span>
-          <span>
+          <span
+            key="hour_label_9"
+          >
             15
           </span>
-          <span>
+          <span
+            key="hour_label_10"
+          >
             16
           </span>
-          <span>
+          <span
+            key="hour_label_11"
+          >
             17
           </span>
-          <span>
+          <span
+            key="hour_label_12"
+          >
             18
           </span>
-          <span>
+          <span
+            key="hour_label_13"
+          >
             19
           </span>
-          <span>
+          <span
+            key="hour_label_14"
+          >
             20
           </span>
-          <span>
+          <span
+            key="hour_label_15"
+          >
             21
           </span>
         </div>
@@ -479,6 +559,7 @@ exports[`HoursLabels daily render with no weekend 1`] = `
       >
         <div>
           <div
+            key="hour_label_0"
             style={
               Object {
                 "height": 30,
@@ -488,6 +569,7 @@ exports[`HoursLabels daily render with no weekend 1`] = `
             06
           </div>
           <div
+            key="hour_label_1"
             style={
               Object {
                 "height": 30,
@@ -497,6 +579,7 @@ exports[`HoursLabels daily render with no weekend 1`] = `
             07
           </div>
           <div
+            key="hour_label_2"
             style={
               Object {
                 "height": 30,
@@ -506,6 +589,7 @@ exports[`HoursLabels daily render with no weekend 1`] = `
             08
           </div>
           <div
+            key="hour_label_3"
             style={
               Object {
                 "height": 30,
@@ -515,6 +599,7 @@ exports[`HoursLabels daily render with no weekend 1`] = `
             09
           </div>
           <div
+            key="hour_label_4"
             style={
               Object {
                 "height": 30,
@@ -524,6 +609,7 @@ exports[`HoursLabels daily render with no weekend 1`] = `
             10
           </div>
           <div
+            key="hour_label_5"
             style={
               Object {
                 "height": 30,
@@ -533,6 +619,7 @@ exports[`HoursLabels daily render with no weekend 1`] = `
             11
           </div>
           <div
+            key="hour_label_6"
             style={
               Object {
                 "height": 30,
@@ -542,6 +629,7 @@ exports[`HoursLabels daily render with no weekend 1`] = `
             12
           </div>
           <div
+            key="hour_label_7"
             style={
               Object {
                 "height": 30,
@@ -551,6 +639,7 @@ exports[`HoursLabels daily render with no weekend 1`] = `
             13
           </div>
           <div
+            key="hour_label_8"
             style={
               Object {
                 "height": 30,
@@ -560,6 +649,7 @@ exports[`HoursLabels daily render with no weekend 1`] = `
             14
           </div>
           <div
+            key="hour_label_9"
             style={
               Object {
                 "height": 30,
@@ -569,6 +659,7 @@ exports[`HoursLabels daily render with no weekend 1`] = `
             15
           </div>
           <div
+            key="hour_label_10"
             style={
               Object {
                 "height": 30,
@@ -578,6 +669,7 @@ exports[`HoursLabels daily render with no weekend 1`] = `
             16
           </div>
           <div
+            key="hour_label_11"
             style={
               Object {
                 "height": 30,
@@ -587,6 +679,7 @@ exports[`HoursLabels daily render with no weekend 1`] = `
             17
           </div>
           <div
+            key="hour_label_12"
             style={
               Object {
                 "height": 30,
@@ -596,6 +689,7 @@ exports[`HoursLabels daily render with no weekend 1`] = `
             18
           </div>
           <div
+            key="hour_label_13"
             style={
               Object {
                 "height": 30,
@@ -605,6 +699,7 @@ exports[`HoursLabels daily render with no weekend 1`] = `
             19
           </div>
           <div
+            key="hour_label_14"
             style={
               Object {
                 "height": 30,
@@ -614,6 +709,7 @@ exports[`HoursLabels daily render with no weekend 1`] = `
             20
           </div>
           <div
+            key="hour_label_15"
             style={
               Object {
                 "height": 30,
@@ -682,52 +778,84 @@ exports[`HoursLabels weekly function as a Child 1`] = `
         type="weekly"
       >
         <div>
-          <span>
+          <span
+            key="0"
+          >
             06
           </span>
-          <span>
+          <span
+            key="1"
+          >
             07
           </span>
-          <span>
+          <span
+            key="2"
+          >
             08
           </span>
-          <span>
+          <span
+            key="3"
+          >
             09
           </span>
-          <span>
+          <span
+            key="4"
+          >
             10
           </span>
-          <span>
+          <span
+            key="5"
+          >
             11
           </span>
-          <span>
+          <span
+            key="6"
+          >
             12
           </span>
-          <span>
+          <span
+            key="7"
+          >
             13
           </span>
-          <span>
+          <span
+            key="8"
+          >
             14
           </span>
-          <span>
+          <span
+            key="9"
+          >
             15
           </span>
-          <span>
+          <span
+            key="10"
+          >
             16
           </span>
-          <span>
+          <span
+            key="11"
+          >
             17
           </span>
-          <span>
+          <span
+            key="12"
+          >
             18
           </span>
-          <span>
+          <span
+            key="13"
+          >
             19
           </span>
-          <span>
+          <span
+            key="14"
+          >
             20
           </span>
-          <span>
+          <span
+            key="15"
+          >
             21
           </span>
         </div>
@@ -791,6 +919,7 @@ exports[`HoursLabels weekly render 1`] = `
       >
         <div>
           <div
+            key="hour_label_0"
             style={
               Object {
                 "height": 30,
@@ -800,6 +929,7 @@ exports[`HoursLabels weekly render 1`] = `
             06
           </div>
           <div
+            key="hour_label_1"
             style={
               Object {
                 "height": 30,
@@ -809,6 +939,7 @@ exports[`HoursLabels weekly render 1`] = `
             07
           </div>
           <div
+            key="hour_label_2"
             style={
               Object {
                 "height": 30,
@@ -818,6 +949,7 @@ exports[`HoursLabels weekly render 1`] = `
             08
           </div>
           <div
+            key="hour_label_3"
             style={
               Object {
                 "height": 30,
@@ -827,6 +959,7 @@ exports[`HoursLabels weekly render 1`] = `
             09
           </div>
           <div
+            key="hour_label_4"
             style={
               Object {
                 "height": 30,
@@ -836,6 +969,7 @@ exports[`HoursLabels weekly render 1`] = `
             10
           </div>
           <div
+            key="hour_label_5"
             style={
               Object {
                 "height": 30,
@@ -845,6 +979,7 @@ exports[`HoursLabels weekly render 1`] = `
             11
           </div>
           <div
+            key="hour_label_6"
             style={
               Object {
                 "height": 30,
@@ -854,6 +989,7 @@ exports[`HoursLabels weekly render 1`] = `
             12
           </div>
           <div
+            key="hour_label_7"
             style={
               Object {
                 "height": 30,
@@ -863,6 +999,7 @@ exports[`HoursLabels weekly render 1`] = `
             13
           </div>
           <div
+            key="hour_label_8"
             style={
               Object {
                 "height": 30,
@@ -872,6 +1009,7 @@ exports[`HoursLabels weekly render 1`] = `
             14
           </div>
           <div
+            key="hour_label_9"
             style={
               Object {
                 "height": 30,
@@ -881,6 +1019,7 @@ exports[`HoursLabels weekly render 1`] = `
             15
           </div>
           <div
+            key="hour_label_10"
             style={
               Object {
                 "height": 30,
@@ -890,6 +1029,7 @@ exports[`HoursLabels weekly render 1`] = `
             16
           </div>
           <div
+            key="hour_label_11"
             style={
               Object {
                 "height": 30,
@@ -899,6 +1039,7 @@ exports[`HoursLabels weekly render 1`] = `
             17
           </div>
           <div
+            key="hour_label_12"
             style={
               Object {
                 "height": 30,
@@ -908,6 +1049,7 @@ exports[`HoursLabels weekly render 1`] = `
             18
           </div>
           <div
+            key="hour_label_13"
             style={
               Object {
                 "height": 30,
@@ -917,6 +1059,7 @@ exports[`HoursLabels weekly render 1`] = `
             19
           </div>
           <div
+            key="hour_label_14"
             style={
               Object {
                 "height": 30,
@@ -926,6 +1069,7 @@ exports[`HoursLabels weekly render 1`] = `
             20
           </div>
           <div
+            key="hour_label_15"
             style={
               Object {
                 "height": 30,
@@ -999,52 +1143,84 @@ exports[`HoursLabels weekly render Child 1`] = `
         type="weekly"
       >
         <div>
-          <span>
+          <span
+            key="hour_label_0"
+          >
             06
           </span>
-          <span>
+          <span
+            key="hour_label_1"
+          >
             07
           </span>
-          <span>
+          <span
+            key="hour_label_2"
+          >
             08
           </span>
-          <span>
+          <span
+            key="hour_label_3"
+          >
             09
           </span>
-          <span>
+          <span
+            key="hour_label_4"
+          >
             10
           </span>
-          <span>
+          <span
+            key="hour_label_5"
+          >
             11
           </span>
-          <span>
+          <span
+            key="hour_label_6"
+          >
             12
           </span>
-          <span>
+          <span
+            key="hour_label_7"
+          >
             13
           </span>
-          <span>
+          <span
+            key="hour_label_8"
+          >
             14
           </span>
-          <span>
+          <span
+            key="hour_label_9"
+          >
             15
           </span>
-          <span>
+          <span
+            key="hour_label_10"
+          >
             16
           </span>
-          <span>
+          <span
+            key="hour_label_11"
+          >
             17
           </span>
-          <span>
+          <span
+            key="hour_label_12"
+          >
             18
           </span>
-          <span>
+          <span
+            key="hour_label_13"
+          >
             19
           </span>
-          <span>
+          <span
+            key="hour_label_14"
+          >
             20
           </span>
-          <span>
+          <span
+            key="hour_label_15"
+          >
             21
           </span>
         </div>
@@ -1108,6 +1284,7 @@ exports[`HoursLabels weekly render with no weekend 1`] = `
       >
         <div>
           <div
+            key="hour_label_0"
             style={
               Object {
                 "height": 30,
@@ -1117,6 +1294,7 @@ exports[`HoursLabels weekly render with no weekend 1`] = `
             06
           </div>
           <div
+            key="hour_label_1"
             style={
               Object {
                 "height": 30,
@@ -1126,6 +1304,7 @@ exports[`HoursLabels weekly render with no weekend 1`] = `
             07
           </div>
           <div
+            key="hour_label_2"
             style={
               Object {
                 "height": 30,
@@ -1135,6 +1314,7 @@ exports[`HoursLabels weekly render with no weekend 1`] = `
             08
           </div>
           <div
+            key="hour_label_3"
             style={
               Object {
                 "height": 30,
@@ -1144,6 +1324,7 @@ exports[`HoursLabels weekly render with no weekend 1`] = `
             09
           </div>
           <div
+            key="hour_label_4"
             style={
               Object {
                 "height": 30,
@@ -1153,6 +1334,7 @@ exports[`HoursLabels weekly render with no weekend 1`] = `
             10
           </div>
           <div
+            key="hour_label_5"
             style={
               Object {
                 "height": 30,
@@ -1162,6 +1344,7 @@ exports[`HoursLabels weekly render with no weekend 1`] = `
             11
           </div>
           <div
+            key="hour_label_6"
             style={
               Object {
                 "height": 30,
@@ -1171,6 +1354,7 @@ exports[`HoursLabels weekly render with no weekend 1`] = `
             12
           </div>
           <div
+            key="hour_label_7"
             style={
               Object {
                 "height": 30,
@@ -1180,6 +1364,7 @@ exports[`HoursLabels weekly render with no weekend 1`] = `
             13
           </div>
           <div
+            key="hour_label_8"
             style={
               Object {
                 "height": 30,
@@ -1189,6 +1374,7 @@ exports[`HoursLabels weekly render with no weekend 1`] = `
             14
           </div>
           <div
+            key="hour_label_9"
             style={
               Object {
                 "height": 30,
@@ -1198,6 +1384,7 @@ exports[`HoursLabels weekly render with no weekend 1`] = `
             15
           </div>
           <div
+            key="hour_label_10"
             style={
               Object {
                 "height": 30,
@@ -1207,6 +1394,7 @@ exports[`HoursLabels weekly render with no weekend 1`] = `
             16
           </div>
           <div
+            key="hour_label_11"
             style={
               Object {
                 "height": 30,
@@ -1216,6 +1404,7 @@ exports[`HoursLabels weekly render with no weekend 1`] = `
             17
           </div>
           <div
+            key="hour_label_12"
             style={
               Object {
                 "height": 30,
@@ -1225,6 +1414,7 @@ exports[`HoursLabels weekly render with no weekend 1`] = `
             18
           </div>
           <div
+            key="hour_label_13"
             style={
               Object {
                 "height": 30,
@@ -1234,6 +1424,7 @@ exports[`HoursLabels weekly render with no weekend 1`] = `
             19
           </div>
           <div
+            key="hour_label_14"
             style={
               Object {
                 "height": 30,
@@ -1243,6 +1434,7 @@ exports[`HoursLabels weekly render with no weekend 1`] = `
             20
           </div>
           <div
+            key="hour_label_15"
             style={
               Object {
                 "height": 30,
@@ -1339,6 +1531,7 @@ exports[`HoursLabels weekly render with style 1`] = `
           }
         >
           <div
+            key="hour_label_0"
             style={
               Object {
                 "height": 30,
@@ -1348,6 +1541,7 @@ exports[`HoursLabels weekly render with style 1`] = `
             06
           </div>
           <div
+            key="hour_label_1"
             style={
               Object {
                 "height": 30,
@@ -1357,6 +1551,7 @@ exports[`HoursLabels weekly render with style 1`] = `
             07
           </div>
           <div
+            key="hour_label_2"
             style={
               Object {
                 "height": 30,
@@ -1366,6 +1561,7 @@ exports[`HoursLabels weekly render with style 1`] = `
             08
           </div>
           <div
+            key="hour_label_3"
             style={
               Object {
                 "height": 30,
@@ -1375,6 +1571,7 @@ exports[`HoursLabels weekly render with style 1`] = `
             09
           </div>
           <div
+            key="hour_label_4"
             style={
               Object {
                 "height": 30,
@@ -1384,6 +1581,7 @@ exports[`HoursLabels weekly render with style 1`] = `
             10
           </div>
           <div
+            key="hour_label_5"
             style={
               Object {
                 "height": 30,
@@ -1393,6 +1591,7 @@ exports[`HoursLabels weekly render with style 1`] = `
             11
           </div>
           <div
+            key="hour_label_6"
             style={
               Object {
                 "height": 30,
@@ -1402,6 +1601,7 @@ exports[`HoursLabels weekly render with style 1`] = `
             12
           </div>
           <div
+            key="hour_label_7"
             style={
               Object {
                 "height": 30,
@@ -1411,6 +1611,7 @@ exports[`HoursLabels weekly render with style 1`] = `
             13
           </div>
           <div
+            key="hour_label_8"
             style={
               Object {
                 "height": 30,
@@ -1420,6 +1621,7 @@ exports[`HoursLabels weekly render with style 1`] = `
             14
           </div>
           <div
+            key="hour_label_9"
             style={
               Object {
                 "height": 30,
@@ -1429,6 +1631,7 @@ exports[`HoursLabels weekly render with style 1`] = `
             15
           </div>
           <div
+            key="hour_label_10"
             style={
               Object {
                 "height": 30,
@@ -1438,6 +1641,7 @@ exports[`HoursLabels weekly render with style 1`] = `
             16
           </div>
           <div
+            key="hour_label_11"
             style={
               Object {
                 "height": 30,
@@ -1447,6 +1651,7 @@ exports[`HoursLabels weekly render with style 1`] = `
             17
           </div>
           <div
+            key="hour_label_12"
             style={
               Object {
                 "height": 30,
@@ -1456,6 +1661,7 @@ exports[`HoursLabels weekly render with style 1`] = `
             18
           </div>
           <div
+            key="hour_label_13"
             style={
               Object {
                 "height": 30,
@@ -1465,6 +1671,7 @@ exports[`HoursLabels weekly render with style 1`] = `
             19
           </div>
           <div
+            key="hour_label_14"
             style={
               Object {
                 "height": 30,
@@ -1474,6 +1681,7 @@ exports[`HoursLabels weekly render with style 1`] = `
             20
           </div>
           <div
+            key="hour_label_15"
             style={
               Object {
                 "height": 30,

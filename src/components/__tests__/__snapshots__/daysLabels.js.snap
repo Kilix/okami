@@ -44,25 +44,39 @@ exports[`DaysLabels function as a Child 1`] = `
     startWeek={2017-10-09T22:00:00.000Z}
   >
     <div>
-      <span>
+      <span
+        key="0"
+      >
         10
       </span>
-      <span>
+      <span
+        key="1"
+      >
         11
       </span>
-      <span>
+      <span
+        key="2"
+      >
         12
       </span>
-      <span>
+      <span
+        key="3"
+      >
         13
       </span>
-      <span>
+      <span
+        key="4"
+      >
         14
       </span>
-      <span>
+      <span
+        key="5"
+      >
         15
       </span>
-      <span>
+      <span
+        key="6"
+      >
         16
       </span>
     </div>
@@ -115,6 +129,7 @@ exports[`DaysLabels render 1`] = `
   >
     <div>
       <div
+        key="day_label_0"
         style={
           Object {
             "height": 30,
@@ -124,6 +139,7 @@ exports[`DaysLabels render 1`] = `
         10
       </div>
       <div
+        key="day_label_1"
         style={
           Object {
             "height": 30,
@@ -133,6 +149,7 @@ exports[`DaysLabels render 1`] = `
         11
       </div>
       <div
+        key="day_label_2"
         style={
           Object {
             "height": 30,
@@ -142,6 +159,7 @@ exports[`DaysLabels render 1`] = `
         12
       </div>
       <div
+        key="day_label_3"
         style={
           Object {
             "height": 30,
@@ -151,6 +169,7 @@ exports[`DaysLabels render 1`] = `
         13
       </div>
       <div
+        key="day_label_4"
         style={
           Object {
             "height": 30,
@@ -160,6 +179,7 @@ exports[`DaysLabels render 1`] = `
         14
       </div>
       <div
+        key="day_label_5"
         style={
           Object {
             "height": 30,
@@ -169,6 +189,7 @@ exports[`DaysLabels render 1`] = `
         15
       </div>
       <div
+        key="day_label_6"
         style={
           Object {
             "height": 30,
@@ -229,25 +250,39 @@ exports[`DaysLabels render Child 1`] = `
     startWeek={2017-10-09T22:00:00.000Z}
   >
     <div>
-      <span>
+      <span
+        key="day_label_0"
+      >
         10
       </span>
-      <span>
+      <span
+        key="day_label_1"
+      >
         11
       </span>
-      <span>
+      <span
+        key="day_label_2"
+      >
         12
       </span>
-      <span>
+      <span
+        key="day_label_3"
+      >
         13
       </span>
-      <span>
+      <span
+        key="day_label_4"
+      >
         14
       </span>
-      <span>
+      <span
+        key="day_label_5"
+      >
         15
       </span>
-      <span>
+      <span
+        key="day_label_6"
+      >
         16
       </span>
     </div>
@@ -300,6 +335,7 @@ exports[`DaysLabels render with no weekend 1`] = `
   >
     <div>
       <div
+        key="day_label_0"
         style={
           Object {
             "height": 30,
@@ -309,6 +345,7 @@ exports[`DaysLabels render with no weekend 1`] = `
         10
       </div>
       <div
+        key="day_label_1"
         style={
           Object {
             "height": 30,
@@ -318,6 +355,7 @@ exports[`DaysLabels render with no weekend 1`] = `
         11
       </div>
       <div
+        key="day_label_2"
         style={
           Object {
             "height": 30,
@@ -327,6 +365,7 @@ exports[`DaysLabels render with no weekend 1`] = `
         12
       </div>
       <div
+        key="day_label_3"
         style={
           Object {
             "height": 30,
@@ -336,6 +375,7 @@ exports[`DaysLabels render with no weekend 1`] = `
         13
       </div>
       <div
+        key="day_label_4"
         style={
           Object {
             "height": 30,

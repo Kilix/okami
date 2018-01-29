@@ -57,7 +57,7 @@ exports[`WeeklyCalendar render 1`] = `
     start={2017-10-10T15:00:00.000Z}
     startHour="PT06H"
     startingDay={1}
-    toggleWeekend={[Function]}
+    toggleWeekend={[MockFunction]}
     type="weekly"
   >
     <div>
@@ -74,6 +74,7 @@ exports[`WeeklyCalendar render 1`] = `
         }
       >
         <span
+          key="0"
           style={
             Object {
               "height": 30,
@@ -87,6 +88,7 @@ exports[`WeeklyCalendar render 1`] = `
       </div>
       <BD
         dateFormat="DD"
+        key="daily_cal_0"
         start={2017-10-08T22:00:00.000Z}
       >
         <DailyCalendar
@@ -255,6 +257,7 @@ exports[`WeeklyCalendar render 1`] = `
       </BD>
       <BD
         dateFormat="DD"
+        key="daily_cal_1"
         start={2017-10-09T22:00:00.000Z}
       >
         <DailyCalendar
@@ -423,6 +426,7 @@ exports[`WeeklyCalendar render 1`] = `
       </BD>
       <BD
         dateFormat="DD"
+        key="daily_cal_2"
         start={2017-10-10T22:00:00.000Z}
       >
         <DailyCalendar
@@ -591,6 +595,7 @@ exports[`WeeklyCalendar render 1`] = `
       </BD>
       <BD
         dateFormat="DD"
+        key="daily_cal_3"
         start={2017-10-11T22:00:00.000Z}
       >
         <DailyCalendar
@@ -759,6 +764,7 @@ exports[`WeeklyCalendar render 1`] = `
       </BD>
       <BD
         dateFormat="DD"
+        key="daily_cal_4"
         start={2017-10-12T22:00:00.000Z}
       >
         <DailyCalendar
@@ -927,6 +933,7 @@ exports[`WeeklyCalendar render 1`] = `
       </BD>
       <BD
         dateFormat="DD"
+        key="daily_cal_5"
         start={2017-10-13T22:00:00.000Z}
       >
         <DailyCalendar
@@ -1095,6 +1102,7 @@ exports[`WeeklyCalendar render 1`] = `
       </BD>
       <BD
         dateFormat="DD"
+        key="daily_cal_6"
         start={2017-10-14T22:00:00.000Z}
       >
         <DailyCalendar

@@ -1,5 +1,6 @@
 import React from 'react'
-import {mount} from 'enzyme'
+import Enzyme, {mount} from 'enzyme'
+import Adapter from 'enzyme-adapter-react-15'
 import toJson from 'enzyme-to-json'
 import frLocale from 'date-fns/locale/fr'
 import {format} from 'date-fns'
@@ -7,6 +8,8 @@ import {format} from 'date-fns'
 import DailyCalendar from '../../components/daily'
 import WeeklyCalendar from '../../components/weekly'
 import MonthlyCalendar from '../../components/monthly'
+
+Enzyme.configure({adapter: new Adapter()})
 
 describe('MonthlyCalendar', () => {
   const events = [

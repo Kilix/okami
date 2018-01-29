@@ -1,9 +1,12 @@
 import React from 'react'
-import {mount} from 'enzyme'
+import Enzyme, {mount} from 'enzyme'
+import Adapter from 'enzyme-adapter-react-15'
 import toJson from 'enzyme-to-json'
 import frLocale from 'date-fns/locale/fr'
 
 import DaysLabels from '../../components/daysLabels'
+
+Enzyme.configure({adapter: new Adapter()})
 
 describe('DaysLabels', () => {
   const ctx = {

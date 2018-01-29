@@ -1,8 +1,11 @@
 import React from 'react'
-import {mount} from 'enzyme'
+import Enzyme, {mount} from 'enzyme'
+import Adapter from 'enzyme-adapter-react-15'
 import toJson from 'enzyme-to-json'
 
 import Navigation from '../../components/navigation'
+
+Enzyme.configure({adapter: new Adapter()})
 
 describe('Navigation', () => {
   const dailyCtx = {

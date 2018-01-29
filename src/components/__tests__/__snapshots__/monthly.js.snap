@@ -48,6 +48,7 @@ exports[`MonthlyCalendar render 1`] = `
   >
     <div>
       <BD
+        key="weekly_0"
         start={2017-09-24T22:00:00.000Z}
       >
         <WeeklyCalendar
@@ -106,6 +107,7 @@ exports[`MonthlyCalendar render 1`] = `
           <div>
             <BD
               dateFormat="DD"
+              key="daily_cal_0"
               start={2017-09-24T22:00:00.000Z}
             >
               <DailyCalendar
@@ -266,6 +268,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_1"
               start={2017-09-25T22:00:00.000Z}
             >
               <DailyCalendar
@@ -426,6 +429,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_2"
               start={2017-09-26T22:00:00.000Z}
             >
               <DailyCalendar
@@ -586,6 +590,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_3"
               start={2017-09-27T22:00:00.000Z}
             >
               <DailyCalendar
@@ -746,6 +751,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_4"
               start={2017-09-28T22:00:00.000Z}
             >
               <DailyCalendar
@@ -908,6 +914,7 @@ exports[`MonthlyCalendar render 1`] = `
         </WeeklyCalendar>
       </BD>
       <BD
+        key="weekly_1"
         start={2017-10-01T22:00:00.000Z}
       >
         <WeeklyCalendar
@@ -966,6 +973,7 @@ exports[`MonthlyCalendar render 1`] = `
           <div>
             <BD
               dateFormat="DD"
+              key="daily_cal_0"
               start={2017-10-01T22:00:00.000Z}
             >
               <DailyCalendar
@@ -1126,6 +1134,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_1"
               start={2017-10-02T22:00:00.000Z}
             >
               <DailyCalendar
@@ -1286,6 +1295,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_2"
               start={2017-10-03T22:00:00.000Z}
             >
               <DailyCalendar
@@ -1446,6 +1456,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_3"
               start={2017-10-04T22:00:00.000Z}
             >
               <DailyCalendar
@@ -1606,6 +1617,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_4"
               start={2017-10-05T22:00:00.000Z}
             >
               <DailyCalendar
@@ -1768,6 +1780,7 @@ exports[`MonthlyCalendar render 1`] = `
         </WeeklyCalendar>
       </BD>
       <BD
+        key="weekly_2"
         start={2017-10-08T22:00:00.000Z}
       >
         <WeeklyCalendar
@@ -1826,6 +1839,7 @@ exports[`MonthlyCalendar render 1`] = `
           <div>
             <BD
               dateFormat="DD"
+              key="daily_cal_0"
               start={2017-10-08T22:00:00.000Z}
             >
               <DailyCalendar
@@ -1986,6 +2000,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_1"
               start={2017-10-09T22:00:00.000Z}
             >
               <DailyCalendar
@@ -2146,6 +2161,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_2"
               start={2017-10-10T22:00:00.000Z}
             >
               <DailyCalendar
@@ -2306,6 +2322,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_3"
               start={2017-10-11T22:00:00.000Z}
             >
               <DailyCalendar
@@ -2466,6 +2483,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_4"
               start={2017-10-12T22:00:00.000Z}
             >
               <DailyCalendar
@@ -2628,6 +2646,7 @@ exports[`MonthlyCalendar render 1`] = `
         </WeeklyCalendar>
       </BD>
       <BD
+        key="weekly_3"
         start={2017-10-15T22:00:00.000Z}
       >
         <WeeklyCalendar
@@ -2686,6 +2705,7 @@ exports[`MonthlyCalendar render 1`] = `
           <div>
             <BD
               dateFormat="DD"
+              key="daily_cal_0"
               start={2017-10-15T22:00:00.000Z}
             >
               <DailyCalendar
@@ -2846,6 +2866,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_1"
               start={2017-10-16T22:00:00.000Z}
             >
               <DailyCalendar
@@ -3006,6 +3027,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_2"
               start={2017-10-17T22:00:00.000Z}
             >
               <DailyCalendar
@@ -3166,6 +3188,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_3"
               start={2017-10-18T22:00:00.000Z}
             >
               <DailyCalendar
@@ -3326,6 +3349,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_4"
               start={2017-10-19T22:00:00.000Z}
             >
               <DailyCalendar
@@ -3488,6 +3512,7 @@ exports[`MonthlyCalendar render 1`] = `
         </WeeklyCalendar>
       </BD>
       <BD
+        key="weekly_4"
         start={2017-10-22T22:00:00.000Z}
       >
         <WeeklyCalendar
@@ -3546,6 +3571,7 @@ exports[`MonthlyCalendar render 1`] = `
           <div>
             <BD
               dateFormat="DD"
+              key="daily_cal_0"
               start={2017-10-22T22:00:00.000Z}
             >
               <DailyCalendar
@@ -3706,6 +3732,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_1"
               start={2017-10-23T22:00:00.000Z}
             >
               <DailyCalendar
@@ -3866,6 +3893,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_2"
               start={2017-10-24T22:00:00.000Z}
             >
               <DailyCalendar
@@ -4026,6 +4054,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_3"
               start={2017-10-25T22:00:00.000Z}
             >
               <DailyCalendar
@@ -4186,6 +4215,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_4"
               start={2017-10-26T22:00:00.000Z}
             >
               <DailyCalendar
@@ -4348,6 +4378,7 @@ exports[`MonthlyCalendar render 1`] = `
         </WeeklyCalendar>
       </BD>
       <BD
+        key="weekly_5"
         start={2017-10-29T23:00:00.000Z}
       >
         <WeeklyCalendar
@@ -4406,6 +4437,7 @@ exports[`MonthlyCalendar render 1`] = `
           <div>
             <BD
               dateFormat="DD"
+              key="daily_cal_0"
               start={2017-10-29T23:00:00.000Z}
             >
               <DailyCalendar
@@ -4566,6 +4598,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_1"
               start={2017-10-30T23:00:00.000Z}
             >
               <DailyCalendar
@@ -4726,6 +4759,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_2"
               start={2017-10-31T23:00:00.000Z}
             >
               <DailyCalendar
@@ -4886,6 +4920,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_3"
               start={2017-11-01T23:00:00.000Z}
             >
               <DailyCalendar
@@ -5046,6 +5081,7 @@ exports[`MonthlyCalendar render 1`] = `
             </BD>
             <BD
               dateFormat="DD"
+              key="daily_cal_4"
               start={2017-11-02T23:00:00.000Z}
             >
               <DailyCalendar

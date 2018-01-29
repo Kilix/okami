@@ -1,7 +1,12 @@
 import React from 'react'
-import {shallow} from 'enzyme'
+import Enzyme, {shallow} from 'enzyme'
+import Adapter from 'enzyme-adapter-react-15'
 
 import controller from '../controller'
+
+Enzyme.configure({adapter: new Adapter()})
+
+Enzyme.configure({adapter: new Adapter()})
 
 describe('controller', () => {
   const defaultContext = {

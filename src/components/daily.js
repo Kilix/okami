@@ -23,7 +23,7 @@ import {
   computeNow,
   getTodayEvents,
   getDayEvents,
-  checkBound,
+  checkPartialBounds,
 } from '../utils/index'
 
 class DailyCalendar extends React.Component {
@@ -70,7 +70,7 @@ class DailyCalendar extends React.Component {
 
   _computeEvents = day => {
     const {startHour, endHour, events, nodes, rowHeight} = this.props
-    const isRenderableInDay = checkBound(day, {
+    const isRenderableInDay = checkPartialBounds({
       start: setHours(asHours(startHour), day),
       end: setHours(asHours(endHour), day),
     })
@@ -78,7 +78,7 @@ class DailyCalendar extends React.Component {
       (acc, event, i) => (isRenderableInDay(event) ? [...acc, i] : acc),
       []
     )
-    return placeEvents(renderableIndexes, nodes, events, rowHeight, startHour, endHour)
+    return placeEvents(renderableIndexes, nodes, events, rowHeight, startHour, endHour, day)
   }
   _simpleCompute = () => {
     const {startHour, endHour, events, matrix, rowHeight} = this.props

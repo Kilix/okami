@@ -4,23 +4,36 @@ import getHours from 'date-fns/fp/getHours'
 import isBefore from 'date-fns/fp/isBefore'
 import setHours from 'date-fns/fp/setHours'
 import isAfter from 'date-fns/fp/isAfter'
+import endOfDay from 'date-fns/fp/endOfDay'
+import startOfDay from 'date-fns/fp/startOfDay'
 
 import {around} from './around'
 
 // Gives the absolute positioning of the events
-// TODO render part of the event included in the day
 export function placeEvents(renderableIndexes, nodes, events, rowHeight, startHour, endHour, day) {
   const sh = asHours(startHour)
   const eh = asHours(endHour)
+  const hoursToMinutes = entry => around((getHours(entry) - sh) * 60) + getMinutes(entry)
+
+  const endCurrentDay = endOfDay(day)
+  const startCurrentDay = startOfDay(day)
+
   return renderableIndexes.map(i => {
     const {start, end} = events[i]
     const {level, depth, children} = nodes[i]
     const ratio = 100 / depth
-    const hoursToMinutes = entry => around((getHours(entry) - sh) * 60) + getMinutes(entry)
-    const boundedStart = isBefore(setHours(sh, start), start) ? 0 : hoursToMinutes(start)
-    const boundedEnd = isAfter(setHours(eh, end), end)
+
+    // The event might starts before the start of the rendered day. In this case, we consider that
+    // the event starts at the beginning of the day
+    const inDayStart = isBefore(startCurrentDay, start) ? startCurrentDay : start
+    const inDayEnd = isAfter(endCurrentDay, end) ? endCurrentDay : end
+
+    const boundedStart = isBefore(setHours(sh, inDayStart), inDayStart)
+      ? 0
+      : hoursToMinutes(inDayStart)
+    const boundedEnd = isAfter(setHours(eh, inDayEnd), inDayEnd)
       ? around((eh - sh) * 60)
-      : hoursToMinutes(end)
+      : hoursToMinutes(inDayEnd)
 
     return {
       key: i,

@@ -6,5 +6,4 @@ dist
 test-ts
 typings/*.js
 *.log
-yarn.lock
 package-lock.json

@@ -5,7 +5,7 @@ import enLocale from 'date-fns/locale/en-US'
 import getHours from 'date-fns/fp/getHours'
 import isAfter from 'date-fns/fp/isAfter'
 
-import {parseData} from './utils'
+import {parseData} from './utils/index'
 
 const days = {
   sunday: 0,

@@ -14,7 +14,7 @@ import getMonth from 'date-fns/getMonth'
 
 import controller from '../controller'
 import DaysLabels from './daysLabels'
-import {debounce, range} from '../utils'
+import {debounce, range} from '../utils/index'
 
 class MonthlyCalendar extends React.Component {
   componentWillMount() {

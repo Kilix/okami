@@ -22,7 +22,7 @@ import isSameDay from 'date-fns/isSameDay'
 import controller from '../controller'
 import HoursLabels from './hoursLabels'
 import DaysLabels from './daysLabels'
-import {debounce, range, getWeekEvents} from '../utils'
+import {debounce, range, getWeekEvents} from '../utils/index'
 
 class WeeklyCalendar extends React.Component {
   state = {

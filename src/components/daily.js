@@ -24,7 +24,7 @@ import {
   getTodayEvents,
   getDayEvents,
   checkBound,
-} from '../utils'
+} from '../utils/index'
 
 class DailyCalendar extends React.Component {
   state = {

@@ -4,7 +4,7 @@ import addDays from 'date-fns/fp/addDays'
 import format from 'date-fns/fp/formatWithOptions'
 
 import controller from '../controller'
-import {range} from '../utils'
+import {range} from '../utils/index'
 
 class N extends React.Component {
   render() {

@@ -5,7 +5,7 @@ import addHours from 'date-fns/fp/addHours'
 import format from 'date-fns/fp/formatWithOptions'
 
 import controller from '../controller'
-import {range} from '../utils'
+import {range} from '../utils/index'
 
 class Labels extends React.Component {
   render() {

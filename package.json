@@ -4,17 +4,10 @@
   "main": "dist/okami.cjs.js",
   "module": "dist/okami.esm.js",
   "browser": "dist/okami.umd.js",
-  "keywords": [
-    "react",
-    "calendar",
-    "composable",
-    "primitives"
-  ],
+  "keywords": ["react", "calendar", "composable", "primitives"],
   "author": "wcastand <wcastand@gmail.com> (https://github.com/wcastand)",
   "license": "MIT",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "repository": {
     "type": "git",
     "url": "https://github.com/wcastand/okami.git"
@@ -89,26 +82,14 @@
     "recompose": "0.25.0"
   },
   "lint-staged": {
-    "*.js": [
-      "prettier --trailing-comma es5 --single-quote --write",
-      "git add"
-    ],
-    "yarn.lock": [
-      "git rm --cached"
-    ]
+    "*.js": ["prettier --trailing-comma es5 --single-quote --write", "git add"],
+    "yarn.lock": ["git rm --cached"]
   },
   "jest": {
     "testEnvironment": "jsdom",
     "coverageDirectory": "./coverage/",
-    "collectCoverageFrom": [
-      "src/**/*.js"
-    ],
+    "collectCoverageFrom": ["src/**/*.js"],
     "collectCoverage": true,
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ],
-    "roots": [
-      "src"
-    ]
+    "snapshotSerializers": ["enzyme-to-json/serializer"]
   }
 }

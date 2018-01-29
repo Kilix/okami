@@ -2,6 +2,8 @@ import json from 'rollup-plugin-json'
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import babel from 'rollup-plugin-babel'
+import uglify from 'rollup-plugin-uglify'
+
 import pkg from './package.json'
 
 const babelConfig = {
@@ -33,12 +35,13 @@ export default [
         },
       }),
       babel(babelConfig),
+      uglify(),
     ],
   },
   {
     input: 'src/index.js',
     external: ['react', 'recompose', 'debounce', 'prop-types', 'date-fns', 'pomeranian-durations'],
     output: [{file: pkg.main, format: 'cjs'}, {file: pkg.module, format: 'es'}],
-    plugins: [json(), babel(babelConfig)],
+    plugins: [json(), babel(babelConfig), uglify()],
   },
 ]

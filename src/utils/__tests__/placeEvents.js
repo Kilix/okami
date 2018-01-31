@@ -7,9 +7,9 @@ describe('placeEvents', () => {
     const ee = [0, 1, 2]
     const day = new Date(2017, 9, 6, 3, 0, 0)
     const nodes = [
-      {level: 0, children: [], depth: 1},
-      {level: 0, children: [2], depth: 2},
-      {level: 1, children: [], depth: 2},
+      {type: 'normal', level: 0, children: [], depth: 1},
+      {type: 'normal', level: 0, children: [2], depth: 2},
+      {type: 'normal', level: 1, children: [], depth: 2},
     ]
     const eventStart = 12
     const eventEnd = 17
@@ -80,6 +80,56 @@ describe('placeEvents', () => {
     })
   })
 
+  describe('Same event', () => {
+    const startHour = 'PT06H'
+    const endHour = 'PT22H'
+    const ee = [0, 1, 2]
+    const day = new Date(2017, 9, 6, 3, 0, 0)
+    const nodes = [
+      {type: 'equal', level: 0, children: [1], depth: 3},
+      {type: 'equal', level: 1, children: [2], depth: 3},
+      {type: 'equal', level: 2, children: [], depth: 3},
+    ]
+    const eventStart = 12
+    const eventEnd = 17
+    const rowHeight = 30
+    // The events and nodes do not correspond (i.e. okami will never generate these nodes for these
+    // events), but dor the purpose of this test, it does not matter
+    const events = [
+      {
+        allDay: false,
+        start: new Date(2017, 9, 6, eventStart, 0, 0),
+        end: new Date(2017, 9, 6, eventEnd, 0, 0),
+      },
+      {
+        allDay: false,
+        start: new Date(2017, 9, 6, eventStart, 0, 0),
+        end: new Date(2017, 9, 6, eventEnd, 0, 0),
+      },
+      {
+        allDay: false,
+        start: new Date(2017, 9, 6, eventStart, 0, 0),
+        end: new Date(2017, 9, 6, eventEnd, 0, 0),
+      },
+    ]
+    const computedEvents = placeEvents(ee, nodes, events, rowHeight, startHour, endHour, day)
+    test('first event', () => {
+      const {left, width} = computedEvents[0].style
+      expect(left).toBe('0%')
+      expect(width.startsWith('33.33')).toBe(true)
+    })
+    test('second event', () => {
+      const {left, width} = computedEvents[1].style
+      expect(left.startsWith('33.33')).toBe(true)
+      expect(width.startsWith('33.33')).toBe(true)
+    })
+    test('third event', () => {
+      const {left, width} = computedEvents[2].style
+      expect(left.startsWith('66.66')).toBe(true)
+      expect(width.startsWith('33.33')).toBe(true)
+    })
+  })
+
   describe('Events spanning multiple days', () => {
     const startHour = 'PT06H'
     const endHour = 'PT22H'
@@ -87,7 +137,7 @@ describe('placeEvents', () => {
     const startDay = new Date(2017, 9, 6, 3, 0, 0)
     const middleDay = new Date(2017, 9, 7, 3, 0, 0)
     const endDay = new Date(2017, 9, 8, 3, 0, 0)
-    const nodes = [{level: 0, children: [], depth: 1}]
+    const nodes = [{type: 'normal', level: 0, children: [], depth: 1}]
     const events = [
       {
         allDay: false,
@@ -130,11 +180,11 @@ describe('placeEvents', () => {
     const ee = [0, 2]
     const day = new Date(2017, 9, 7, 3, 0, 0)
     const nodes = [
-      {level: 0, children: [1], depth: 2},
-      {level: 1, children: [], depth: 2},
-      {level: 0, children: [3, 4], depth: 2},
-      {level: 1, children: [], depth: 2},
-      {level: 1, children: [], depth: 2},
+      {type: 'normal', level: 0, children: [1], depth: 2},
+      {type: 'normal', level: 1, children: [], depth: 2},
+      {type: 'normal', level: 0, children: [3, 4], depth: 2},
+      {type: 'normal', level: 1, children: [], depth: 2},
+      {type: 'normal', level: 1, children: [], depth: 2},
     ]
     const events = [
       {

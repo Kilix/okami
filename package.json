@@ -25,7 +25,8 @@
     "test": "nps test",
     "test:watch": "nps 'test.watch'",
     "prepare": "nps build",
-    "validate": "yarn start validate"
+    "validate": "yarn start validate",
+    "flow": "flow"
   },
   "peerDependencies": {
     "react": ">=0.14",
@@ -41,6 +42,7 @@
     "babel-jest": "22.1.0",
     "babel-plugin-external-helpers": "6.22.0",
     "babel-plugin-transform-export-extensions": "6.22.0",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-preset-env": "1.6.1",
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-2": "6.24.1",
@@ -55,6 +57,7 @@
     "fela": "5.1.1",
     "fela-dom": "5.0.7",
     "fela-preset-web": "5.0.7",
+    "flow-bin": "^0.64.0",
     "glamor": "2.20.40",
     "glamorous": "4.6.0",
     "googleapis": "21.3.0",

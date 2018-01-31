@@ -42,7 +42,7 @@ describe('constructTree', () => {
       },
     ]
     const nodes = {
-      0: {type: 'normal', level: 0, children: [1, 2, 3], depth: 3},
+      0: {type: 'normal', level: 0, children: [1, 2], depth: 3},
       1: {type: 'normal', level: 1, children: [], depth: 3},
       2: {type: 'normal', level: 1, children: [3], depth: 3},
       3: {type: 'normal', level: 2, children: [], depth: 3},
@@ -75,6 +75,35 @@ describe('constructTree', () => {
     ]
     expect(constructTree(events)).toEqual({
       0: {type: 'equal', level: 0, children: [1], depth: 3},
+      1: {type: 'equal', level: 1, children: [2], depth: 3},
+      2: {type: 'equal', level: 2, children: [], depth: 3},
+    })
+  })
+  test('with the same events, children of another one', () => {
+    // Naively, if B == C, and both B and C are children of A, A will pick them as children,
+    // circumventing the type "equal" process, so we test against that
+    const events = [
+      {
+        id: 0,
+        allDay: false,
+        start: new Date(2017, 9, 7, 12, 0, 0),
+        end: new Date(2017, 9, 7, 14, 30, 0),
+      },
+      {
+        id: 1,
+        allDay: false,
+        start: new Date(2017, 9, 7, 13, 0, 0),
+        end: new Date(2017, 9, 7, 14, 30, 0),
+      },
+      {
+        id: 3,
+        allDay: false,
+        start: new Date(2017, 9, 7, 13, 0, 0),
+        end: new Date(2017, 9, 7, 14, 30, 0),
+      },
+    ]
+    expect(constructTree(events)).toEqual({
+      0: {type: 'normal', level: 0, children: [1], depth: 3},
       1: {type: 'equal', level: 1, children: [2], depth: 3},
       2: {type: 'equal', level: 2, children: [], depth: 3},
     })

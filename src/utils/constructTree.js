@@ -6,50 +6,52 @@ import isEqual from 'date-fns/fp/isEqual'
 import {isSameEvent} from './isSameEvent'
 import type {Event, Nodes, Node} from '../types'
 
-// Creates the tree used for the daily "stairs" layout algorithm, i.e. specify which nodes are child
-// of which node
-// It also assigns for each node it's level (position on each branch) and depth (length of the
-// branch)
+/*
+  Creates the tree used for the daily "stairs" layout algorithm, i.e. specify which nodes are child
+  of which node
+  It also assigns for each node it's level (position on each branch) and depth (length of the
+  branch)
+*/
 
 // Invariant: the data is always sorted first by start, then by duration
 export function constructTree(data: $ReadOnlyArray<Event>): Nodes {
   // Tag nodes picked in the tree so that they are only used once
   const pickedNodes = {}
-  let nodes = {}
+  const nodes = {}
 
   // Finds a node direct children. If more than one event is identical to the node, picks only the
   // first one (if a == b == c, it'll be c child of b, and b child of a)
-  const findChildren = id => {
+  const findChildren = (id: number, level: number) => {
+    const createChildrenNodes = n => {
+      if (typeof nodes[n] === 'undefined') {
+        nodes[n] = makeNode(level + 1, n)
+        pickedNodes[n] = true
+      }
+    }
+
     const children = []
     const currentNode = data[id]
     let alreadySameEvent = false
     for (let i = 0; i < data.length; i++) {
       const targetNode = data[i]
       if (
+        pickedNodes[i] !== true &&
         !alreadySameEvent &&
         areIntervalsOverlapping(currentNode, targetNode) && // no intersection, no children
         (isAfter(currentNode.start)(targetNode.start) ||
-          (isEqual(currentNode.start)(targetNode.start) &&
-            currentNode.id !== targetNode.id &&
-            pickedNodes[i] !== true))
+          (isEqual(currentNode.start)(targetNode.start) && currentNode.id !== targetNode.id))
       ) {
         if (isSameEvent(currentNode, targetNode)) alreadySameEvent = true
 
         pickedNodes[i] = true
         children.push(i)
+        createChildrenNodes(i)
       }
     }
     return children
   }
   const makeNode = (level, id): Node => {
-    const children = findChildren(id)
-    children.map(n => {
-      if (typeof nodes[n] === 'undefined') {
-        nodes[n] = makeNode(level + 1, n)
-      } else {
-        if (nodes[n].level < level + 1) nodes[n].level = level + 1
-      }
-    })
+    const children = findChildren(id, level)
     const currentNode = data[id]
     // Since the events are sorted (and children too) we can only check the next event
     const nextNode = children.length > 0 ? data[children[0]] : null

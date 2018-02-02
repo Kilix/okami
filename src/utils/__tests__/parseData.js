@@ -71,7 +71,7 @@ describe('parseData', () => {
       },
     ]
     const nodes = {
-      0: {type: 'normal', level: 0, children: [1, 2, 3], depth: 3},
+      0: {type: 'normal', level: 0, children: [1, 2], depth: 3},
       1: {type: 'normal', level: 1, children: [], depth: 3},
       2: {type: 'normal', level: 1, children: [3], depth: 3},
       3: {type: 'normal', level: 2, children: [], depth: 3},

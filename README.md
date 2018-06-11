@@ -10,7 +10,7 @@
 [![MIT License][license-badge]][LICENSE]
 
 ## Project status
-Project is still in beta, we need to use it in production in our project to go in v1 but the lib should be pretty stable now. :)
+Okami is used in production, we consider evolving its API, but it works as expected!
 
 ## Introduction
 It's a set of Primitives React Components to build a Calendar. Handle the logic so you can focus on UI/UX. Similar to [downshift](https://github.com/paypal/downshift) or [selectless](https://github.com/Kilix/selectless).

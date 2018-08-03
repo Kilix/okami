@@ -64,7 +64,7 @@ class Calendar extends Component {
   }
 }
 
-Calendar.PropTypes = {
+Calendar.propTypes = {
   startHour: PropTypes.string,
   endHour: PropTypes.string,
   dateFormat: PropTypes.string,

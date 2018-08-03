@@ -247,7 +247,7 @@ WeeklyCalendar.childContextTypes = {
 
 WeeklyCalendar.defaultProps = {start: new Date(), showNow: false, type: 'weekly'}
 
-WeeklyCalendar.PropTypes = {
+WeeklyCalendar.propTypes = {
   startHour: PropTypes.string,
   endHour: PropTypes.string,
   showWeekend: PropTypes.bool,

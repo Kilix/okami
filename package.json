@@ -4,17 +4,10 @@
   "main": "dist/okami.cjs.js",
   "module": "dist/okami.esm.js",
   "browser": "dist/okami.umd.js",
-  "keywords": [
-    "react",
-    "calendar",
-    "composable",
-    "primitives"
-  ],
+  "keywords": ["react", "calendar", "composable", "primitives"],
   "author": "wcastand <wcastand@gmail.com> (https://github.com/wcastand)",
   "license": "MIT",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "repository": {
     "type": "git",
     "url": "https://github.com/Kilix/okami.git"
@@ -49,7 +42,7 @@
     "babel-register": "6.26.0",
     "bundlesize": "^0.15.3",
     "enzyme": "3.3.0",
-    "enzyme-adapter-react-15": "^1.0.5",
+    "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "3.3.1",
     "eslint": "4.16.0",
     "eslint-config-prettier": "2.9.0",
@@ -71,11 +64,10 @@
     "opt-cli": "1.5.2",
     "prettier": "1.10.2",
     "prop-types": "15.6.0",
-    "react": "15.6.1",
-    "react-addons-test-utils": "15.6.0",
-    "react-dom": "15.6.1",
+    "react": "16.4.2",
+    "react-dom": "16.4.2",
     "react-fela": "5.2.1",
-    "react-test-renderer": "15.6.1",
+    "react-test-renderer": "16.4.2",
     "rimraf": "2.6.2",
     "rollup": "0.55.1",
     "rollup-plugin-babel": "3.0.2",
@@ -95,24 +87,15 @@
     "recompose": "0.26.0"
   },
   "lint-staged": {
-    "*.js": [
-      "prettier --trailing-comma es5 --single-quote --write",
-      "git add"
-    ],
-    "yarn.lock": [
-      "git rm --cached"
-    ]
+    "*.js": ["prettier --trailing-comma es5 --single-quote --write", "git add"],
+    "yarn.lock": ["git rm --cached"]
   },
   "jest": {
     "testEnvironment": "jsdom",
     "coverageDirectory": "./coverage/",
-    "collectCoverageFrom": [
-      "src/**/*.js"
-    ],
+    "collectCoverageFrom": ["src/**/*.js"],
     "collectCoverage": true,
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ]
+    "snapshotSerializers": ["enzyme-to-json/serializer"]
   },
   "bundlesize": [
     {

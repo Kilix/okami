@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import {datePropType} from './utils/index'
+
 const defaultContext = [
   'locale',
   'startingDay',
@@ -52,16 +54,8 @@ export default (p = defaultContext) => {
         nextDay: PropTypes.func,
         prevDay: PropTypes.func,
         dateLabel: PropTypes.func,
-        startWeek: PropTypes.oneOfType([
-          PropTypes.instanceOf(Date),
-          PropTypes.number,
-          PropTypes.string,
-        ]),
-        currentDay: PropTypes.oneOfType([
-          PropTypes.instanceOf(Date),
-          PropTypes.number,
-          PropTypes.string,
-        ]),
+        startWeek: datePropType,
+        currentDay: datePropType,
         showWeekend: PropTypes.bool,
         offset: PropTypes.number,
         matrix: PropTypes.array,

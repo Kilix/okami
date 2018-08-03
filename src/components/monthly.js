@@ -14,7 +14,7 @@ import getMonth from 'date-fns/getMonth'
 
 import controller from '../controller'
 import DaysLabels from './daysLabels'
-import {debounce, range} from '../utils/index'
+import {debounce, range, datePropType} from '../utils/index'
 
 class MonthlyCalendar extends React.Component {
   componentWillMount() {
@@ -90,14 +90,14 @@ MonthlyCalendar.childContextTypes = {
   prevMonth: PropTypes.func,
   gotoToday: PropTypes.func,
   dateLabel: PropTypes.func,
-  startWeek: PropTypes.instanceOf(Date),
+  startWeek: datePropType,
   showWeekend: PropTypes.bool,
 }
 MonthlyCalendar.defaultProps = {start: new Date()}
 
 MonthlyCalendar.propTypes = {
   rowHeight: PropTypes.number,
-  start: PropTypes.instanceOf(Date),
+  start: datePropType,
   locale: PropTypes.object,
 }
 

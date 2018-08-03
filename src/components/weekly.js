@@ -22,7 +22,7 @@ import isSameDay from 'date-fns/isSameDay'
 import controller from '../controller'
 import HoursLabels from './hoursLabels'
 import DaysLabels from './daysLabels'
-import {debounce, range, getWeekEvents} from '../utils/index'
+import {debounce, range, getWeekEvents, datePropType} from '../utils/index'
 
 class WeeklyCalendar extends React.Component {
   state = {
@@ -237,7 +237,7 @@ WeeklyCalendar.childContextTypes = {
   prevWeek: PropTypes.func,
   gotoToday: PropTypes.func,
   dateLabel: PropTypes.func,
-  startWeek: PropTypes.instanceOf(Date),
+  startWeek: datePropType,
   weeks: PropTypes.array,
   hours: PropTypes.array,
   offset: PropTypes.number,
@@ -252,7 +252,7 @@ WeeklyCalendar.propTypes = {
   endHour: PropTypes.string,
   showWeekend: PropTypes.bool,
   rowHeight: PropTypes.number,
-  start: PropTypes.instanceOf(Date),
+  start: datePropType,
   locale: PropTypes.object,
   fevents: PropTypes.array.isRequired,
   showNow: PropTypes.bool,

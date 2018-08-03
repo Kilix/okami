@@ -24,6 +24,7 @@ import {
   getTodayEvents,
   getDayEvents,
   checkPartialBounds,
+  datePropType,
 } from '../utils/index'
 
 class DailyCalendar extends React.Component {
@@ -185,7 +186,7 @@ DailyCalendar.childContextTypes = {
   prevDay: PropTypes.func,
   gotoToday: PropTypes.func,
   dateLabel: PropTypes.func,
-  currentDay: PropTypes.instanceOf(Date),
+  currentDay: datePropType,
 }
 
 DailyCalendar.defaultProps = {
@@ -203,7 +204,7 @@ DailyCalendar.propTypes = {
   startHour: PropTypes.string,
   endHour: PropTypes.string,
   rowHeight: PropTypes.number,
-  start: PropTypes.instanceOf(Date),
+  start: datePropType,
   events: PropTypes.array.isRequired,
   fevents: PropTypes.array.isRequired,
   nodes: PropTypes.object.isRequired,

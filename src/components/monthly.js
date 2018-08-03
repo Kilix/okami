@@ -95,7 +95,7 @@ MonthlyCalendar.childContextTypes = {
 }
 MonthlyCalendar.defaultProps = {start: new Date()}
 
-MonthlyCalendar.PropTypes = {
+MonthlyCalendar.propTypes = {
   rowHeight: PropTypes.number,
   start: PropTypes.instanceOf(Date),
   locale: PropTypes.object,

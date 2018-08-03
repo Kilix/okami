@@ -199,7 +199,7 @@ DailyCalendar.defaultProps = {
   type: 'daily',
 }
 
-DailyCalendar.PropTypes = {
+DailyCalendar.propTypes = {
   startHour: PropTypes.string,
   endHour: PropTypes.string,
   rowHeight: PropTypes.number,

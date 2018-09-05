@@ -1,5 +1,8 @@
 import getHours from 'date-fns/fp/getHours'
 import isAfter from 'date-fns/fp/isAfter'
+import compareDesc from 'date-fns/fp/compareDesc'
+import isSameDay from 'date-fns/fp/isSameDay'
+import isSameHour from 'date-fns/fp/isSameHour'
 
 import {constructTree} from './constructTree'
 
@@ -11,10 +14,10 @@ import {constructTree} from './constructTree'
 export function parseData(data) {
   let events = data.filter(e => typeof e.allDay === 'boolean' && e.allDay === false)
   events.sort((a, b) => {
-    if (getHours(a.start) === getHours(b.start)) {
+    if (isSameDay(a.start, b.start) && isSameHour(a.start, b.start))
       return getHours(b.end) - getHours(b.start) - (getHours(a.end) - getHours(a.start))
-    }
-    return isAfter(a.start, b.start) ? -1 : 1
+
+    return compareDesc(a.start, b.start)
   })
 
   const fevents = data.filter(e => e.allDay)

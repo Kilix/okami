@@ -1,6 +1,6 @@
 import Enzyme, {mount} from 'enzyme'
 import React from 'react'
-import Adapter from 'enzyme-adapter-react-15'
+import Adapter from 'enzyme-adapter-react-16'
 
 import Calendar from '../../calendar'
 import Weekly from '../../components/weekly'

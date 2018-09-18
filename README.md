@@ -107,7 +107,7 @@ export default props => (
 To define property that will be use as duration like `startHours` or `endHour`.
 We use [ISO-8601](https://fr.wikipedia.org/wiki/ISO_8601) format for durations.
 
-Every prop passed to Calendat can be overwritten as the sub component level.
+Every prop passed to Calendar can be overwritten as the sub component level.
 
 ```jsx
   <Calendar
